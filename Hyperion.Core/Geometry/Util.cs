@@ -43,5 +43,10 @@ namespace Hyperion.Core.Geometry
         {
             return Math.Abs (a ^ b);
         }
+
+        public static int Floor2Int (double val)
+        {
+            return (int)Math.Floor (val);
+        }
     }
 }
