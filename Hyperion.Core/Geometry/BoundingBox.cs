@@ -3,7 +3,7 @@ using System;
 
 namespace Hyperion.Core.Geometry
 {
-    public class BoundingBox
+    public sealed class BoundingBox
     {
         public Point pMin;
         public Point pMax;
@@ -24,6 +24,12 @@ namespace Hyperion.Core.Geometry
         {
             pMin = new Point (Math.Min (p1.x, p2.x), Math.Min (p1.y, p2.y), Math.Min (p1.z, p2.z));
             pMax = new Point (Math.Max (p1.x, p2.x), Math.Max (p1.y, p2.y), Math.Max (p1.z, p2.z));
+        }
+
+        public BoundingBox (BoundingBox b)
+        {
+            pMin = new Point (b.pMin);
+            pMax = new Point (b.pMax);
         }
 
         public bool Overlaps (BoundingBox b)
@@ -48,6 +54,50 @@ namespace Hyperion.Core.Geometry
         public Vector Offset (Point p)
         {
             return new Vector ((p.x - pMin.x) / (pMax.x - pMin.x), (p.y - pMin.y) / (pMax.y - pMin.y), (p.z - pMin.z) / (pMax.z - pMin.z));
+        }
+
+        public void BoundingSphere (out Point center, out double radius)
+        {
+            center = 0.5 * pMin + 0.5 * pMax;
+            radius = Inside (center) ? Util.Distance (center, pMax) : 0.0;
+        }
+
+        public bool IntersectP (Ray ray, out double hit0)
+        {
+            double temp = 0.0;
+            return IntersectP (ray, out hit0, out temp);
+        }
+
+        public bool IntersectP (Ray ray, out double hit0, out double hit1)
+        {
+            double t0 = ray.MinT, t1 = ray.MaxT;
+
+            for (int i = 0; i < 3; ++i)
+            {
+                double invRayDir = 1.0 / ray.Direction[i];
+                double near = (pMin[i] - ray.Origin[i]) * invRayDir;
+                double far = (pMax[i] - ray.Origin[i]) * invRayDir;
+
+                if (near > far)
+                {
+                    double temp = near;
+                    near = far;
+                    far = temp;
+                }
+
+                t0 = near > t0 ? near : t0;
+                t1 = far < t1 ? far : t1;
+
+                hit0 = t0;
+                hit1 = t1;
+
+                if (t0 > t1)
+                    return false;
+            }
+
+            hit0 = t0;
+            hit1 = t1;
+            return true;
         }
 
         public double SurfaceArea
@@ -80,6 +130,30 @@ namespace Hyperion.Core.Geometry
                 else
                     return 2;
             }
+        }
+
+        public static BoundingBox Union (BoundingBox b, Point p)
+        {
+            BoundingBox ret = new BoundingBox (b);
+            ret.pMin.x = Math.Min (b.pMin.x, p.x);
+            ret.pMin.y = Math.Min (b.pMin.y, p.y);
+            ret.pMin.z = Math.Min (b.pMin.z, p.z);
+            ret.pMax.x = Math.Max (b.pMax.x, p.x);
+            ret.pMax.y = Math.Max (b.pMax.y, p.y);
+            ret.pMax.z = Math.Max (b.pMax.z, p.z);
+            return ret;
+        }
+
+        public static BoundingBox Union (BoundingBox b, BoundingBox b2)
+        {
+            BoundingBox ret = new BoundingBox (b);
+            ret.pMin.x = Math.Min (b.pMin.x, b2.pMin.x);
+            ret.pMin.y = Math.Min (b.pMin.y, b2.pMin.y);
+            ret.pMin.z = Math.Min (b.pMin.z, b2.pMin.z);
+            ret.pMax.x = Math.Max (b.pMax.x, b2.pMax.x);
+            ret.pMax.y = Math.Max (b.pMax.y, b2.pMax.y);
+            ret.pMax.z = Math.Max (b.pMax.z, b2.pMax.z);
+            return ret;
         }
     }
 }
