@@ -59,6 +59,8 @@
     <Compile Include="Interfaces\ISampler.cs" />
     <Compile Include="Interfaces\Sample.cs" />
     <Compile Include="Geometry\AnimatedTransform.cs" />
+    <Compile Include="Interfaces\ISurfaceIntegrator.cs" />
+    <Compile Include="Interfaces\IVolumeIntegrator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
