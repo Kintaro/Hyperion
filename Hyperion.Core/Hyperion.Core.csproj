@@ -52,6 +52,13 @@
     <Compile Include="Interfaces\CameraSample.cs" />
     <Compile Include="Interfaces\IFilm.cs" />
     <Compile Include="Spectrum.cs" />
+    <Compile Include="Interfaces\IFilter.cs" />
+    <Compile Include="Interfaces\IIntegrator.cs" />
+    <Compile Include="Scene.cs" />
+    <Compile Include="Interfaces\IRenderer.cs" />
+    <Compile Include="Interfaces\ICamera.cs" />
+    <Compile Include="Interfaces\ISampler.cs" />
+    <Compile Include="Interfaces\Sample.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
