@@ -9,5 +9,10 @@ namespace Hyperion.Core.Geometry
         {
             return (p1 - p2).Length;
         }
+
+        public static double Lerp (double t, double v1, double v2)
+        {
+            return (1.0 - t) * v1 + t * v2;
+        }
     }
 }

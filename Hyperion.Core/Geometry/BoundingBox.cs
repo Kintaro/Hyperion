@@ -100,6 +100,11 @@ namespace Hyperion.Core.Geometry
             return true;
         }
 
+        public Point Lerp (double tx, double ty, double tz)
+        {
+            return new Point (Util.Lerp (tx, pMin.x, pMax.x), Util.Lerp (ty, pMin.y, pMax.y), Util.Lerp (tz, pMin.z, pMax.z));
+        }
+
         public double SurfaceArea
         {
             get
