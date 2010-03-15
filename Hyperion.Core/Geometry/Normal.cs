@@ -1,7 +1,7 @@
 
 using System;
 
-namespace Hyperion.Core
+namespace Hyperion.Core.Geometry
 {
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit)]
     public class Normal
@@ -40,7 +40,7 @@ namespace Hyperion.Core
 
         public static Normal operator - (Normal a, Normal b)
         {
-            return new Normal (a.x + b.x, a.y + b.y, a.z + b.z);
+            return new Normal (a.x - b.x, a.y - b.y, a.z - b.z);
         }
 
         public static Normal operator * (Normal a, double f)
@@ -90,6 +90,10 @@ namespace Hyperion.Core
                     return z;
                 throw new IndexOutOfRangeException ();
             }
+        }
+
+        public bool HasNaNs {
+            get { return double.IsNaN (x) || double.IsNaN (y) || double.IsNaN (z); }
         }
     }
 }

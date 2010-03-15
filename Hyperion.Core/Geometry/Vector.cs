@@ -1,7 +1,7 @@
 
 using System;
 
-namespace Hyperion.Core
+namespace Hyperion.Core.Geometry
 {
     [System.Runtime.InteropServices.StructLayout (System.Runtime.InteropServices.LayoutKind.Explicit)]
     public class Vector
@@ -40,7 +40,7 @@ namespace Hyperion.Core
 
         public static Vector operator - (Vector a, Vector b)
         {
-            return new Vector (a.x + b.x, a.y + b.y, a.z + b.z);
+            return new Vector (a.x - b.x, a.y - b.y, a.z - b.z);
         }
 
         public static Vector operator * (Vector a, double f)
@@ -118,6 +118,14 @@ namespace Hyperion.Core
                 if (index == 2)
                     return z;
                 throw new IndexOutOfRangeException ();
+            }
+        }
+
+        public bool HasNaNs
+        {
+            get
+            {
+                return double.IsNaN (x) || double.IsNaN (y) || double.IsNaN (z);
             }
         }
     }

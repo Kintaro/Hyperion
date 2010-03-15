@@ -1,7 +1,7 @@
 
 using System;
 
-namespace Hyperion.Core
+namespace Hyperion.Core.Geometry
 {
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit)]
     public class Point
@@ -100,6 +100,10 @@ namespace Hyperion.Core
                     return z;
                 throw new IndexOutOfRangeException ();
             }
+        }
+
+        public bool HasNaNs {
+            get { return double.IsNaN (x) || double.IsNaN (y) || double.IsNaN (z); }
         }
     }
 }

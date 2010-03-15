@@ -37,6 +37,9 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Geometry\Vector.cs" />
     <Compile Include="Geometry\Normal.cs" />
+    <Compile Include="Geometry\Point.cs" />
+    <Compile Include="Geometry\Ray.cs" />
+    <Compile Include="Geometry\RayDifferential.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
