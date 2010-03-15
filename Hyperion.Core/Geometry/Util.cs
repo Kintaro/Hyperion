@@ -14,5 +14,14 @@ namespace Hyperion.Core.Geometry
         {
             return (1.0 - t) * v1 + t * v2;
         }
+
+        public static double Clamp (double val, double low, double high)
+        {
+            if (val < low)
+                return low;
+            if (val > high)
+                return high;
+            return val;
+        }
     }
 }

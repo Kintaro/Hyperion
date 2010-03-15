@@ -82,6 +82,10 @@ namespace Hyperion.Core.Geometry
             }
         }
 
+        public Quaternion Normalized {
+            get { return this / Math.Sqrt (this ^ this); }
+        }
+
         public static Quaternion operator + (Quaternion a, Quaternion b)
         {
             return new Quaternion (a.v + b.v, a.w + b.w);
@@ -97,9 +101,33 @@ namespace Hyperion.Core.Geometry
             return new Quaternion (a.v * f, a.w * f);
         }
 
+        public static Quaternion operator * (double f, Quaternion a)
+        {
+            return new Quaternion (a.v * f, a.w * f);
+        }
+
         public static Quaternion operator / (Quaternion a, double f)
         {
             return new Quaternion (a.v / f, a.w / f);
+        }
+
+        public static double operator ^ (Quaternion a, Quaternion b)
+        {
+            return (a.v ^ b.v) + a.w * b.w;
+        }
+
+        public static Quaternion Slerp (double t, Quaternion q1, Quaternion q2)
+        {
+            double cosTheta = q1 ^ q2;
+            if (cosTheta > 0.9995)
+                return ((1.0 - t) * q1 + t * q2).Normalized;
+            else
+            {
+                double theta = Math.Acos (Util.Clamp (cosTheta, -1.0, 1.0));
+                double thetap = theta * t;
+                Quaternion qperp = (q2 - q1 * cosTheta).Normalized;
+                return q1 * Math.Cos (thetap) + qperp * Math.Sin (thetap);
+            }
         }
     }
 }
