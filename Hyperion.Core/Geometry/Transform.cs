@@ -17,14 +17,13 @@ namespace Hyperion.Core.Geometry
         public Transform (double[] mat)
         {
             m = new Matrix (mat);
-            mInv = null;
-            // m.Inverse;
+            mInv = new Matrix (mat).Inverse;
         }
 
         public Transform (Matrix matrix)
         {
             m = new Matrix (matrix);
-            mInv = null;
+            mInv = matrix.Inverse;
         }
 
         public Transform (Matrix matrix, Matrix inverse)
@@ -39,36 +38,46 @@ namespace Hyperion.Core.Geometry
             mInv = new Matrix (transform.InverseMatrix);
         }
 
-        public bool SwapsHandedness
-        {
-            get
-            {
-                return false;
-            }
+        public bool SwapsHandedness {
+            get { return false; }
         }
 
-        public Matrix Matrix
-        {
-            get
-            {
-                return m;
-            }
+        public Matrix Matrix {
+            get { return m; }
         }
 
-        public Matrix InverseMatrix
-        {
-            get
-            {
-                return mInv;
-            }
+        public Matrix InverseMatrix {
+            get { return mInv; }
         }
 
-        public Transform Inverse
+        public Transform Inverse {
+            get { return new Transform (InverseMatrix, Matrix); }
+        }
+
+        public Point Apply (Point pt)
         {
-            get
-            {
-                return new Transform (InverseMatrix, Matrix);
-            }
+            double x = pt.x, y = pt.y, z = pt.z;
+            double xp = m.m[0] * x + m.m[1] * y + m.m[2] * z + m.m[3];
+            double yp = m.m[4] * x + m.m[5] * y + m.m[6] * z + m.m[7];
+            double zp = m.m[8] * x + m.m[9] * y + m.m[10] * z + m.m[11];
+            double wp = m.m[12] * x + m.m[13] * y + m.m[14] * z + m.m[15];
+
+            if (wp == 1.0)
+                return new Point (xp, yp, zp);
+            else
+                return new Point (xp, yp, zp) / wp;
+        }
+
+        public void Apply (Point pt, ref Point ptrans)
+        {
+            double x = pt.x, y = pt.y, z = pt.z;
+            ptrans.x = m.m[0] * x + m.m[1] * y + m.m[2] * z + m.m[3];
+            ptrans.y = m.m[4] * x + m.m[5] * y + m.m[6] * z + m.m[7];
+            ptrans.z = m.m[8] * x + m.m[9] * y + m.m[10] * z + m.m[11];
+            double w = m.m[12] * x + m.m[13] * y + m.m[14] * z + m.m[15];
+
+            if (w == 1.0)
+                ptrans /= w;
         }
 
         public static bool operator == (Transform t1, Transform t2)
