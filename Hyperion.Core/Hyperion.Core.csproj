@@ -40,6 +40,7 @@
     <Compile Include="Geometry\Point.cs" />
     <Compile Include="Geometry\Ray.cs" />
     <Compile Include="Geometry\RayDifferential.cs" />
+    <Compile Include="Geometry\BoundingBox.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
