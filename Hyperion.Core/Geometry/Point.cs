@@ -4,7 +4,7 @@ using System;
 namespace Hyperion.Core.Geometry
 {
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit)]
-    public class Point
+    public sealed class Point
     {
         [System.Runtime.InteropServices.FieldOffset(0)]
         public double x;
