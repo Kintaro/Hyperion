@@ -1,9 +1,26 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hyperion.Core", "Hyperion.Core\Hyperion.Core.csproj", "{0141AB4A-89D0-467D-BA34-3EEC1A3ECB50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hyperion", "Hyperion\Hyperion.csproj", "{3BA8DC2D-CE04-4229-A75A-3C5EB386DF80}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0141AB4A-89D0-467D-BA34-3EEC1A3ECB50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0141AB4A-89D0-467D-BA34-3EEC1A3ECB50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0141AB4A-89D0-467D-BA34-3EEC1A3ECB50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0141AB4A-89D0-467D-BA34-3EEC1A3ECB50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BA8DC2D-CE04-4229-A75A-3C5EB386DF80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BA8DC2D-CE04-4229-A75A-3C5EB386DF80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BA8DC2D-CE04-4229-A75A-3C5EB386DF80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BA8DC2D-CE04-4229-A75A-3C5EB386DF80}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Hyperion.Core\Hyperion.Core.csproj
 	EndGlobalSection
 EndGlobal
