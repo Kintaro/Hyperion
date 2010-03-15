@@ -22,6 +22,10 @@ namespace Hyperion.Core.Geometry
         {
         }
 
+        public Normal (Vector vec) : this(vec.x, vec.y, vec.z)
+        {
+        }
+
         public Normal (double v) : this(v, v, v)
         {
         }
