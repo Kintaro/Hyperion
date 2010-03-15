@@ -43,6 +43,7 @@
     <Compile Include="Geometry\BoundingBox.cs" />
     <Compile Include="Geometry\Util.cs" />
     <Compile Include="Geometry\Matrix.cs" />
+    <Compile Include="Geometry\Transform.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />

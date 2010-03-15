@@ -1,7 +1,7 @@
 
 using System;
 
-namespace Hyperion.Core
+namespace Hyperion.Core.Geometry
 {
     public sealed class Matrix
     {
@@ -38,6 +38,11 @@ namespace Hyperion.Core
             m[15] = t33;
         }
 
+        public Matrix (Matrix matrix) : this (matrix.m)
+        {
+
+        }
+
         public Matrix Transposed
         {
             get
@@ -63,6 +68,36 @@ namespace Hyperion.Core
                 }
             }
             return result;
+        }
+
+        public static bool operator == (Matrix m1, Matrix m2)
+        {
+            for (int i = 0; i < 16; ++i)
+            {
+                if (m1.m[i] != m2.m[i])
+                    return false;
+            }
+            return true;
+        }
+
+        public static bool operator != (Matrix m1, Matrix m2)
+        {
+            for (int i = 0; i < 16; ++i)
+            {
+                if (m1.m[i] != m2.m[i])
+                    return true;
+            }
+            return false;
+        }
+
+        public override bool Equals (object obj)
+        {
+            return this == obj as Matrix;
+        }
+
+        public override int GetHashCode ()
+        {
+            return base.GetHashCode ();
         }
     }
 }
