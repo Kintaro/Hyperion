@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<project name="Hyperion" default="all" basedir=".">
+	<description>Hyperion</description>
+	<property name="outputDirectory" value="Bin"/>
+	<target name="clean">
+		<delete dir="${outputDirectory}"/>
+	</target>
+	<target name="init">
+		<mkdir dir="${outputDirectory}"/>
+	</target>
+
+	<!-- Subsystems -->
+	<target name="core"><nant buildfile="Hyperion.Core/hyperion.build"/></target>
+	<target name="hyperion" depends="core"><nant buildfile="Hyperion/hyperion.build"/></target>
+	
+	<!-- meta target -->
+	<target name="all" depends="init,core,hyperion"/>
+
+		
+</project>
