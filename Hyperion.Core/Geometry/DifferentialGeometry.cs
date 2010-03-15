@@ -1,5 +1,6 @@
 
 using System;
+using Hyperion.Core.Interfaces;
 
 namespace Hyperion.Core.Geometry
 {
@@ -19,6 +20,7 @@ namespace Hyperion.Core.Geometry
         public double dudy;
         public double dvdx;
         public double dvdy;
+        public readonly IShape Shape;
 
         public DifferentialGeometry ()
         {
@@ -32,9 +34,10 @@ namespace Hyperion.Core.Geometry
             dpdy = new Vector ();
             u = v = 0.0;
             dudx = dudy = dvdx = dvdy = 0.0;
+            Shape = null;
         }
 
-        public DifferentialGeometry (Point p, Vector dpdu, Vector dpdv, Normal dndu, Normal dndv, double u, double v)
+        public DifferentialGeometry (Point p, Vector dpdu, Vector dpdv, Normal dndu, Normal dndv, double u, double v, IShape shape)
         {
             this.p = new Point (p);
             this.dpdu = new Vector (dpdu);
@@ -45,6 +48,10 @@ namespace Hyperion.Core.Geometry
             this.u = u;
             this.v = v;
             dudx = dvdx = dudy = dvdy = 0.0;
+            this.Shape = shape;
+
+            if (shape != null && (shape.ReverseOrientation ^ shape.TransformSwapsHandedness))
+                n *= -1.0;
         }
 
         public void ComputeDifferentials (RayDifferential r)

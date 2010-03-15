@@ -48,6 +48,7 @@
     <Compile Include="Interfaces\IPrimitive.cs" />
     <Compile Include="Interfaces\Intersection.cs" />
     <Compile Include="Geometry\DifferentialGeometry.cs" />
+    <Compile Include="Interfaces\IShape.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
