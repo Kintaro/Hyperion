@@ -3,7 +3,7 @@ using System;
 
 namespace Hyperion.Core.Geometry
 {
-    public class RayDifferential : Ray
+    public sealed class RayDifferential : Ray
     {
         public bool HasDifferentials;
         public Point RxOrigin;
