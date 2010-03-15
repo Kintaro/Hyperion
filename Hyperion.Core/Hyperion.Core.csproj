@@ -49,6 +49,9 @@
     <Compile Include="Interfaces\Intersection.cs" />
     <Compile Include="Geometry\DifferentialGeometry.cs" />
     <Compile Include="Interfaces\IShape.cs" />
+    <Compile Include="Interfaces\CameraSample.cs" />
+    <Compile Include="Interfaces\IFilm.cs" />
+    <Compile Include="Spectrum.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />

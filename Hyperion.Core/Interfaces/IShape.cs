@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using Hyperion.Core.Geometry;
 
 namespace Hyperion.Core.Interfaces
@@ -74,7 +75,22 @@ namespace Hyperion.Core.Interfaces
             return pdf;
         }
 
+        public virtual Point Sample (double u1, double u2, ref Normal Ns)
+        {
+            return new Point ();
+        }
+
+        public virtual Point Sample (Point p, double u1, double u2, ref Normal Ns)
+        {
+            return Sample (u1, u2, ref Ns);
+        }
+
         public virtual bool Intersect (Ray ray, ref double tHit, ref double rayEpsilon, ref DifferentialGeometry dg)
+        {
+            return false;
+        }
+
+        public virtual bool IntersectP (Ray ray)
         {
             return false;
         }
@@ -82,6 +98,10 @@ namespace Hyperion.Core.Interfaces
         public virtual void GetShadingGeometry (Transform objectToWorld, DifferentialGeometry dg, out DifferentialGeometry dgShading)
         {
             dgShading = new DifferentialGeometry (dg);
+        }
+
+        public virtual void Refine (List<IShape> refined)
+        {
         }
     }
 }

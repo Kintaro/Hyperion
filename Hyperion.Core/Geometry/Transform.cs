@@ -39,7 +39,12 @@ namespace Hyperion.Core.Geometry
         }
 
         public bool SwapsHandedness {
-            get { return false; }
+            get {
+                double det = ((m.m[0] * (m.m[5] * m.m[10] - m.m[6] * m.m[9])) -
+                    (m.m[1] * (m.m[4] * m.m[10] - m.m[6] * m.m[8])) +
+                    (m.m[2] * (m.m[4] * m.m[9] - m.m[5] * m.m[8])));
+                return det < 0.0;
+            }
         }
 
         public Matrix Matrix {
@@ -61,7 +66,7 @@ namespace Hyperion.Core.Geometry
             double yp = m.m[4] * x + m.m[5] * y + m.m[6] * z + m.m[7];
             double zp = m.m[8] * x + m.m[9] * y + m.m[10] * z + m.m[11];
             double wp = m.m[12] * x + m.m[13] * y + m.m[14] * z + m.m[15];
-
+            
             if (wp == 1.0)
                 return new Point (xp, yp, zp);
             else
@@ -75,14 +80,30 @@ namespace Hyperion.Core.Geometry
             ptrans.y = m.m[4] * x + m.m[5] * y + m.m[6] * z + m.m[7];
             ptrans.z = m.m[8] * x + m.m[9] * y + m.m[10] * z + m.m[11];
             double w = m.m[12] * x + m.m[13] * y + m.m[14] * z + m.m[15];
-
+            
             if (w == 1.0)
                 ptrans /= w;
         }
 
         public BoundingBox Apply (BoundingBox b)
         {
-            return null;
+            Transform M = new Transform (this);
+            BoundingBox ret = new BoundingBox (M.Apply (new Point (b.pMin.x, b.pMin.y, b.pMin.z)));
+            ret = BoundingBox.Union (ret, M.Apply (new Point (b.pMax.x, b.pMin.y, b.pMin.z)));
+            ret = BoundingBox.Union (ret, M.Apply (new Point (b.pMin.x, b.pMax.y, b.pMin.z)));
+            ret = BoundingBox.Union (ret, M.Apply (new Point (b.pMin.x, b.pMin.y, b.pMax.z)));
+            ret = BoundingBox.Union (ret, M.Apply (new Point (b.pMin.x, b.pMax.y, b.pMax.z)));
+            ret = BoundingBox.Union (ret, M.Apply (new Point (b.pMax.x, b.pMax.y, b.pMin.z)));
+            ret = BoundingBox.Union (ret, M.Apply (new Point (b.pMax.x, b.pMin.y, b.pMax.z)));
+            ret = BoundingBox.Union (ret, M.Apply (new Point (b.pMax.x, b.pMax.y, b.pMax.z)));
+            return ret;
+        }
+
+        public static Transform operator * (Transform t1, Transform t2)
+        {
+            Matrix m1 = t1.m * t2.m;
+            Matrix m2 = t2.mInv * t1.mInv;
+            return new Transform (m1, m2);
         }
 
         public static bool operator == (Transform t1, Transform t2)
