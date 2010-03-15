@@ -45,9 +45,13 @@
     <Compile Include="Geometry\Matrix.cs" />
     <Compile Include="Geometry\Transform.cs" />
     <Compile Include="Geometry\Quaternion.cs" />
+    <Compile Include="Interfaces\IPrimitive.cs" />
+    <Compile Include="Interfaces\Intersection.cs" />
+    <Compile Include="Geometry\DifferentialGeometry.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
