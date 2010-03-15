@@ -78,7 +78,7 @@ namespace Hyperion.Core.Geometry
             return a.x * b.x + a.y * b.y + a.z * b.z;
         }
 
-        public Point Pointized {
+        public Point Normalized {
             get { return this / Length; }
         }
 

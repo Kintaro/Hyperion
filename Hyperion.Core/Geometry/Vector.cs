@@ -68,6 +68,16 @@ namespace Hyperion.Core.Geometry
             return a.x * b.x + a.y * b.y + a.z * b.z;
         }
 
+        public static double operator ^ (Vector a, Normal b)
+        {
+            return a.x * b.x + a.y * b.y + a.z * b.z;
+        }
+
+        public static double operator ^ (Normal a, Vector b)
+        {
+            return a.x * b.x + a.y * b.y + a.z * b.z;
+        }
+
         public static Vector operator % (Vector v1, Vector v2)
         {
             return new Vector ((v1.y * v2.z) - (v1.z * v2.y), (v1.z * v2.x) - (v1.x * v2.z), (v1.x * v2.y) - (v1.y * v2.x));

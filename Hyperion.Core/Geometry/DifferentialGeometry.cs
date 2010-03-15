@@ -54,6 +54,23 @@ namespace Hyperion.Core.Geometry
                 n *= -1.0;
         }
 
+        public DifferentialGeometry (DifferentialGeometry dg)
+        {
+            this.p = new Point (dg.p);
+            this.dpdu = new Vector (dg.dpdu);
+            this.dpdv = new Vector (dg.dpdv);
+            this.dndu = new Normal (dg.dndu);
+            this.dndv = new Normal (dg.dndv);
+            this.n = new Normal (dg.n);
+            this.u = dg.u;
+            this.v = dg.v;
+            this.dudx = dg.dudx;
+            this.dvdx = dg.dvdx;
+            this.dudy = dg.dudy;
+            this.dvdy = dg.dvdy;
+            this.Shape = dg.Shape;
+        }
+
         public void ComputeDifferentials (RayDifferential r)
         {
 

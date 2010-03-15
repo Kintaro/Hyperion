@@ -80,6 +80,11 @@ namespace Hyperion.Core.Geometry
                 ptrans /= w;
         }
 
+        public BoundingBox Apply (BoundingBox b)
+        {
+            return null;
+        }
+
         public static bool operator == (Transform t1, Transform t2)
         {
             return t1.m == t2.m && t1.mInv == t2.mInv;

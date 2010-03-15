@@ -23,5 +23,25 @@ namespace Hyperion.Core.Geometry
                 return high;
             return val;
         }
+
+        public static double DistanceSquared (Point a, Point b)
+        {
+            return (a - b).SquaredLength;
+        }
+
+        public static double AbsDot (Vector a, Vector b)
+        {
+            return Math.Abs (a ^ b);
+        }
+
+        public static double AbsDot (Normal a, Vector b)
+        {
+            return Math.Abs (a ^ b);
+        }
+
+        public static double AbsDot (Vector a, Normal b)
+        {
+            return Math.Abs (a ^ b);
+        }
     }
 }
