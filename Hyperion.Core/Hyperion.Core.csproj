@@ -42,6 +42,7 @@
     <Compile Include="Geometry\RayDifferential.cs" />
     <Compile Include="Geometry\BoundingBox.cs" />
     <Compile Include="Geometry\Util.cs" />
+    <Compile Include="Geometry\Matrix.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
