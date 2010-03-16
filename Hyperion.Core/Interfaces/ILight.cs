@@ -4,8 +4,6 @@ using Hyperion.Core.Geometry;
 
 namespace Hyperion.Core.Interfaces
 {
-
-
     public abstract class ILight
     {
         protected Transform LightToWorld;

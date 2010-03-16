@@ -70,5 +70,35 @@ namespace Hyperion.Core.Geometry
             // Compute scale _S_ using rotation and original matrix
             S = new Matrix (R.Inverse * M);
         }
+
+        public void Interpolate (double time, ref Transform t)
+        {
+            if (!ActuallyAnimated || time <= StartTime)
+            {
+                t = new Transform (StartTransform);
+                return;
+            }
+            if (time >= EndTime)
+            {
+                t = new Transform (EndTransform);
+                return;
+            }
+
+            double dt = (time - StartTime) / (EndTime - StartTime);
+
+            // Interpolate translation at dt
+            Vector translation = (1.0 - dt) * T[0] + dt * T[1];
+
+            // Interpolate rotation at dt
+            Quaternion rotation = Quaternion.Slerp (dt, R[0], R[1]);
+
+            // Interpolate scale at dt
+            Matrix scale = new Matrix ();
+            for (int i = 0; i < 3; ++i)
+                for (int j = 0; j < 3; ++j)
+                    scale.m[i * 4 + j] = Util.Lerp (dt, S[0].m[i * 4 + j], S[1].m[i * 4 + j]);
+
+            t = Transform.Translate (translation) * rotation.Transform * new Transform (scale);
+        }
     }
 }
