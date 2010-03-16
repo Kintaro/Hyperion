@@ -12,6 +12,7 @@
 		
 			<references>
 				<include name="System.dll"/>
+				<include name="../Tools/Irony.dll"/>
 			</references>		
 	    </csc>
 	</target>
