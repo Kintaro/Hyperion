@@ -126,6 +126,7 @@
     <Compile Include="Interfaces\AreaLight.cs" />
     <Compile Include="TransformSet.cs" />
     <Compile Include="TransformCache.cs" />
+    <Compile Include="Tools\FloatFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
