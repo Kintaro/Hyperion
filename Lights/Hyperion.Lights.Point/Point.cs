@@ -64,5 +64,14 @@ namespace Hyperion.Lights.Point
                 return true;
             }
         }
+
+        public static ILight CreateLight (Core.Geometry.Transform lightToWorld, Core.Tools.ParameterSet paramSet)
+        {
+            Spectrum I = paramSet.FindOneSpectrum ("I", new Spectrum (1.0));
+            Spectrum sc = paramSet.FindOneSpectrum ("scale", new Spectrum (1.0));
+            Core.Geometry.Point P = paramSet.FindOnePoint ("from", new Core.Geometry.Point (0, 0, 0));
+            Core.Geometry.Transform l2w = Core.Geometry.Transform.Translate (new Core.Geometry.Vector (P)) * lightToWorld;
+            return new Point (l2w, I * sc);
+        }
     }
 }
