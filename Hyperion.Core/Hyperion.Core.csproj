@@ -124,6 +124,8 @@
     <Compile Include="Interfaces\GeometricPrimitive.cs" />
     <Compile Include="Interfaces\IMaterial.cs" />
     <Compile Include="Interfaces\AreaLight.cs" />
+    <Compile Include="TransformSet.cs" />
+    <Compile Include="TransformCache.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
