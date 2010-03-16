@@ -5,6 +5,10 @@ namespace Hyperion.Core.Geometry
 {
     public static class Util
     {
+        public const double Pi = Math.PI;
+        public const double InvPi = 1.0 / Math.PI;
+        public const double InvTwoPi = 1.0 / (2.0 * Math.PI);
+
         public static double Distance (Point p1, Point p2)
         {
             return (p1 - p2).Length;
@@ -47,6 +51,16 @@ namespace Hyperion.Core.Geometry
         public static int Floor2Int (double val)
         {
             return (int)Math.Floor (val);
+        }
+
+        public static bool SameHemisphere (Vector w, Vector wp)
+        {
+            return w.z * wp.z > 0.0;
+        }
+
+        public static double AbsCosTheta (Vector w)
+        {
+            return Math.Abs (w.z);
         }
     }
 }

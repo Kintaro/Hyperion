@@ -64,10 +64,14 @@
     <Compile Include="Interfaces\ILight.cs" />
     <Compile Include="Interfaces\IVolumeRegion.cs" />
     <Compile Include="Interfaces\ProjectiveCamera.cs" />
+    <Compile Include="Reflection\BSDF.cs" />
+    <Compile Include="Reflection\BxDF.cs" />
+    <Compile Include="Geometry\MonteCarlo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="Reflection\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
