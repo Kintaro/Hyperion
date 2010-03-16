@@ -8,6 +8,7 @@ namespace Hyperion.Core.Geometry
         public const double Pi = Math.PI;
         public const double InvPi = 1.0 / Math.PI;
         public const double InvTwoPi = 1.0 / (2.0 * Math.PI);
+        public static readonly Random Random = new Random ();
 
         public static double Distance (Point p1, Point p2)
         {

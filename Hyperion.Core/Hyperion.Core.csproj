@@ -67,6 +67,8 @@
     <Compile Include="Reflection\BSDF.cs" />
     <Compile Include="Reflection\BxDF.cs" />
     <Compile Include="Geometry\MonteCarlo.cs" />
+    <Compile Include="Reflection\BSDFSample.cs" />
+    <Compile Include="Reflection\BSDFSampleOffsets.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
