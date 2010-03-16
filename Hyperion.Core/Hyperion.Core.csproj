@@ -31,6 +31,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="Irony, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ca48ace7223ead47">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Tools\Irony.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
@@ -75,11 +79,56 @@
     <Compile Include="Reflection\BSSRDF.cs" />
     <Compile Include="Interfaces\LightSample.cs" />
     <Compile Include="Interfaces\VisibilityTester.cs" />
+    <Compile Include="Tools\ParameterSet.cs" />
+    <Compile Include="Tools\ParameterSetItem.cs" />
+    <Compile Include="Tools\ProgressReporter.cs" />
+    <Compile Include="Tools\Timer.cs" />
+    <Compile Include="Parser\MrtGrammar.cs" />
+    <Compile Include="Parser\MrtParser.cs" />
+    <Compile Include="Parser\PrintVisitor.cs" />
+    <Compile Include="Parser\Nodes\AcceleratorNode.cs" />
+    <Compile Include="Parser\Nodes\AreaLightSourceNode.cs" />
+    <Compile Include="Parser\Nodes\ArrayNode.cs" />
+    <Compile Include="Parser\Nodes\AttributeBeginNode.cs" />
+    <Compile Include="Parser\Nodes\AttributeEndNode.cs" />
+    <Compile Include="Parser\Nodes\CameraNode.cs" />
+    <Compile Include="Parser\Nodes\ConcatTransformNode.cs" />
+    <Compile Include="Parser\Nodes\CoordSysTransformNode.cs" />
+    <Compile Include="Parser\Nodes\FilmNode.cs" />
+    <Compile Include="Parser\Nodes\IncludeNode.cs" />
+    <Compile Include="Parser\Nodes\LightNode.cs" />
+    <Compile Include="Parser\Nodes\LookAtNode.cs" />
+    <Compile Include="Parser\Nodes\MaterialNode.cs" />
+    <Compile Include="Parser\Nodes\NumberArrayNode.cs" />
+    <Compile Include="Parser\Nodes\ParamListContentNode.cs" />
+    <Compile Include="Parser\Nodes\ParamListEntryNode.cs" />
+    <Compile Include="Parser\Nodes\PixelFilterNode.cs" />
+    <Compile Include="Parser\Nodes\ReverseOrientationNode.cs" />
+    <Compile Include="Parser\Nodes\RotateNode.cs" />
+    <Compile Include="Parser\Nodes\SamplerNode.cs" />
+    <Compile Include="Parser\Nodes\ScaleNode.cs" />
+    <Compile Include="Parser\Nodes\SceneNode.cs" />
+    <Compile Include="Parser\Nodes\ShapeNode.cs" />
+    <Compile Include="Parser\Nodes\StringArrayNode.cs" />
+    <Compile Include="Parser\Nodes\SurfaceIntegratorNode.cs" />
+    <Compile Include="Parser\Nodes\TextureNode.cs" />
+    <Compile Include="Parser\Nodes\TransformBeginNode.cs" />
+    <Compile Include="Parser\Nodes\TransformEndNode.cs" />
+    <Compile Include="Parser\Nodes\TranslateNode.cs" />
+    <Compile Include="Parser\Nodes\VolumeIntegratorNode.cs" />
+    <Compile Include="Parser\Nodes\WorldBeginNode.cs" />
+    <Compile Include="Parser\Nodes\WorldEndNode.cs" />
+    <Compile Include="Api.cs" />
+    <Compile Include="GraphicsState.cs" />
+    <Compile Include="RenderOptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Reflection\" />
+    <Folder Include="Tools\" />
+    <Folder Include="Parser\" />
+    <Folder Include="Parser\Nodes\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

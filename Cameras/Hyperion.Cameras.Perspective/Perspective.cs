@@ -50,5 +50,37 @@ namespace Hyperion.Cameras.Perspective
             return 1.0;
         }
 
+        public override double GenerateRayDifferential (CameraSample sample, ref RayDifferential rd)
+        {
+            Point pRas = new Point (sample.ImageX, sample.ImageY, 0.0);
+            Point pCam = new Point ();
+            RasterToCamera.Apply (pRas, ref pCam);
+            Vector dir = new Vector (pCam).Normalized;
+            rd = new RayDifferential (new Point (), dir, 0.0, double.PositiveInfinity);
+
+            if (LensRadius > 0.0)
+            {
+                double lensU = 0.0, lensV = 0.0;
+                MonteCarlo.ConcentricSampleDisk (sample.LensU, sample.LensV, ref lensU, ref lensV);
+                lensU *= LensRadius;
+                lensV *= LensRadius;
+
+                double ft = FocalDistance / rd.Direction.z;
+                Point pFocus = rd.Apply (ft);
+
+                rd.Origin = new Point (lensU, lensV, 0.0);
+                rd.Direction = (pFocus - rd.Origin).Normalized;
+            }
+
+            rd.RxOrigin = new Point (rd.Origin);
+            rd.RyOrigin = new Point (rd.Origin);
+            rd.RxDirection = (new Vector (pCam) + dxCamera).Normalized;
+            rd.RyDirection = (new Vector (pCam) + dyCamera).Normalized;
+            rd.Time = Util.Lerp (sample.Time, ShutterOpen, ShutterClose);
+            CameraToWorld.Apply (rd, ref rd);
+            rd.HasDifferentials = true;
+            return 1.0;
+        }
+
     }
 }

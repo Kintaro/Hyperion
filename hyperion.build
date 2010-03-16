@@ -11,10 +11,11 @@
 
 	<!-- Subsystems -->
 	<target name="core"><nant buildfile="Hyperion.Core/hyperion.build"/></target>
+	<target name="cameras"><nant buildfile="Cameras/hyperion.build"/></target>
 	<target name="hyperion" depends="core"><nant buildfile="Hyperion/hyperion.build"/></target>
 	
 	<!-- meta target -->
-	<target name="all" depends="init,core,hyperion"/>
+	<target name="all" depends="init,core,cameras,hyperion"/>
 
 		
 </project>

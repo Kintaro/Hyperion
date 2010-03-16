@@ -20,6 +20,11 @@ namespace Hyperion.Core.Geometry
             HasDifferentials = false;
         }
 
+        public RayDifferential (Point origin, Vector direction, double start, double end) : this (origin, direction, start, end, 0.0, 0)
+        {
+
+        }
+
         public RayDifferential (Point origin, Vector direction, double start, double end, double time, int depth) : base(origin, direction, start, end, time, depth)
         {
             HasDifferentials = false;

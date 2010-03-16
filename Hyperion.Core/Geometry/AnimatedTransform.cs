@@ -115,5 +115,19 @@ namespace Hyperion.Core.Geometry
             }
             tr.Time = r.Time;
         }
+
+        public void Apply (RayDifferential r, ref RayDifferential tr)
+        {
+            if (!ActuallyAnimated || r.Time <= StartTime)
+                StartTransform.Apply (r, ref tr); else if (r.Time >= EndTime)
+                EndTransform.Apply (r, ref tr);
+            else
+            {
+                Transform t = new Transform ();
+                Interpolate (r.Time, ref t);
+                t.Apply (r, ref tr);
+            }
+            tr.Time = r.Time;
+        }
     }
 }

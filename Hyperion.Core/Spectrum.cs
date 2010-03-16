@@ -17,6 +17,13 @@ namespace Hyperion.Core
             c[2] = v;
         }
 
+        public Spectrum (double x, double y, double z)
+        {
+            c[0] = x;
+            c[1] = y;
+            c[2] = z;
+        }
+
         public void ToRgb (double[] rgb)
         {
             rgb[0] = c[0];

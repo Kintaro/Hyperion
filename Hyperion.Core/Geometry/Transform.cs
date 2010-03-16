@@ -118,6 +118,19 @@ namespace Hyperion.Core.Geometry
             }
         }
 
+        public void Apply (RayDifferential r, ref RayDifferential rt)
+        {
+            Apply (r.Origin, ref rt.Origin);
+            Apply (r.Direction, ref rt.Direction);
+            if (rt != r)
+            {
+                rt.MinT = r.MinT;
+                rt.MaxT = r.MaxT;
+                rt.Time = r.Time;
+                rt.Depth = r.Depth;
+            }
+        }
+
         public static Transform operator * (Transform t1, Transform t2)
         {
             Matrix m1 = t1.m * t2.m;
