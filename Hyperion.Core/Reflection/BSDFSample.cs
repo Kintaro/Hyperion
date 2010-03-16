@@ -5,7 +5,7 @@ using Hyperion.Core.Interfaces;
 
 namespace Hyperion.Core.Reflection
 {
-    public class BSDFSample
+    public sealed class BSDFSample
     {
         public double[] uDir = new double[2];
         public double uComponent;

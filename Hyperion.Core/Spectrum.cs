@@ -42,6 +42,33 @@ namespace Hyperion.Core
             return res;
         }
 
+        public static Spectrum operator - (Spectrum a, Spectrum b)
+        {
+            Spectrum res = new Spectrum ();
+            res.c[0] = a.c[0] - b.c[0];
+            res.c[1] = a.c[1] - b.c[1];
+            res.c[2] = a.c[2] - b.c[2];
+            return res;
+        }
+
+        public static Spectrum operator * (Spectrum s, Spectrum b)
+        {
+            Spectrum res = new Spectrum ();
+            res.c[0] = s.c[0] * b.c[0];
+            res.c[1] = s.c[1] * b.c[1];
+            res.c[2] = s.c[2] * b.c[2];
+            return res;
+        }
+
+        public static Spectrum operator / (Spectrum s, Spectrum b)
+        {
+            Spectrum res = new Spectrum ();
+            res.c[0] = s.c[0] / b.c[0];
+            res.c[1] = s.c[1] / b.c[1];
+            res.c[2] = s.c[2] / b.c[2];
+            return res;
+        }
+
         public static Spectrum operator * (Spectrum s, double f)
         {
             Spectrum res = new Spectrum ();
@@ -49,6 +76,11 @@ namespace Hyperion.Core
             res.c[1] = s.c[1] * f;
             res.c[2] = s.c[2] * f;
             return res;
+        }
+
+        public static Spectrum operator * (double f, Spectrum s)
+        {
+            return s * f;
         }
 
         public static Spectrum operator / (Spectrum s, double f)
