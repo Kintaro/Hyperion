@@ -127,6 +127,7 @@
     <Compile Include="TransformSet.cs" />
     <Compile Include="TransformCache.cs" />
     <Compile Include="Tools\FloatFile.cs" />
+    <Compile Include="Geometry\SphericalHarmonics.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />

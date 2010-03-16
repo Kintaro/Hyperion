@@ -30,7 +30,7 @@ namespace Hyperion.Core.Interfaces
         public abstract Spectrum Power (Scene scene);
         public abstract double Pdf (Point p, Vector wi);
         public abstract Spectrum SampleL (Scene scene, LightSample ls, double u1, double u2, double time, ref Ray ray, ref Normal Ns, ref double pdf);
-        public abstract void SHProject (Point p, double pEpsilon, int lmax, Scene scene, bool computeLightVisibility, double time, ref Spectrum coeffs);
+        public abstract void SHProject (Point p, double pEpsilon, int lmax, Scene scene, bool computeLightVisibility, double time, Spectrum[] coeffs);
         public abstract bool IsDeltaLight { get; }
     }
 }

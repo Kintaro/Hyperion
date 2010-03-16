@@ -9,6 +9,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cameras", "Cameras", "{BF8C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hyperion.Cameras.Perspective", "Cameras\Hyperion.Cameras.Perspective\Hyperion.Cameras.Perspective.csproj", "{077F7067-8125-45DC-824F-47A415CE6585}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lights", "Lights", "{AF97F686-3A66-4C42-BDD1-9C7940DD72F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hyperion.Lights.Point", "Lights\Hyperion.Lights.Point\Hyperion.Lights.Point.csproj", "{27268D7A-C91D-4FC6-83F8-0D2E365A2071}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +27,10 @@ Global
 		{077F7067-8125-45DC-824F-47A415CE6585}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{077F7067-8125-45DC-824F-47A415CE6585}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{077F7067-8125-45DC-824F-47A415CE6585}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27268D7A-C91D-4FC6-83F8-0D2E365A2071}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27268D7A-C91D-4FC6-83F8-0D2E365A2071}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27268D7A-C91D-4FC6-83F8-0D2E365A2071}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27268D7A-C91D-4FC6-83F8-0D2E365A2071}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3BA8DC2D-CE04-4229-A75A-3C5EB386DF80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3BA8DC2D-CE04-4229-A75A-3C5EB386DF80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BA8DC2D-CE04-4229-A75A-3C5EB386DF80}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -30,6 +38,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{077F7067-8125-45DC-824F-47A415CE6585} = {BF8C16F4-CAEB-46B7-8EE6-3001775D1D83}
+		{27268D7A-C91D-4FC6-83F8-0D2E365A2071} = {AF97F686-3A66-4C42-BDD1-9C7940DD72F1}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Hyperion.Core\Hyperion.Core.csproj
