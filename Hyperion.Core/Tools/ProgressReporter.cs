@@ -12,8 +12,6 @@ namespace Hyperion.Core
         private double _count;
         private int _plussesPrinted;
         private int _totalPlusses;
-        private string _currentSpace;
-        private DateTime _startTime;
         private int _left;
         private int _right;
         private Timer _timer;
@@ -45,7 +43,6 @@ namespace Hyperion.Core
         /// </param>
         public ProgressReporter (int totalWork, string title, int barLength)
         {
-            _startTime = DateTime.Now;
             _plussesPrinted = 0;
             _totalPlusses = barLength - title.Length;
             _frequency = (double)totalWork / (double)_totalPlusses;
@@ -80,7 +77,6 @@ namespace Hyperion.Core
             _count -= num;
 
             Console.CursorLeft = _left;
-            _currentSpace = string.Empty;
             while (_count <= 0)
             {
                 _count += _frequency;

@@ -9,13 +9,13 @@ namespace Hyperion.Core.Interfaces
     {
         private IShape Shape;
         private IMaterial Material;
-        private AreaLight AreaLight;
+        private AreaLight areaLight;
 
         public GeometricPrimitive (IShape shape, IMaterial material, AreaLight areaLight)
         {
-            Shape = shape;
-            Material = material;
-            AreaLight = areaLight;
+            this.Shape = shape;
+            this.Material = material;
+            this.areaLight = areaLight;
         }
 
         public override bool CanIntersect {
@@ -27,6 +27,14 @@ namespace Hyperion.Core.Interfaces
         public override BoundingBox WorldBound {
             get {
                 return Shape.WorldBound;
+            }
+        }
+
+        public override AreaLight AreaLight
+        {
+            get
+            {
+                return areaLight;
             }
         }
 
@@ -65,5 +73,7 @@ namespace Hyperion.Core.Interfaces
             Shape.GetShadingGeometry (objectToWorld, dg, out dgs);
             return Material.GetBssrdf (dg, dgs);
         }
+
+
     }
 }

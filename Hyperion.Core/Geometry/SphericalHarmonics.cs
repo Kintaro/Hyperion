@@ -35,17 +35,17 @@ namespace Hyperion.Core.Geometry
         {
             o[SHIndex (0, 0)] = 1.0;
             o[SHIndex (1, 0)] = x;
-
+            
             for (int l = 2; l <= lmax; ++l)
             {
                 o[SHIndex (l, 0)] = ((2 * l - 1) * x * o[SHIndex (l - 1, 0)] - (l - 1) * o[SHIndex (l - 2, 0)]) / l;
             }
-
+            
             double neg = -1.0;
             double dfact = 1.0;
             double xroot = Math.Sqrt (Math.Max (0.0, 1.0 - x * x));
             double xpow = xroot;
-
+            
             for (int l = 1; l <= lmax; ++l)
             {
                 o[SHIndex (l, l)] = neg * dfact * xpow;
@@ -53,12 +53,12 @@ namespace Hyperion.Core.Geometry
                 dfact *= 2 * l + 1;
                 xpow *= xroot;
             }
-
-            for (int l = 2; l<= lmax; ++l)
+            
+            for (int l = 2; l <= lmax; ++l)
             {
                 o[SHIndex (l, l - 1)] = x * (2 * l - 1) * o[SHIndex (l - 1, l - 1)];
             }
-
+            
             for (int l = 3; l <= lmax; ++l)
             {
                 for (int m = 1; m <= l - 2; ++m)
@@ -74,7 +74,7 @@ namespace Hyperion.Core.Geometry
             double si = 0, ci = 1;
             for (int i = 0; i < n; ++i)
             {
-
+                
                 sout[sindex++] = si;
                 cout[cindex++] = ci;
                 double oldsi = si;
@@ -85,30 +85,27 @@ namespace Hyperion.Core.Geometry
 
         public static void SHEvaluate (Vector w, int lmax, double[] o)
         {
-            if (lmax > 28)
-                ;
             LegendRep (w.z, lmax, o);
-
+            
             double[] Klm = new double[SHTerms (lmax)];
             for (int l = 0; l <= lmax; ++l)
                 for (int m = -l; m <= l; ++m)
                     Klm[SHIndex (l, m)] = K (l, m);
-
+            
             double[] sins = new double[lmax + 1], coss = new double[lmax + 1];
             double xyLength = Math.Sqrt (Math.Max (0.0, 1.0 - w.z * w.z));
-
+            
             if (xyLength == 0.0)
             {
                 for (int i = 0; i <= lmax; ++i)
                     sins[i] = 0.0;
                 for (int i = 0; i <= lmax; ++i)
                     coss[i] = 1.0;
-            }
-            else
+            } else
                 SinCosIndexed (w.y / xyLength, w.x / xyLength, lmax + 1, sins, coss);
-
+            
             double sqrt2 = Math.Sqrt (2.0);
-
+            
             for (int l = 0; l <= lmax; ++l)
             {
                 for (int m = -l; m < 0; ++m)

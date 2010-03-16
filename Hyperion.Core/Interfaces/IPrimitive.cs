@@ -41,6 +41,7 @@ namespace Hyperion.Core.Interfaces
         }
 
         public abstract BoundingBox WorldBound { get; }
+        public abstract AreaLight AreaLight { get; }
         public abstract bool Intersect (Ray ray, ref Intersection isect);
         public abstract bool IntersectP (Ray ray);
         public abstract BSDF GetBsdf (DifferentialGeometry dg, Transform objectoToWorld);

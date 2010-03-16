@@ -48,8 +48,6 @@ namespace Hyperion.Core
                             ;
                         ++lineNumber;
                     }
-                    else if (!char.IsWhiteSpace (c))
-                        ;
                 }
             }
             return true;
