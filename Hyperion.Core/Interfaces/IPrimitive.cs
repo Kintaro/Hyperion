@@ -1,6 +1,8 @@
 
 using System;
+using System.Collections.Generic;
 using Hyperion.Core.Geometry;
+using Hyperion.Core.Reflection;
 
 namespace Hyperion.Core.Interfaces
 {
@@ -18,9 +20,30 @@ namespace Hyperion.Core.Interfaces
             get { return true; }
         }
 
-        public abstract BoundingBox WorldBound { get; }
+        public virtual void Refine (List<IPrimitive> refined)
+        {
+        }
 
+        public void FullyRefine (List<IPrimitive> refined)
+        {
+            List<IPrimitive> todo = new List<IPrimitive> ();
+            todo.Add (this);
+
+            while (todo.Count > 0)
+            {
+                IPrimitive primitive = todo[todo.Count - 1];
+                todo.RemoveAt (todo.Count - 1);
+                if (primitive.CanIntersect)
+                    refined.Add (primitive);
+                else
+                    primitive.Refine (todo);
+            }
+        }
+
+        public abstract BoundingBox WorldBound { get; }
         public abstract bool Intersect (Ray ray, ref Intersection isect);
         public abstract bool IntersectP (Ray ray);
+        public abstract BSDF GetBsdf (DifferentialGeometry dg, Transform objectoToWorld);
+        public abstract BSSRDF GetBssrdf (DifferentialGeometry dg, Transform objectToWorld);
     }
 }

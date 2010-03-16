@@ -72,6 +72,7 @@
     <Compile Include="Reflection\IFresnel.cs" />
     <Compile Include="Reflection\FresnelConductor.cs" />
     <Compile Include="Reflection\ReflectionUtil.cs" />
+    <Compile Include="Reflection\BSSRDF.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
