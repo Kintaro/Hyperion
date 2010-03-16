@@ -4,8 +4,6 @@ using Hyperion.Core.Geometry;
 
 namespace Hyperion.Core.Interfaces
 {
-
-
     public class Intersection
     {
         public IPrimitive Primitive;
@@ -15,7 +13,7 @@ namespace Hyperion.Core.Interfaces
         public int PrimitiveID;
         public double RayEpsilon;
         public DifferentialGeometry dg;
-        
+
         public Intersection ()
         {
         }
