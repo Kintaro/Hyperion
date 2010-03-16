@@ -121,6 +121,9 @@
     <Compile Include="Api.cs" />
     <Compile Include="GraphicsState.cs" />
     <Compile Include="RenderOptions.cs" />
+    <Compile Include="Interfaces\GeometricPrimitive.cs" />
+    <Compile Include="Interfaces\IMaterial.cs" />
+    <Compile Include="Interfaces\AreaLight.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />

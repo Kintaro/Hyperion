@@ -14,6 +14,7 @@ namespace Hyperion.Core.Interfaces
         public int ShapeID;
         public int PrimitiveID;
         public double RayEpsilon;
+        public DifferentialGeometry dg;
         
         public Intersection ()
         {
