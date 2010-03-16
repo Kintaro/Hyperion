@@ -47,12 +47,20 @@ namespace Hyperion.Core
         {
         }
 
-        public static void ConcatTransform (double[] numbers)
+        public static void ConcatTransform (double[] tr)
         {
+            for (int i = 0; i < 2; ++i)
+                if ((Api.ActiveTransformBits & (1 << i)) != 0)
+                    Api.CurrentTransform[i] = Api.CurrentTransform[i] * new Transform (new Matrix (tr[0], tr[4], tr[8], tr[12],
+                          tr[1], tr[5], tr[9], tr[13],
+                          tr[2], tr[6], tr[10], tr[14],
+                          tr[3], tr[7], tr[11], tr[15]));
         }
 
         public static void CoordSysTransform (string name)
         {
+            if (Api.NamedCoordinateSystems.ContainsKey (name))
+                Api.CurrentTransform = Api.NamedCoordinateSystems[name];
         }
 
         public static void Film (string name, ParameterSet parameterSet)
