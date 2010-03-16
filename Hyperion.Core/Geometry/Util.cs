@@ -63,5 +63,10 @@ namespace Hyperion.Core.Geometry
         {
             return Math.Abs (w.z);
         }
+
+        public static double Radians (double deg)
+        {
+            return (Pi / 180.0) * deg;
+        }
     }
 }

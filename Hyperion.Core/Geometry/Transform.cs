@@ -83,6 +83,14 @@ namespace Hyperion.Core.Geometry
                 ptrans /= w;
         }
 
+        public void Apply (Vector v, ref Vector vt)
+        {
+            double x = v.x, y = v.y, z = v.z;
+            vt.x = m.m[0] * x + m.m[1] * y + m.m[2] * z;
+            vt.y = m.m[4] * x + m.m[5] * y + m.m[6] * z;
+            vt.z = m.m[8] * x + m.m[9] * y + m.m[10] * z;
+        }
+
         public BoundingBox Apply (BoundingBox b)
         {
             Transform M = new Transform (this);
@@ -95,6 +103,19 @@ namespace Hyperion.Core.Geometry
             ret = BoundingBox.Union (ret, M.Apply (new Point (b.pMax.x, b.pMin.y, b.pMax.z)));
             ret = BoundingBox.Union (ret, M.Apply (new Point (b.pMax.x, b.pMax.y, b.pMax.z)));
             return ret;
+        }
+
+        public void Apply (Ray r, ref Ray rt)
+        {
+            Apply (r.Origin, ref rt.Origin);
+            Apply (r.Direction, ref rt.Direction);
+            if (rt != r)
+            {
+                rt.MinT = r.MinT;
+                rt.MaxT = r.MaxT;
+                rt.Time = r.Time;
+                rt.Depth = r.Depth;
+            }
         }
 
         public static Transform operator * (Transform t1, Transform t2)
@@ -125,6 +146,16 @@ namespace Hyperion.Core.Geometry
             Matrix minv = new Matrix (1.0 / x, 0, 0, 0, 0, 1.0 / y, 0, 0, 0, 0,
             1.0 / z, 0, 0, 0, 0, 1);
             return new Transform (m, minv);
+        }
+
+        public static Transform Perspective (double fov, double n, double f)
+        {
+            Matrix persp = new Matrix (1, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+            f / (f - n), -f * n / (f - n), 0, 0, 1, 0);
+            
+            // Scale to canonical viewing volume
+            double invTanAng = 1.0 / Math.Tan (Util.Radians (fov) / 2.0);
+            return Scale (invTanAng, invTanAng, 1) * new Transform (persp);
         }
 
         public static bool operator == (Transform t1, Transform t2)

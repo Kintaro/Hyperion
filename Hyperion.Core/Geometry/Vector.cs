@@ -22,6 +22,10 @@ namespace Hyperion.Core.Geometry
         {
         }
 
+        public Vector (Point vec) : this(vec.x, vec.y, vec.z)
+        {
+        }
+
         public Vector (double v) : this(v, v, v)
         {
         }

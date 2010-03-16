@@ -100,5 +100,20 @@ namespace Hyperion.Core.Geometry
 
             t = Transform.Translate (translation) * rotation.Transform * new Transform (scale);
         }
+
+        public void Apply (Ray r, ref Ray tr)
+        {
+            if (!ActuallyAnimated || r.Time <= StartTime)
+                StartTransform.Apply (r, ref tr);
+            else if (r.Time >= EndTime)
+                EndTransform.Apply (r, ref tr);
+            else
+            {
+                Transform t = new Transform ();
+                Interpolate (r.Time, ref t);
+                t.Apply (r, ref tr);
+            }
+            tr.Time = r.Time;
+        }
     }
 }
