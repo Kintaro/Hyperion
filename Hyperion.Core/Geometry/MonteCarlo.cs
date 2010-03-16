@@ -75,5 +75,20 @@ namespace Hyperion.Core.Geometry
             double y = r * Math.Sin (phi);
             return new Vector (x, y, z);
         }
+
+        public static Vector UniformSampleSphere (double u1, double u2)
+        {
+            double z = 1.0 - 2.0 * u1;
+            double r = Math.Sqrt (Math.Max (0.0, 1.0 - z * z));
+            double phi = 2.0 * Util.Pi * u2;
+            double x = r * Math.Cos (phi);
+            double y = r * Math.Sin (phi);
+            return new Vector (x, y, z);
+        }
+
+        public static double UniformSpherePdf ()
+        {
+            return 1.0 / (4.0 * Util.Pi);
+        }
     }
 }

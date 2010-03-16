@@ -26,7 +26,11 @@ namespace Hyperion.Lights.Point
 
         public override Spectrum SampleL (Scene scene, LightSample ls, double u1, double u2, double time, ref Hyperion.Core.Geometry.Ray ray, ref Hyperion.Core.Geometry.Normal Ns, ref double pdf)
         {
-            throw new System.NotImplementedException ();
+            ray = new Core.Geometry.Ray (LightPosition, Core.Geometry.MonteCarlo.UniformSampleSphere (ls.uPos[0], ls.uPos[1]), 0.0, double.PositiveInfinity, time);
+            Ns = new Core.Geometry.Normal (ray.Direction);
+            pdf = Core.Geometry.MonteCarlo.UniformSpherePdf ();
+
+            return Intensity;
         }
 
         public override Spectrum Power (Scene scene)
