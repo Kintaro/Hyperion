@@ -73,6 +73,8 @@
     <Compile Include="Reflection\FresnelConductor.cs" />
     <Compile Include="Reflection\ReflectionUtil.cs" />
     <Compile Include="Reflection\BSSRDF.cs" />
+    <Compile Include="Interfaces\LightSample.cs" />
+    <Compile Include="Interfaces\VisibilityTester.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
