@@ -61,6 +61,8 @@
     <Compile Include="Geometry\AnimatedTransform.cs" />
     <Compile Include="Interfaces\ISurfaceIntegrator.cs" />
     <Compile Include="Interfaces\IVolumeIntegrator.cs" />
+    <Compile Include="Interfaces\ILight.cs" />
+    <Compile Include="Interfaces\IVolumeRegion.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
