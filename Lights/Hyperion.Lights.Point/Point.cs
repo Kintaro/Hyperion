@@ -53,7 +53,7 @@ namespace Hyperion.Lights.Point
 
             double[] Ylm = new double[Core.Geometry.SphericalHarmonics.SHTerms (lmax)];
             Core.Geometry.Vector wi = (LightPosition - p).Normalized;
-            //Core.Geometry.SphericalHarmonics.SHEvaluate (wi, lmax, Ylm);
+            Core.Geometry.SphericalHarmonics.SHEvaluate (wi, lmax, Ylm);
             Spectrum Li = Intensity / Core.Geometry.Util.DistanceSquared (LightPosition, p);
             for (int i = 0; i < Core.Geometry.SphericalHarmonics.SHTerms (lmax); ++i)
                 coeffs[i] = Li * Ylm[i];
