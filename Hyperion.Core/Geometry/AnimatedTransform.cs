@@ -3,8 +3,6 @@ using System;
 
 namespace Hyperion.Core.Geometry
 {
-
-
     public class AnimatedTransform
     {
         private readonly double StartTime;

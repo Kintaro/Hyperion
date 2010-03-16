@@ -40,9 +40,7 @@ namespace Hyperion.Core.Geometry
 
         public bool SwapsHandedness {
             get {
-                double det = ((m.m[0] * (m.m[5] * m.m[10] - m.m[6] * m.m[9])) -
-                    (m.m[1] * (m.m[4] * m.m[10] - m.m[6] * m.m[8])) +
-                    (m.m[2] * (m.m[4] * m.m[9] - m.m[5] * m.m[8])));
+                double det = ((m.m[0] * (m.m[5] * m.m[10] - m.m[6] * m.m[9])) - (m.m[1] * (m.m[4] * m.m[10] - m.m[6] * m.m[8])) + (m.m[2] * (m.m[4] * m.m[9] - m.m[5] * m.m[8])));
                 return det < 0.0;
             }
         }
@@ -104,6 +102,29 @@ namespace Hyperion.Core.Geometry
             Matrix m1 = t1.m * t2.m;
             Matrix m2 = t2.mInv * t1.mInv;
             return new Transform (m1, m2);
+        }
+
+        public static Transform Translate (double x, double y, double z)
+        {
+            return Translate (new Vector (x, y, z));
+        }
+
+        public static Transform Translate (Vector delta)
+        {
+            Matrix m = new Matrix (1, 0, 0, delta.x, 0, 1, 0, delta.y, 0, 0,
+            1, delta.z, 0, 0, 0, 1);
+            Matrix minv = new Matrix (1, 0, 0, -delta.x, 0, 1, 0, -delta.y, 0, 0,
+            1, -delta.z, 0, 0, 0, 1);
+            return new Transform (m, minv);
+        }
+
+        public static Transform Scale (double x, double y, double z)
+        {
+            Matrix m = new Matrix (x, 0, 0, 0, 0, y, 0, 0, 0, 0,
+            z, 0, 0, 0, 0, 1);
+            Matrix minv = new Matrix (1.0 / x, 0, 0, 0, 0, 1.0 / y, 0, 0, 0, 0,
+            1.0 / z, 0, 0, 0, 0, 1);
+            return new Transform (m, minv);
         }
 
         public static bool operator == (Transform t1, Transform t2)
