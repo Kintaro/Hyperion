@@ -84,5 +84,71 @@ namespace Hyperion.Core.Reflection
         {
             bxdfs[nBxDFs++] = bxdf;
         }
+
+        public Spectrum F (Vector woW, Vector wiW)
+        {
+            return F (woW, wiW, BxDFType.BSDF_ALL);
+        }
+
+        public Spectrum F (Vector woW, Vector wiW, BxDFType flags)
+        {
+            Vector wi = WorldToLocal (wiW), wo = WorldToLocal (woW);
+            if ((wiW ^ ng) * (woW ^ ng) > 0)
+                flags &= ~BxDFType.BSDF_TRANSMISSION;
+            else
+                flags &= ~BxDFType.BSDF_REFLECTION;
+            Spectrum f = new Spectrum ();
+            for (int i = 0; i < nBxDFs; ++i)
+                if (bxdfs[i].MatchesFlags (flags))
+                    f += bxdfs[i].F (wo, wi);
+            return f;
+        }
+
+        public Spectrum Rho ()
+        {
+            return Rho (BxDFType.BSDF_ALL, 6);
+        }
+
+        public Spectrum Rho (BxDFType flags)
+        {
+            return Rho (flags, 6);
+        }
+
+        public Spectrum Rho (BxDFType flags, int sqrtSamples)
+        {
+            int nSamples = sqrtSamples * sqrtSamples;
+            double[] s1 = new double[2 * nSamples];
+            // StratifiedSample2D (s1, sqrtSamples, sqrtSamples);
+            double[] s2 = new double[2 * nSamples];
+            // StratifiedSample2D (s2, sqrtSamples, sqrtSamples);
+
+            Spectrum ret = new Spectrum ();
+            for (int i = 0; i < nBxDFs; ++i)
+                if (bxdfs[i].MatchesFlags (flags))
+                    ret += bxdfs[i].Rho (nSamples, s1, s2);
+            return ret;
+        }
+
+        public Spectrum Rho (Vector wo)
+        {
+            return Rho (wo, BxDFType.BSDF_ALL, 6);
+        }
+
+        public Spectrum Rho (Vector wo, BxDFType flags)
+        {
+            return Rho (wo, flags, 6);
+        }
+
+        public Spectrum Rho (Vector wo, BxDFType flags, int sqrtSamples)
+        {
+            int nSamples = sqrtSamples * sqrtSamples;
+            double[] s1 = new double[2 * nSamples];
+            // StratifiedSample2D (sq, sqrtSamples, sqrtSamples);
+            Spectrum ret = new Spectrum ();
+            for (int i = 0; i < nBxDFs; ++i)
+                if (bxdfs[i].MatchesFlags (flags))
+                    ret += bxdfs[i].Rho (wo, nSamples, s1);
+            return ret;
+        }
     }
 }

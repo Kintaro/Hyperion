@@ -4,7 +4,8 @@ using Hyperion.Core.Geometry;
 
 namespace Hyperion.Core.Reflection
 {
-    public enum BxDFType
+    [System.Flags]
+    public enum BxDFType : byte
     {
         BSDF_REFLECTION = 1 << 0,
         BSDF_TRANSMISSION = 1 << 1,
