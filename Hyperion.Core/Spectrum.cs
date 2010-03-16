@@ -1,5 +1,6 @@
 
 using System;
+using Hyperion.Core.Geometry;
 
 namespace Hyperion.Core
 {
@@ -29,6 +30,25 @@ namespace Hyperion.Core
             rgb[0] = c[0];
             rgb[1] = c[1];
             rgb[2] = c[2];
+        }
+
+        public Spectrum Clamp ()
+        {
+            return Clamp (0.0, double.PositiveInfinity);
+        }
+
+        public Spectrum Clamp (double low)
+        {
+            return Clamp (low, double.PositiveInfinity);
+        }
+
+        public Spectrum Clamp (double low, double high)
+        {
+            Spectrum result = new Spectrum ();
+            result.c[0] = Util.Clamp (c[0], low, high);
+            result.c[1] = Util.Clamp (c[1], low, high);
+            result.c[2] = Util.Clamp (c[2], low, high);
+            return result;
         }
 
         public double y

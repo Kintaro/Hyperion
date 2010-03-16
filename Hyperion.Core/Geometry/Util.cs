@@ -69,5 +69,36 @@ namespace Hyperion.Core.Geometry
         {
             return (Pi / 180.0) * deg;
         }
+
+        public static Normal FaceForward (Normal a, Normal b)
+        {
+            return ((a ^ b) < 0.0) ? -a : a;
+        }
+
+        public static double CosTheta (Vector w)
+        {
+            return w.z;
+        }
+
+        public static double SinTheta (Vector w)
+        {
+            return Math.Max (0.0, 1.0 - CosTheta (w) * CosTheta (w));
+        }
+
+        public static double SinPhi (Vector w)
+        {
+            double sinTheta = SinTheta (w);
+            if (sinTheta == 0.0)
+                return 0.0;
+            return Clamp (w.y / sinTheta, -1.0, 1.0);
+        }
+
+        public static double CosPhi (Vector w)
+        {
+            double sinTheta = SinTheta (w);
+            if (sinTheta == 0.0)
+                return 1.0;
+            return Clamp (w.x / sinTheta, -1.0, 1.0);
+        }
     }
 }

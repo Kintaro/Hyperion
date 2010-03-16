@@ -128,6 +128,9 @@
     <Compile Include="TransformCache.cs" />
     <Compile Include="Tools\FloatFile.cs" />
     <Compile Include="Geometry\SphericalHarmonics.cs" />
+    <Compile Include="Interfaces\ITexture.cs" />
+    <Compile Include="Reflection\Lambertian.cs" />
+    <Compile Include="Reflection\OrenNayar.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
