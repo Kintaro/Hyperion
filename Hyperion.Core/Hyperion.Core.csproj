@@ -63,6 +63,7 @@
     <Compile Include="Interfaces\IVolumeIntegrator.cs" />
     <Compile Include="Interfaces\ILight.cs" />
     <Compile Include="Interfaces\IVolumeRegion.cs" />
+    <Compile Include="Interfaces\ProjectiveCamera.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />

@@ -9,6 +9,15 @@ namespace Hyperion.Core.Interfaces
         public IFilm Film;
         public readonly double ShutterOpen;
         public readonly double ShutterClose;
+        public AnimatedTransform CameraToWorld;
+
+        public ICamera (AnimatedTransform camToWorld, double sopen, double sclose, IFilm film)
+        {
+            Film = film;
+            sopen = ShutterOpen;
+            sclose = ShutterClose;
+            CameraToWorld = camToWorld;
+        }
 
         public abstract double GenerateRay (CameraSample sample, Ray ray);
 
