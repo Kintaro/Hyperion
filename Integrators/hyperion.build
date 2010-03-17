@@ -4,9 +4,10 @@
 
 	<!-- Subsystems -->
 	<target name="whitted"><nant buildfile="Hyperion.Integrators.Whitted/hyperion.build"/></target>
+	<target name="emission"><nant buildfile="Hyperion.Integrators.Emission/hyperion.build"/></target>
 	
 	<!-- meta target -->
-	<target name="all" depends="whitted"/>
+	<target name="all" depends="emission"/>
 
 		
 </project>

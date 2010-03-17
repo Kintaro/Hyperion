@@ -32,7 +32,7 @@ namespace Hyperion.Core
         public RenderOptions ()
         {
             FilmName = "Image";
-            SamplerName = "Bestcandidate";
+            SamplerName = "Random";
             AcceleratorName = "Grid";
             SurfaceIntegratorName = "Whitted";
             VolumeIntegratorName = "Emission";
@@ -60,7 +60,7 @@ namespace Hyperion.Core
             ICamera camera = PluginManager.CreateCamera (CameraName, CameraParameters, WorldToCamera, film);
             ISurfaceIntegrator surfaceIntegrator = PluginManager.CreateSurfaceIntegrator (SurfaceIntegratorName, SurfaceIntegratorParameters);
             IVolumeIntegrator volumeIntegrator = PluginManager.CreateVolumeIntegrator (VolumeIntegratorName, VolumeIntegratorParameters);
-            ISampler sampler = PluginManager.CreateSampler (SamplerName, SamplerParameters, film);
+            ISampler sampler = PluginManager.CreateSampler (SamplerName, SamplerParameters, film, camera);
 
             return PluginManager.CreateRenderer ("Sampler", sampler, camera, surfaceIntegrator, volumeIntegrator);
         }

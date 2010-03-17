@@ -15,7 +15,7 @@ namespace Hyperion.Core.PluginSystem
         /// <summary>
         ///
         /// </summary>
-        public delegate ISampler CreateSamplerDelegate (ParameterSet paramSet, IFilm film);
+        public delegate ISampler CreateSamplerDelegate (ParameterSet paramSet, IFilm film, ICamera camera);
 
         /// <summary>
         ///

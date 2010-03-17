@@ -151,6 +151,7 @@
     <Compile Include="PluginSystem\VolumeIntegratorPlugin.cs" />
     <Compile Include="Tools\TextureParameterSet.cs" />
     <Compile Include="PluginSystem\RendererPlugin.cs" />
+    <Compile Include="Interfaces\IAggregate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />

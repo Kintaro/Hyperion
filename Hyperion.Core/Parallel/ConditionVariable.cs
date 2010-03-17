@@ -6,7 +6,7 @@ namespace Hyperion.Core
 {
     public class ConditionVariable
     {
-        private Mutex Mutex;
+        private Mutex Mutex = new Mutex ();
         private ThreadState Condition;
 
         public ConditionVariable ()

@@ -30,6 +30,7 @@ namespace Hyperion.Renderers.Sampler
 
         public void Run ()
         {
+            Console.WriteLine ("Running task...");
             ISampler sampler = MainSampler.GetSubSampler (TaskNumber, TaskCount);
             if (sampler == null)
             {
@@ -42,6 +43,15 @@ namespace Hyperion.Renderers.Sampler
             Spectrum[] Ls = new Spectrum[maxSamples];
             Spectrum[] Ts = new Spectrum[maxSamples];
             Intersection[] isects = new Intersection[maxSamples];
+
+            for (int i = 0; i < maxSamples; ++i)
+            {
+                samples[i] = new Sample ();
+                rays[i] = new RayDifferential ();
+                Ls[i] = new Spectrum ();
+                Ts[i] = new Spectrum ();
+                isects[i] = new Intersection ();
+            }
 
             int sampleCount;
 

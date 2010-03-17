@@ -53,17 +53,14 @@ namespace Hyperion.Core.PluginSystem
             string[] files = Directory.GetFiles (currentDirectory);
             string assemblyPath = string.Empty;
 
-            Console.WriteLine ("Looking for " + name + " in " + category);
             foreach (string file in files)
             {
-                Console.WriteLine ("  Checking " + file);
                 if (file.Contains (category + "." + name + ".dll"))
                 {
                     assemblyPath = file;
                     break;
                 }
             }
-            Console.WriteLine ("Trying to load " + assemblyPath);
             
             _assembly = Assembly.LoadFile (assemblyPath);
         }
@@ -91,7 +88,6 @@ namespace Hyperion.Core.PluginSystem
 
             foreach (Type type in types)
             {
-                Console.WriteLine ("Type.Name: " + type.Name + " :: Method: " + methodName);
                 if (type.Name == _name)
                     return type.GetMethod (methodName);
             }

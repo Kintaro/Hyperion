@@ -8,10 +8,10 @@ namespace Hyperion.Core.Parallel
     public static class ParallelUtility
     {
         public static Thread[] Threads;
-        public static Queue<ITask> TaskQueue;
-        public static Mutex TaskMutex;
-        public static Mutex TaskQueueMutex;
-        public static ConditionVariable TasksRunningCondition;
+        public static Queue<ITask> TaskQueue = new Queue<ITask> ();
+        public static Mutex TaskMutex = new Mutex ();
+        public static Mutex TaskQueueMutex = new Mutex ();
+        public static ConditionVariable TasksRunningCondition = new ConditionVariable ();
         public static int NumberOfUnfinishedTasks;
 
         public static int NumberOfSystemCores
@@ -24,10 +24,11 @@ namespace Hyperion.Core.Parallel
 
         public static void EnqueueTasks (List<ITask> tasks)
         {
-            if (Threads == null)
-                TasksInit ();
             lock (TaskQueueMutex)
             {
+                if (Threads == null)
+                    TasksInit ();
+
                 foreach (ITask task in tasks)
                     TaskQueue.Enqueue (task);
             }
@@ -48,7 +49,9 @@ namespace Hyperion.Core.Parallel
         {
             Threads = new Thread[NumberOfSystemCores];
             for (int i = 0; i < NumberOfSystemCores; ++i)
-                Threads[i] = new Thread (TaskEntry);
+            {
+                (Threads[i] = new Thread (TaskEntry)).Start ();
+            }
         }
 
         private static void TaskEntry ()

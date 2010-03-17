@@ -88,10 +88,10 @@ namespace Hyperion.Core.PluginSystem
             return filter;
         }
 
-        public static ISampler CreateSampler (string name, ParameterSet parameters, IFilm film)
+        public static ISampler CreateSampler (string name, ParameterSet parameters, IFilm film, ICamera camera)
         {
             SamplerPlugin plugin = new SamplerPlugin (name);
-            return plugin.CreateSampler (parameters, film);
+            return plugin.CreateSampler (parameters, film, camera);
         }
 
         public static ILight CreateLight (string name, Transform lightToWorld, ParameterSet parameters)

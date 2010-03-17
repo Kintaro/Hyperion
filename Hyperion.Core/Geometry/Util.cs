@@ -30,6 +30,15 @@ namespace Hyperion.Core.Geometry
             return val;
         }
 
+        public static int Clamp (int val, int low, int high)
+        {
+            if (val < low)
+                return low;
+            if (val > high)
+                return high;
+            return val;
+        }
+
         public static double DistanceSquared (Point a, Point b)
         {
             return (a - b).SquaredLength;
@@ -115,6 +124,11 @@ namespace Hyperion.Core.Geometry
             v |= v >> 8;
             v |= v >> 16;
             return v + 1;
+        }
+
+        public static int RoundToInt (double val)
+        {
+            return Floor2Int (val + 0.5);
         }
     }
 }

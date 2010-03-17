@@ -6,8 +6,8 @@ namespace Hyperion.Core.Interfaces
 {
     public class Sample : CameraSample
     {
-        public List<int> n1D;
-        public List<int> n2D;
+        public List<int> n1D = new List<int> ();
+        public List<int> n2D = new List<int> ();
         public int oneD;
         public int twoD;
         public double[][] samples;

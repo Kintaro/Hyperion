@@ -15,8 +15,12 @@ namespace Hyperion.Renderers.Sampler
         private ISurfaceIntegrator SurfaceIntegrator;
         private IVolumeIntegrator VolumeIntegrator;
 
-        public Sampler ()
+        public Sampler (ISampler sampler, ICamera camera, ISurfaceIntegrator surfaceIntegrator, IVolumeIntegrator volumeIntegrator)
         {
+            MainSampler = sampler;
+            Camera = camera;
+            SurfaceIntegrator = surfaceIntegrator;
+            VolumeIntegrator = volumeIntegrator;
         }
 
         public override Spectrum Li (Scene scene, RayDifferential ray, Sample sample, ref Intersection isect, ref Spectrum T)
@@ -53,11 +57,18 @@ namespace Hyperion.Renderers.Sampler
             for (int i = 0; i < nTasks; ++i)
                 renderTasks.Add (new SamplerRendererTask (scene, this, Camera, MainSampler, sample, nTasks - 1 - i, nTasks));
 
+            Console.WriteLine ("Enqueueing Tasks...");
             ParallelUtility.EnqueueTasks (renderTasks);
+            Console.WriteLine ("Waiting for tasks to finish...");
             ParallelUtility.WaitForAllTasks ();
             renderTasks.Clear ();
 
             Camera.Film.WriteImage ();
+        }
+
+        public static IRenderer CreateRenderer (ISampler sampler, ICamera camera, ISurfaceIntegrator surfaceIntegrator, IVolumeIntegrator volumeIntegrator)
+        {
+            return new Sampler (sampler, camera, surfaceIntegrator, volumeIntegrator);
         }
     }
 }
