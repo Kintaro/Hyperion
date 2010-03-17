@@ -153,7 +153,7 @@ namespace Hyperion.Films.Image
 
         public override void WriteImage (double splatScale)
         {
-            base.WriteImage ();
+            Console.WriteLine (" > Saving image to {0}", FileName);
         }
 
         public override void UpdateDisplay (int x0, int y0, int x1, int y1, double splatScale)

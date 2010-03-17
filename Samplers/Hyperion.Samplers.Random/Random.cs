@@ -60,15 +60,23 @@ namespace Hyperion.Samplers.Random
                 if (yPos == yPixelEnd)
                     return 0;
                 
-                for (int i = 0; i < 5 * nSamples; ++i)
-                    ImageSamples[i] = Util.Random.NextDouble ();
-                
-                // Shift image samples to pixel coordinates
-                for (int o = 0; o < 2 * nSamples; o += 2)
+                for (int i = 0; i < nSamples; ++i)
                 {
-                    ImageSamples[o] += xPos;
-                    ImageSamples[o + 1] += yPos;
+                    TimeSamples[i] = Util.Random.NextDouble ();
                 }
+                
+                for (int i = 0; i < 2 * nSamples; ++i)
+                {
+                    LensSamples[i] = Util.Random.NextDouble ();
+                    ImageSamples[i] = Util.Random.NextDouble ();
+                }
+                
+                for (int i = 0; i < 2 * nSamples; i += 2)
+                {
+                    ImageSamples[i] += xPos;
+                    ImageSamples[i + 1] += yPos;
+                }
+
                 SamplePos = 0;
             }
             // Return next \mono{RandomSampler} sample point

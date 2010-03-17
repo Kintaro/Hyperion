@@ -15,12 +15,12 @@ namespace Hyperion.Integrators.Emission
 
         public override Core.Spectrum Li (Scene scene, IRenderer renderer, RayDifferential ray, Sample sample, ref Spectrum transmittance)
         {
-            throw new System.NotImplementedException ();
+            return new Core.Spectrum ();
         }
 
         public override Core.Spectrum Transmittance (Scene scene, IRenderer renderer, RayDifferential ray, Sample sample)
         {
-            throw new System.NotImplementedException ();
+            return new Core.Spectrum ();
         }
 
         public override void RequestSamples (ISampler sampler, Sample sample, Scene scene)

@@ -30,7 +30,6 @@ namespace Hyperion.Renderers.Sampler
 
         public void Run ()
         {
-            Console.WriteLine ("Running task...");
             ISampler sampler = MainSampler.GetSubSampler (TaskNumber, TaskCount);
             if (sampler == null)
             {
