@@ -150,5 +150,75 @@ namespace Hyperion.Core.Reflection
                     ret += bxdfs[i].Rho (wo, nSamples, s1);
             return ret;
         }
+
+        public Spectrum SampleF (Vector wo, ref Vector wi, BSDFSample bsdfSample, ref double pdf)
+        {
+            BxDFType temp = BxDFType.BSDF_ALL;
+            return SampleF (wo, ref wi, bsdfSample, ref pdf, BxDFType.BSDF_ALL, ref temp);
+        }
+
+        public Spectrum SampleF (Vector wo, ref Vector wi, BSDFSample bsdfSample, ref double pdf, BxDFType flags)
+        {
+            BxDFType temp = BxDFType.BSDF_ALL;
+            return SampleF (wo, ref wi, bsdfSample, ref pdf, flags, ref temp);
+        }
+
+        public Spectrum SampleF (Vector woW, ref Vector wiW, BSDFSample bsdfSample, ref double pdf, BxDFType flags, ref BxDFType sampledType)
+        {
+            int matchingComps = NumComponents (flags);
+            if (matchingComps == 0)
+            {
+                pdf = 0.0;
+                return new Spectrum ();
+            }
+
+            int which = Math.Min (Util.Floor2Int (bsdfSample.uComponent * matchingComps), matchingComps - 1);
+
+            BxDF bxdf = null;
+            int count = which;
+            for (int i = 0; i < nBxDFs; ++i)
+            {
+                if (bxdfs[i].MatchesFlags (flags) && count-- == 0)
+                {
+                    bxdf = bxdfs[i];
+                    break;
+                }
+            }
+
+            Vector wo = WorldToLocal (woW);
+            Vector wi = new Vector ();
+            pdf = 0.0;
+            Spectrum f = bxdf.SampleF (wo, ref wi, bsdfSample.uDir[0], bsdfSample.uDir[1], ref pdf);
+
+            if (pdf == 0.0)
+            {
+                return new Spectrum ();
+            }
+
+            sampledType = bxdf.Type;
+            wiW = LocalToWorld (wi);
+
+            if ((bxdf.Type & BxDFType.BSDF_SPECULAR) == 0 && matchingComps > 1)
+                for (int i = 0; i < nBxDFs; ++i)
+                    if (bxdfs[i] != bxdf && bxdfs[i].MatchesFlags (flags))
+                        pdf += bxdfs[i].Pdf (wo, wi);
+            if (matchingComps > 1)
+                pdf /= matchingComps;
+
+            if ((bxdf.Type & BxDFType.BSDF_SPECULAR) == 0)
+            {
+                f = new Spectrum ();
+                if ((wiW ^ ng) * (woW ^ ng) > 0.0)
+                    flags &= BxDFType.BSDF_TRANSMISSION;
+                else
+                    flags &= BxDFType.BSDF_REFLECTION;
+
+                for (int i = 0; i < nBxDFs; ++i)
+                    if (bxdfs[i].MatchesFlags (flags))
+                        f += bxdfs[i].F (wo, wi);
+            }
+
+            return f;
+        }
     }
 }

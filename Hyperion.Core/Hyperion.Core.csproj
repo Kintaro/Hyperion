@@ -131,6 +131,7 @@
     <Compile Include="Interfaces\ITexture.cs" />
     <Compile Include="Reflection\Lambertian.cs" />
     <Compile Include="Reflection\OrenNayar.cs" />
+    <Compile Include="Interfaces\IntegratorBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
