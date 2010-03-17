@@ -132,6 +132,8 @@
     <Compile Include="Reflection\Lambertian.cs" />
     <Compile Include="Reflection\OrenNayar.cs" />
     <Compile Include="Interfaces\IntegratorBase.cs" />
+    <Compile Include="Parallel\ITask.cs" />
+    <Compile Include="Parallel\ConditionVariable.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
@@ -140,6 +142,7 @@
     <Folder Include="Tools\" />
     <Folder Include="Parser\" />
     <Folder Include="Parser\Nodes\" />
+    <Folder Include="Parallel\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
