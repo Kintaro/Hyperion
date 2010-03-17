@@ -8,8 +8,9 @@ namespace Hyperion.Core
     {
         public double[] c = new double[3];
 
-        public Spectrum () : this (0.0)
-        {}
+        public Spectrum () : this(0.0)
+        {
+        }
 
         public Spectrum (double v)
         {
@@ -51,13 +52,15 @@ namespace Hyperion.Core
             return result;
         }
 
-        public double y
-        {
-            get
-            {
-                double[] YWeight = new double[] { 0.212671, 0.715160, 0.072169 };
+        public double y {
+            get {
+                double[] YWeight = new double[] { 0.212671, 0.71516, 0.072169 };
                 return YWeight[0] * c[0] + YWeight[1] * c[1] + YWeight[2] * c[2];
             }
+        }
+
+        public bool IsBlack {
+            get { return c[0] == 0.0 && c[1] == 0.0 && c[2] == 0.0; }
         }
 
         public static Spectrum operator + (Spectrum a, Spectrum b)

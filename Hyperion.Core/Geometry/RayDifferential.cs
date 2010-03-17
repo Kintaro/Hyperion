@@ -20,9 +20,9 @@ namespace Hyperion.Core.Geometry
             HasDifferentials = false;
         }
 
-        public RayDifferential (Point origin, Vector direction, double start, double end) : this (origin, direction, start, end, 0.0, 0)
+        public RayDifferential (Point origin, Vector direction, double start, double end) : this(origin, direction, start, end, 0.0, 0)
         {
-
+            
         }
 
         public RayDifferential (Point origin, Vector direction, double start, double end, double time, int depth) : base(origin, direction, start, end, time, depth)
@@ -32,6 +32,15 @@ namespace Hyperion.Core.Geometry
 
         public RayDifferential (Ray ray) : this(ray.Origin, ray.Direction, ray.MinT, ray.MaxT, ray.Time, ray.Depth)
         {
+        }
+
+        public RayDifferential (Point origin, Vector direction, Ray parent, double start) : this(origin, direction, parent, start, double.PositiveInfinity)
+        {
+        }
+
+        public RayDifferential (Point origin, Vector direction, Ray parent, double start, double end) : base(origin, direction, start, end, parent.Time, parent.Depth + 1)
+        {
+            HasDifferentials = false;
         }
 
         public void ScaleDifferentials (double s)
