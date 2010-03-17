@@ -40,5 +40,15 @@ namespace Hyperion.Core
             VolumeIntegratorParameters = new ParameterSet ();
             AcceleratorParameters = new ParameterSet ();
         }
+
+        public Scene CreateScene ()
+        {
+            return null;
+        }
+
+        public IRenderer CreateRenderer ()
+        {
+            return null;
+        }
     }
 }

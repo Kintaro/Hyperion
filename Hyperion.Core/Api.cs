@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Hyperion.Core.Tools;
 using Hyperion.Core.Geometry;
+using Hyperion.Core.Interfaces;
 
 namespace Hyperion.Core
 {
@@ -143,6 +144,11 @@ namespace Hyperion.Core
 
         public static void WorldEnd ()
         {
+            IRenderer renderer = Api.RenderOptions.CreateRenderer ();
+            Scene scene = Api.RenderOptions.CreateScene ();
+
+            if (scene != null && renderer != null)
+                renderer.Render (scene);
         }
     }
 }
