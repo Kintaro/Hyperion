@@ -17,6 +17,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Materials", "Materials", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hyperion.Materials.Matte", "Materials\Hyperion.Materials.Matte\Hyperion.Materials.Matte.csproj", "{2A55C28E-1D19-488D-9A4B-873577619B89}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integrators", "Integrators", "{080459C1-F2A5-427D-9E42-52459F316203}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hyperion.Integrators.Whitted", "Integrators\Hyperion.Integrators.Whitted\Hyperion.Integrators.Whitted.csproj", "{30FD2FF4-D18E-4999-97EC-CE3EAEC2C715}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,10 @@ Global
 		{2A55C28E-1D19-488D-9A4B-873577619B89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A55C28E-1D19-488D-9A4B-873577619B89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A55C28E-1D19-488D-9A4B-873577619B89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30FD2FF4-D18E-4999-97EC-CE3EAEC2C715}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30FD2FF4-D18E-4999-97EC-CE3EAEC2C715}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30FD2FF4-D18E-4999-97EC-CE3EAEC2C715}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30FD2FF4-D18E-4999-97EC-CE3EAEC2C715}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3BA8DC2D-CE04-4229-A75A-3C5EB386DF80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3BA8DC2D-CE04-4229-A75A-3C5EB386DF80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BA8DC2D-CE04-4229-A75A-3C5EB386DF80}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -48,6 +56,7 @@ Global
 		{077F7067-8125-45DC-824F-47A415CE6585} = {BF8C16F4-CAEB-46B7-8EE6-3001775D1D83}
 		{27268D7A-C91D-4FC6-83F8-0D2E365A2071} = {AF97F686-3A66-4C42-BDD1-9C7940DD72F1}
 		{2A55C28E-1D19-488D-9A4B-873577619B89} = {C1568F7C-7381-4C5F-9961-2F16CBE8154D}
+		{30FD2FF4-D18E-4999-97EC-CE3EAEC2C715} = {080459C1-F2A5-427D-9E42-52459F316203}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Hyperion.Core\Hyperion.Core.csproj

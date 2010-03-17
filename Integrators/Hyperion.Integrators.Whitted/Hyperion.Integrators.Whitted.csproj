@@ -5,10 +5,10 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2A55C28E-1D19-488D-9A4B-873577619B89}</ProjectGuid>
+    <ProjectGuid>{30FD2FF4-D18E-4999-97EC-CE3EAEC2C715}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Hyperion.Materials.Matte</RootNamespace>
-    <AssemblyName>Hyperion.Materials.Matte</AssemblyName>
+    <RootNamespace>Hyperion.Integrators.Whitted</RootNamespace>
+    <AssemblyName>Hyperion.Integrators.Whitted</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -34,13 +34,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Matte.cs" />
+    <Compile Include="Whitted.cs" />
   </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\..\Hyperion.Core\Hyperion.Core.csproj">
       <Project>{0141AB4A-89D0-467D-BA34-3EEC1A3ECB50}</Project>
       <Name>Hyperion.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
