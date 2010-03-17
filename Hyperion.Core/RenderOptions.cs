@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Hyperion.Core.Tools;
 using Hyperion.Core.Geometry;
 using Hyperion.Core.Interfaces;
+using Hyperion.Core.PluginSystem;
 
 namespace Hyperion.Core
 {
@@ -43,12 +44,20 @@ namespace Hyperion.Core
 
         public Scene CreateScene ()
         {
-            return null;
+            IPrimitive accelerator = PluginManager.CreateAccelerator (AcceleratorName, Primitives, AcceleratorParameters);
+            return new Scene (accelerator, Lights, null);
         }
 
         public IRenderer CreateRenderer ()
         {
-            return null;
+            IFilter filter = PluginManager.CreateFilter (FilterName, FilterParameters);
+            IFilm film = PluginManager.CreateFilm (FilmName, FilmParameters, filter);
+            ICamera camera = PluginManager.CreateCamera (CameraName, CameraParameters, WorldToCamera, film);
+            ISurfaceIntegrator surfaceIntegrator = PluginManager.CreateSurfaceIntegrator (SurfaceIntegratorName, SurfaceIntegratorParameters);
+            IVolumeIntegrator volumeIntegrator = PluginManager.CreateVolumeIntegrator (VolumeIntegratorName, VolumeIntegratorParameters);
+            ISampler sampler = PluginManager.CreateSampler (SamplerName, SamplerParameters, film);
+
+            return PluginManager.CreateRenderer ("Sampler", sampler, camera, surfaceIntegrator, volumeIntegrator);
         }
     }
 }

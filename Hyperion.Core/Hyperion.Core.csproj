@@ -135,6 +135,22 @@
     <Compile Include="Parallel\ITask.cs" />
     <Compile Include="Parallel\ConditionVariable.cs" />
     <Compile Include="Parallel\ParallelUtility.cs" />
+    <Compile Include="PluginSystem\AcceleratorPlugin.cs" />
+    <Compile Include="PluginSystem\AreaLightPlugin.cs" />
+    <Compile Include="PluginSystem\CameraPlugin.cs" />
+    <Compile Include="PluginSystem\FilmPlugin.cs" />
+    <Compile Include="PluginSystem\FilterPlugin.cs" />
+    <Compile Include="PluginSystem\LightPlugin.cs" />
+    <Compile Include="PluginSystem\MaterialPlugin.cs" />
+    <Compile Include="PluginSystem\Plugin.cs" />
+    <Compile Include="PluginSystem\PluginManager.cs" />
+    <Compile Include="PluginSystem\SamplerPlugin.cs" />
+    <Compile Include="PluginSystem\ShapePlugin.cs" />
+    <Compile Include="PluginSystem\SurfaceIntegratorPlugin.cs" />
+    <Compile Include="PluginSystem\TexturePlugin.cs" />
+    <Compile Include="PluginSystem\VolumeIntegratorPlugin.cs" />
+    <Compile Include="Tools\TextureParameterSet.cs" />
+    <Compile Include="PluginSystem\RendererPlugin.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
@@ -144,6 +160,7 @@
     <Folder Include="Parser\" />
     <Folder Include="Parser\Nodes\" />
     <Folder Include="Parallel\" />
+    <Folder Include="PluginSystem\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
