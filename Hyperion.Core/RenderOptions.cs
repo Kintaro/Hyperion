@@ -23,7 +23,7 @@ namespace Hyperion.Core
         public ParameterSet SurfaceIntegratorParameters;
         public string VolumeIntegratorName;
         public ParameterSet VolumeIntegratorParameters;
-        public AnimatedTransform WorldToCamera;
+        public AnimatedTransform WorldToCamera = new AnimatedTransform (new Transform (), 0.0, new Transform (), 0.0);
         public List<IPrimitive> Primitives = new List<IPrimitive> ();
         public List<IVolumeRegion> VolumeRegions = new List<IVolumeRegion> ();
         public List<ILight> Lights = new List<ILight> ();
@@ -44,6 +44,7 @@ namespace Hyperion.Core
             FilterParameters = new ParameterSet ();
             FilmParameters = new ParameterSet ();
             SamplerParameters = new ParameterSet ();
+            CameraParameters = new ParameterSet ();
         }
 
         public Scene CreateScene ()

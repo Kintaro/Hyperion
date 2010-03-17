@@ -4,6 +4,7 @@ using Hyperion.Core;
 using Hyperion.Core.Interfaces;
 using Hyperion.Core.Geometry;
 using Hyperion.Core.Reflection;
+using Hyperion.Core.Tools;
 
 namespace Hyperion.Integrators.Whitted
 {
@@ -49,6 +50,12 @@ namespace Hyperion.Integrators.Whitted
             }
 
             return L;
+        }
+
+        public static ISurfaceIntegrator CreateSurfaceIntegrator (ParameterSet parameters)
+        {
+            int maxDepth = parameters.FindOneInt ("maxdepth", 5);
+            return new Whitted (maxDepth);
         }
     }
 }

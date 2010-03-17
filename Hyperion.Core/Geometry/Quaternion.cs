@@ -22,6 +22,7 @@ namespace Hyperion.Core.Geometry
 
         public Quaternion (Transform t)
         {
+            v = new Vector ();
             Matrix m = t.Matrix;
             double trace = m.m[0] + m.m[5] + m.m[10];
             if (trace > 0.0)
