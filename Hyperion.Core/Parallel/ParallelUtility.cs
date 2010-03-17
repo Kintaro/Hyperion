@@ -71,5 +71,10 @@ namespace Hyperion.Core.Parallel
                 TasksRunningCondition.Unlock ();
             }
         }
+
+        public static void AtomicAdd<T> (ref T destination, T source)
+        {
+            destination = source;
+        }
     }
 }

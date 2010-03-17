@@ -55,6 +55,11 @@ namespace Hyperion.Core.Geometry
             return (int)Math.Floor (val);
         }
 
+        public static int Ceil2Int (double val)
+        {
+            return (int)Math.Ceiling (val);
+        }
+
         public static bool SameHemisphere (Vector w, Vector wp)
         {
             return w.z * wp.z > 0.0;

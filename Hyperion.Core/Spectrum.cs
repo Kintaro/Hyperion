@@ -52,6 +52,18 @@ namespace Hyperion.Core
             return result;
         }
 
+        public void ToXyz (double[] xyz)
+        {
+            RgbToXyz (c, xyz);
+        }
+
+        public static void RgbToXyz(double[] rgb, double[] xyz)
+        {
+            xyz[0] = 0.412453 * rgb[0] + 0.357580 * rgb[1] + 0.180423 * rgb[2];
+            xyz[1] = 0.212671 * rgb[0] + 0.715160 * rgb[1] + 0.072169 * rgb[2];
+            xyz[2] = 0.019334 * rgb[0] + 0.119193 * rgb[1] + 0.950227 * rgb[2];
+        }
+
         public double y {
             get {
                 double[] YWeight = new double[] { 0.212671, 0.71516, 0.072169 };
@@ -61,6 +73,10 @@ namespace Hyperion.Core
 
         public bool IsBlack {
             get { return c[0] == 0.0 && c[1] == 0.0 && c[2] == 0.0; }
+        }
+
+        public bool HasNaNs {
+            get { return double.IsNaN (c[0]) || double.IsNaN (c[1]) || double.IsNaN (c[2]); }
         }
 
         public static Spectrum operator + (Spectrum a, Spectrum b)

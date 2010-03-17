@@ -15,7 +15,7 @@ namespace Hyperion.Core.PluginSystem
         /// <summary>
         ///
         /// </summary>
-        public delegate ICamera CreateCameraDelegate (ParameterSet paramSet, Transform worldToCamera, IFilm film);
+        public delegate ICamera CreateCameraDelegate (ParameterSet paramSet, AnimatedTransform worldToCamera, IFilm film);
 
         /// <summary>
         ///

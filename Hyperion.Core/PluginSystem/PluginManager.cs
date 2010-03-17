@@ -8,7 +8,7 @@ namespace Hyperion.Core.PluginSystem
 {
     public static class PluginManager
     {
-        public static ICamera CreateCamera (string name, ParameterSet paramSet, Transform worldToCamera, IFilm film)
+        public static ICamera CreateCamera (string name, ParameterSet paramSet, AnimatedTransform worldToCamera, IFilm film)
         {
             CameraPlugin plugin = new CameraPlugin (name);
             return plugin.CreateCamera (paramSet, worldToCamera, film);
@@ -16,7 +16,7 @@ namespace Hyperion.Core.PluginSystem
 
         public static IFilm CreateFilm (string name, ParameterSet paramSet, IFilter filter)
         {
-            FilmPlugin plugin = new FilmPlugin (name + "Film");
+            FilmPlugin plugin = new FilmPlugin (name);
             return plugin.CreateFilm (paramSet, filter);
         }
 

@@ -9,9 +9,11 @@ namespace Hyperion.Core
 {
     public static class Api
     {
+        public const string Version = "0.0.1";
+        public static readonly DateTime VersionDate = new DateTime (2010, 3, 17, 20, 23, 50);
         public static TransformSet CurrentTransform = new TransformSet ();
         public static Dictionary<string, TransformSet> NamedCoordinateSystems = new Dictionary<string, TransformSet> ();
-        public static RenderOptions RenderOptions = null;
+        public static RenderOptions RenderOptions = new RenderOptions ();
         public static GraphicsState GraphicsState = new GraphicsState ();
         public static Stack<GraphicsState> PushedGraphicsStates = new Stack<GraphicsState> ();
         public static Stack<TransformSet> PushedTransforms = new Stack<TransformSet> ();
