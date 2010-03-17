@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<project name="Hyperion" default="all" basedir=".">
+	<description>Hyperion</description>
+
+	<!-- Subsystems -->
+	<target name="sampler"><nant buildfile="Hyperion.Renderers.Sampler/hyperion.build"/></target>
+	
+	<!-- meta target -->
+	<target name="all" depends="sampler"/>
+
+		
+</project>

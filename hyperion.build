@@ -16,10 +16,11 @@
 	<target name="lights"><nant buildfile="Lights/hyperion.build"/></target>
 	<target name="materials"><nant buildfile="Materials/hyperion.build"/></target>
 	<target name="integrators"><nant buildfile="Integrators/hyperion.build"/></target>
+	<target name="renderers"><nant buildfile="Renderers/hyperion.build"/></target>
 	<target name="hyperion" depends="core"><nant buildfile="Hyperion/hyperion.build"/></target>
 	
 	<!-- meta target -->
-	<target name="all" depends="init,core,cameras,lights,materials,integrators,hyperion"/>
+	<target name="all" depends="init,core,cameras,lights,materials,integrators,renderers,hyperion"/>
 
 		
 </project>

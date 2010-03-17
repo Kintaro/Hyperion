@@ -134,6 +134,7 @@
     <Compile Include="Interfaces\IntegratorBase.cs" />
     <Compile Include="Parallel\ITask.cs" />
     <Compile Include="Parallel\ConditionVariable.cs" />
+    <Compile Include="Parallel\ParallelUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
