@@ -9,29 +9,51 @@ namespace Hyperion.Integrators.Emission
 {
     public class Emission : IVolumeIntegrator
     {
-        public Emission ()
+        private double StepSize;
+        private int TauSampleOffset;
+        private int ScatterSampleOffset;
+
+        public Emission (double stepSize)
         {
+            StepSize = stepSize;
         }
 
-        public override Core.Spectrum Li (Scene scene, IRenderer renderer, RayDifferential ray, Sample sample, ref Spectrum transmittance)
+        public override Spectrum Li (Scene scene, IRenderer renderer, RayDifferential ray, Sample sample, ref Spectrum transmittance)
         {
-            return new Core.Spectrum ();
+            return new Spectrum ();
         }
 
-        public override Core.Spectrum Transmittance (Scene scene, IRenderer renderer, RayDifferential ray, Sample sample)
+        public override Spectrum Transmittance (Scene scene, IRenderer renderer, RayDifferential ray, Sample sample)
         {
-            return new Core.Spectrum ();
+            if (scene.VolumeRegion == null)
+                return new Spectrum (1.0);
+
+            double step, offset;
+            if (sample != null)
+            {
+                step = StepSize;
+                offset = sample.samples[sample.oneD + TauSampleOffset][0];
+            }
+            else
+            {
+                step = 4.0 * StepSize;
+                offset = Util.Random.NextDouble ();
+            }
+            /*Spectrum tau = scene.VolumeRegion.Tau (ray, step, offset);
+            return (-tau).Exp;*/
+            return null;
         }
 
         public override void RequestSamples (ISampler sampler, Sample sample, Scene scene)
         {
-            base.RequestSamples (sampler, sample, scene);
+            TauSampleOffset = sample.Add1D (1);
+            ScatterSampleOffset = sample.Add1D (1);
         }
 
         public static IVolumeIntegrator CreateVolumeIntegrator (ParameterSet parameters)
         {
             double stepSize = parameters.FindOneDouble ("stepsize", 1.0);
-            return new Emission ();
+            return new Emission (stepSize);
         }
     }
 }

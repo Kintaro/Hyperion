@@ -130,5 +130,33 @@ namespace Hyperion.Core.Geometry
         {
             return Floor2Int (val + 0.5);
         }
+
+        public static void CoordinateSystem (Vector v1, out Vector v2, out Vector v3)
+        {
+            if (Math.Abs (v1.x) > Math.Abs (v1.y))
+            {
+                double invLen = 1.0 / Math.Sqrt (v1.x * v1.x + v1.z * v1.z);
+                v2 = new Vector (-v1.z * invLen, 0.0, v1.x * invLen);
+            } else
+            {
+                double invLen = 1.0 / Math.Sqrt (v1.y * v1.y + v1.z * v1.z);
+                v2 = new Vector (0.0, v1.z * invLen, -v1.y * invLen);
+            }
+            v3 = (v1 % v2);
+        }
+
+        public static bool SolveLinearSystem2x2 (double[][] A, double B0, double B1, out double x0, out double x1)
+        {
+            x0 = 0.0;
+            x1 = 0.0;
+            double det = A[0][0] * A[1][1] - A[0][1] * A[1][0];
+            if (Math.Abs (det) < 1E-10)
+                return false;
+            x0 = (A[1][1] * B0 - A[0][1] * B1) / det;
+            x1 = (A[0][0] * B1 - A[1][0] * B0) / det;
+            if (double.IsNaN (x0) || double.IsNaN (x1))
+                return false;
+            return true;
+        }
     }
 }

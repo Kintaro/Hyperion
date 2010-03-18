@@ -90,5 +90,12 @@ namespace Hyperion.Core.Geometry
         {
             return 1.0 / (4.0 * Util.Pi);
         }
+
+        public static void UniformSampleTriangle (double u1, double u2, out double u, out double v)
+        {
+            double su1 = Math.Sqrt (u1);
+            u = 1.0 - su1;
+            v = u2 * su1;
+        }
     }
 }

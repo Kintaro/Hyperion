@@ -71,6 +71,22 @@ namespace Hyperion.Core.Geometry
                 return new Point (xp, yp, zp) / wp;
         }
 
+        public Vector Apply (Vector v)
+        {
+            double x = v.x, y = v.y, z = v.z;
+            return new Vector (m.m[0] * x + m.m[1] * y + m.m[2] * z,
+                m.m[4] * x + m.m[5] * y + m.m[6] * z,
+                m.m[8] * x + m.m[9] * y + m.m[10] * z);
+        }
+
+        public Normal Apply (Normal n)
+        {
+            double x = n.x, y = n.y, z = n.z;
+            return new Normal (mInv.m[0] * x + mInv.m[4] * y + mInv.m[8] * z,
+                mInv.m[1] * x + mInv.m[5] * y + mInv.m[9] * z,
+                mInv.m[2] * x + mInv.m[6] * y + mInv.m[10] * z);
+        }
+
         public void Apply (Point pt, ref Point ptrans)
         {
             double x = pt.x, y = pt.y, z = pt.z;
