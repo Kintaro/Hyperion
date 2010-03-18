@@ -16,20 +16,26 @@ namespace Hyperion.Core.Interfaces
             Film = film;
             sopen = ShutterOpen;
             sclose = ShutterClose;
-            CameraToWorld = camToWorld;
+            CameraToWorld = new AnimatedTransform (camToWorld);
         }
 
-        public abstract double GenerateRay (CameraSample sample, Ray ray);
+        public abstract double GenerateRay (CameraSample sample, ref Ray ray);
 
         public virtual double GenerateRayDifferential (CameraSample sample, ref RayDifferential rd)
         {
-            double wt = GenerateRay (sample, rd);
+            Ray r = new Ray (rd.Origin, rd.Direction, rd.MinT, rd.MaxT, rd.Time);
+            double wt = GenerateRay (sample, ref r);
+            rd.Origin = r.Origin;
+            rd.Direction = r.Direction;
+            rd.MinT = r.MinT;
+            rd.MaxT = r.MaxT;
+            rd.Time = r.Time;
 
             CameraSample sshift = sample;
             ++sshift.ImageX;
 
             Ray rx = new Ray ();
-            double wtx = GenerateRay (sshift, rx);
+            double wtx = GenerateRay (sshift, ref rx);
             rd.RxOrigin = rx.Origin;
             rd.RxDirection = rx.Direction;
 
@@ -37,7 +43,7 @@ namespace Hyperion.Core.Interfaces
             ++sshift.ImageY;
 
             Ray ry = new Ray ();
-            double wty = GenerateRay (sshift, ry);
+            double wty = GenerateRay (sshift, ref ry);
             rd.RyOrigin = ry.Origin;
             rd.RyDirection = ry.Direction;
 

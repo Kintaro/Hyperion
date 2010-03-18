@@ -64,6 +64,8 @@ namespace Hyperion.Renderers.Sampler
                     double rayWeight = Camera.GenerateRayDifferential (samples[i], ref rays[i]);
                     rays[i].ScaleDifferentials (1.0 / Math.Sqrt (sampler.SamplesPerPixel));
 
+                    Console.WriteLine ("Sample: {3}, {4} / Dir: {0}, {1}, {2}", rays[i].Direction.x, rays[i].Direction.y, rays[i].Direction.z, samples[i].ImageX, samples[i].ImageY);
+
                     if (rayWeight > 0.0)
                         Ls[i] = rayWeight * Renderer.Li (Scene, rays[i], samples[i], ref isects[i], ref Ts[i]);
                     else

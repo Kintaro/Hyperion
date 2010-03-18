@@ -18,7 +18,7 @@ namespace Hyperion.Core.Parallel
         {
             get
             {
-                return Environment.ProcessorCount;
+                return 1;
             }
         }
 

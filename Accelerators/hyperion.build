@@ -4,9 +4,10 @@
 
 	<!-- Subsystems -->
 	<target name="grid"><nant buildfile="Hyperion.Accelerators.Grid/hyperion.build"/></target>
+	<target name="kdtree"><nant buildfile="Hyperion.Accelerators.KdTree/hyperion.build"/></target>
 	
 	<!-- meta target -->
-	<target name="all" depends="grid"/>
+	<target name="all" depends="kdtree"/>
 
 		
 </project>

@@ -8,6 +8,7 @@ namespace Hyperion
     {
         public static void Main (string[] args)
         {
+            Console.WriteLine ("---------------------------------------------------------------------");
             Console.WriteLine ("Hyperion version {0} of {1} at {2} [Detected {3} core(s)]", Api.Version, Api.VersionDate.Date.ToShortDateString (), Api.VersionDate.TimeOfDay, ParallelUtility.NumberOfSystemCores);
             Console.WriteLine ("---------------------------------------------------------------------");
             Console.WriteLine ("System:  {0}", System.Environment.MachineName);

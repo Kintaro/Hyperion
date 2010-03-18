@@ -20,6 +20,7 @@ namespace Hyperion.Shapes.TriangleMesh
 
         public override bool Intersect (Ray ray, ref double tHit, ref double rayEpsilon, ref DifferentialGeometry dg)
         {
+            System.Console.WriteLine (">>>");
             Point p1 = Mesh.Points[Vertices[0]];
             Point p2 = Mesh.Points[Vertices[1]];
             Point p3 = Mesh.Points[Vertices[2]];
@@ -27,22 +28,26 @@ namespace Hyperion.Shapes.TriangleMesh
             Vector e1 = p2 - p1;
             Vector e2 = p3 - p1;
             Vector s1 = ray.Direction % e2;
-            
+
+            System.Console.WriteLine ("  1");
             double divisor = s1 ^ e1;
             if (divisor == 0.0)
                 return false;
             double invDivisor = 1.0 / divisor;
-            
+
+            System.Console.WriteLine ("  2");
             Vector d = ray.Origin - p1;
             double b1 = (d ^ s1) * invDivisor;
             if (b1 < 0.0 || b1 > 1.0)
                 return false;
-            
+
+            System.Console.WriteLine ("  3");
             Vector s2 = d % e1;
             double b2 = (ray.Direction ^ s2) / invDivisor;
             if (b2 < 0.0 || b1 + b2 > 1.0)
                 return false;
-            
+
+            System.Console.WriteLine ("  4");
             double t = (e2 ^ s2) * invDivisor;
             if (t < ray.MinT || t > ray.MaxT)
                 return false;
@@ -83,7 +88,7 @@ namespace Hyperion.Shapes.TriangleMesh
             dg = new DifferentialGeometry (ray.Apply (t), dpdu, dpdv, new Normal (), new Normal (), tu, tv, this);
             tHit = t;
             rayEpsilon = 0.001 * tHit;
-            System.Console.WriteLine ("HIT!");
+            System.Console.WriteLine ("<<<");
             return true;
         }
 

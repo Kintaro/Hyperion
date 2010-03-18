@@ -368,6 +368,7 @@ namespace Hyperion.Accelerators.KdTree
             {
                 return false;
             }
+            Console.WriteLine ("Biatch!");
 
             Vector inverseDirection = new Vector (1.0 / ray.Direction.x, 1.0 / ray.Direction.y, 1.0 / ray.Direction.z);
 

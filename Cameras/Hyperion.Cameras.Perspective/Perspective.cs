@@ -18,17 +18,13 @@ namespace Hyperion.Cameras.Perspective
             dyCamera = RasterToCamera.Apply (new Point (0.0, 1.0, 0.0)) - RasterToCamera.Apply (new Point (0.0, 0.0, 0.0));
         }
 
-        public override double GenerateRay (CameraSample sample, Ray ray)
+        public override double GenerateRay (CameraSample sample, ref Ray ray)
         {
             // Generate raster and camera samples
             Point pRas = new Point (sample.ImageX, sample.ImageY, 0);
             Point pCam = new Point ();
             RasterToCamera.Apply (pRas, ref pCam);
-            
-            ray.Origin = new Point ();
-            ray.Direction = new Vector (pCam);
-            ray.MinT = 0.0;
-            ray.MaxT = double.PositiveInfinity;
+            ray = new Ray (new Point (), new Vector (pCam), 0.0, double.PositiveInfinity);
             
             if (LensRadius > 0.0)
             {

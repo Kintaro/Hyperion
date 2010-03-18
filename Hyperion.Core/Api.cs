@@ -19,7 +19,7 @@ namespace Hyperion.Core
         public static Stack<TransformSet> PushedTransforms = new Stack<TransformSet> ();
         public static Stack<int> PushedActiveTransformBits = new Stack<int> ();
         public static TransformCache TransformCache = new TransformCache ();
-        public static int ActiveTransformBits;
+        public static int ActiveTransformBits = 3;
 
         public static void Accelerator (string name, ParameterSet parameterSet)
         {
@@ -42,7 +42,7 @@ namespace Hyperion.Core
         public static void AttributeEnd ()
         {
             Api.GraphicsState = Api.PushedGraphicsStates.Pop ();
-            Api.CurrentTransform = Api.PushedTransforms.Pop ();
+            Api.CurrentTransform = new TransformSet (Api.PushedTransforms.Pop ());
             Api.ActiveTransformBits = Api.PushedActiveTransformBits.Pop ();
         }
 
@@ -51,7 +51,7 @@ namespace Hyperion.Core
             Api.RenderOptions.CameraName = name;
             Api.RenderOptions.CameraParameters = parameterSet;
             Api.RenderOptions.CameraToWorld = CurrentTransform.Inverse;
-            NamedCoordinateSystems["camera"] = Api.RenderOptions.CameraToWorld;
+            NamedCoordinateSystems["camera"] = new TransformSet (Api.RenderOptions.CameraToWorld);
         }
 
         public static void ConcatTransform (double[] tr)
@@ -67,7 +67,7 @@ namespace Hyperion.Core
         public static void CoordSysTransform (string name)
         {
             if (Api.NamedCoordinateSystems.ContainsKey (name))
-                Api.CurrentTransform = Api.NamedCoordinateSystems[name];
+                Api.CurrentTransform = new TransformSet (Api.NamedCoordinateSystems[name]);
         }
 
         public static void Film (string name, ParameterSet parameterSet)
@@ -91,6 +91,9 @@ namespace Hyperion.Core
 
         public static void Material (string name, ParameterSet parameterSet)
         {
+            Api.GraphicsState.Material = name;
+            Api.GraphicsState.MaterialParameters = parameterSet;
+            Api.GraphicsState.CurrentNamedMaterial = "";
         }
 
         public static void PixelFilter (string name, ParameterSet parameterSet)
@@ -163,13 +166,13 @@ namespace Hyperion.Core
 
         public static void TransformBegin ()
         {
-            Api.PushedTransforms.Push (Api.CurrentTransform);
+            Api.PushedTransforms.Push (new TransformSet (Api.CurrentTransform));
             Api.PushedActiveTransformBits.Push (Api.ActiveTransformBits);
         }
 
         public static void TransformEnd ()
         {
-            Api.CurrentTransform = Api.PushedTransforms.Pop ();
+            Api.CurrentTransform = new TransformSet (Api.PushedTransforms.Pop ());
             Api.ActiveTransformBits = Api.PushedActiveTransformBits.Pop ();
         }
 

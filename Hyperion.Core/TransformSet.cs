@@ -8,6 +8,15 @@ namespace Hyperion.Core
     {
         private Transform[] t = new Transform[] { new Transform (), new Transform () };
 
+        public TransformSet ()
+        {}
+
+        public TransformSet (TransformSet tset)
+        {
+            t[0] = new Transform (tset[0]);
+            t[1] = new Transform (tset[1]);
+        }
+
         public Transform this[int index] {
             get { return t[index]; }
             set { t[index] = value; }

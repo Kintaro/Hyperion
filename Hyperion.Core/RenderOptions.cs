@@ -10,8 +10,8 @@ namespace Hyperion.Core
 {
     public sealed class RenderOptions
     {
-        public double TransformStart;
-        public double TransformEnd;
+        public double TransformStart = 0.0;
+        public double TransformEnd = 1.0;
         public string AcceleratorName;
         public ParameterSet AcceleratorParameters;
         public string CameraName;
@@ -36,7 +36,7 @@ namespace Hyperion.Core
         {
             FilmName = "Image";
             SamplerName = "Random";
-            AcceleratorName = "Grid";
+            AcceleratorName = "KdTree";
             SurfaceIntegratorName = "Whitted";
             VolumeIntegratorName = "Emission";
             CameraName = "Perspective";
@@ -63,7 +63,7 @@ namespace Hyperion.Core
             Console.WriteLine ("  > Loading Film Module");
             IFilm film = PluginManager.CreateFilm (FilmName, FilmParameters, filter);
             Console.WriteLine ("  > Loading Camera Module");
-            ICamera camera = PluginManager.CreateCamera (CameraName, CameraParameters, CameraToWorld, TransformStart, TransformEnd, film);
+            ICamera camera = PluginManager.CreateCamera (CameraName, CameraParameters, CameraToWorld, Api.RenderOptions.TransformStart, Api.RenderOptions.TransformEnd, film);
             Console.WriteLine ("  > Loading Surface Integrator Module");
             ISurfaceIntegrator surfaceIntegrator = PluginManager.CreateSurfaceIntegrator (SurfaceIntegratorName, SurfaceIntegratorParameters);
             Console.WriteLine ("  > Loading Volume Integrator Module");

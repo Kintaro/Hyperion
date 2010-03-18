@@ -14,6 +14,9 @@ namespace Hyperion.Core.Geometry
         private Quaternion[] R;
         private Matrix[] S;
 
+        public AnimatedTransform (AnimatedTransform anim) : this (anim.StartTransform, anim.StartTime, anim.EndTransform, anim.EndTime)
+        {}
+
         public AnimatedTransform (Transform transform1, double time1, Transform transform2, double time2)
         {
             StartTime = time1;
@@ -27,7 +30,7 @@ namespace Hyperion.Core.Geometry
             S = new Matrix[] { new Matrix (), new Matrix () };
             
             Decompose (StartTransform.Matrix, ref T[0], ref R[0], ref S[0]);
-            Decompose (StartTransform.Matrix, ref T[1], ref R[1], ref S[1]);
+            Decompose (EndTransform.Matrix, ref T[1], ref R[1], ref S[1]);
         }
 
         public static void Decompose (Matrix m, ref Vector T, ref Quaternion Rquat, ref Matrix S)
@@ -119,7 +122,8 @@ namespace Hyperion.Core.Geometry
         public void Apply (RayDifferential r, ref RayDifferential tr)
         {
             if (!ActuallyAnimated || r.Time <= StartTime)
-                StartTransform.Apply (r, ref tr); else if (r.Time >= EndTime)
+                StartTransform.Apply (r, ref tr);
+            else if (r.Time >= EndTime)
                 EndTransform.Apply (r, ref tr);
             else
             {

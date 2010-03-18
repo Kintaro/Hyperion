@@ -80,7 +80,9 @@ namespace Hyperion.Core.Geometry
         public Normal Apply (Normal n)
         {
             double x = n.x, y = n.y, z = n.z;
-            return new Normal (mInv.m[0] * x + mInv.m[4] * y + mInv.m[8] * z, mInv.m[1] * x + mInv.m[5] * y + mInv.m[9] * z, mInv.m[2] * x + mInv.m[6] * y + mInv.m[10] * z);
+            return new Normal (mInv.m[0] * x + mInv.m[4] * y + mInv.m[8] * z,
+                mInv.m[1] * x + mInv.m[5] * y + mInv.m[9] * z,
+                mInv.m[2] * x + mInv.m[6] * y + mInv.m[10] * z);
         }
 
         public void Apply (Point pt, ref Point ptrans)
@@ -134,13 +136,16 @@ namespace Hyperion.Core.Geometry
         {
             Apply (r.Origin, ref rt.Origin);
             Apply (r.Direction, ref rt.Direction);
-            if (rt != r)
-            {
-                rt.MinT = r.MinT;
-                rt.MaxT = r.MaxT;
-                rt.Time = r.Time;
-                rt.Depth = r.Depth;
-            }
+            rt.MinT = r.MinT;
+            rt.MaxT = r.MaxT;
+            rt.Time = r.Time;
+            rt.Depth = r.Depth;
+
+            rt.HasDifferentials = r.HasDifferentials;
+            Apply (r.RxOrigin, ref rt.RxOrigin);
+            Apply (r.RyOrigin, ref rt.RyOrigin);
+            Apply (r.RxDirection, ref rt.RxDirection);
+            Apply (r.RyDirection, ref rt.RyDirection);
         }
 
         public static Transform operator * (Transform t1, Transform t2)
