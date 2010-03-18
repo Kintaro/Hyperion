@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using Hyperion.Core.Geometry;
 using Hyperion.Core.Reflection;
 
@@ -74,6 +75,12 @@ namespace Hyperion.Core.Interfaces
             return Material.GetBssrdf (dg, dgs);
         }
 
-
+        public override void Refine (List<IPrimitive> refined)
+        {
+            List<IShape> r = new List<IShape> ();
+            Shape.Refine (r);
+            foreach (IShape shape in r)
+                refined.Add (new GeometricPrimitive (shape, Material, AreaLight));
+        }
     }
 }

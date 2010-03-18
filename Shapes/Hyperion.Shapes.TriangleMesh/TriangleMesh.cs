@@ -37,7 +37,7 @@ namespace Hyperion.Shapes.TriangleMesh
 
         public override void Refine (List<IShape> refined)
         {
-            for (int i = 0; i < NumberOfVertices; ++i)
+            for (int i = 0; i < NumberOfTriangles; ++i)
                 refined.Add (new Triangle (ObjectToWorld, WorldToObject, ReverseOrientation, this, i));
         }
 

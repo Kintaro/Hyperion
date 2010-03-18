@@ -30,6 +30,7 @@ namespace Hyperion.Films.Image
 
         public Image (int xres, int yres, IFilter filter, double[] crop, string filename, bool openWindow) : base(xres, yres)
         {
+            Console.WriteLine ("    # Creating ImageFilm with {0}x{1}", xres, yres);
             Filter = filter;
             CropWindow = crop;
             FileName = filename;
@@ -37,19 +38,19 @@ namespace Hyperion.Films.Image
             xPixelCount = Math.Max (1, Util.Ceil2Int (xResolution * CropWindow[1]) - xPixelStart);
             yPixelStart = Util.Ceil2Int (yResolution * CropWindow[2]);
             yPixelCount = Math.Max (1, Util.Ceil2Int (yResolution * CropWindow[3]) - yPixelStart);
-
+            
             Pixels = new Pixel[xPixelCount * yPixelCount];
-
+            
             for (int i = 0; i < xPixelCount * yPixelCount; ++i)
                 Pixels[i] = new Pixel ();
-
+            
             FilterTable = new double[16 * 16];
             int index = 0;
-
+            
             for (int y = 0; y < 16; ++y)
             {
                 double fy = (y + 0.5) * Filter.yWidth / 16;
-
+                
                 for (int x = 0; x < 16; ++x)
                 {
                     double fx = (x + 0.5) * Filter.xWidth / 16;
@@ -70,27 +71,27 @@ namespace Hyperion.Films.Image
             x1 = Math.Min (x1, xPixelStart + xPixelCount - 1);
             y0 = Math.Max (y0, yPixelStart);
             y1 = Math.Min (y1, yPixelStart + yPixelCount - 1);
-
+            
             if ((x1 - x0) < 0 || (y1 - y0) < 0)
                 return;
-
+            
             double[] xyz = new double[3];
             L.ToXyz (xyz);
-
+            
             int[] ifx = new int[x1 - x0 + 1];
             for (int x = x0; x <= x1; ++x)
             {
                 double fx = Math.Abs ((x - dImageX) * Filter.invXWidth * 16);
                 ifx[x - x0] = Math.Min (Util.Floor2Int (fx), 15);
             }
-
+            
             int[] ify = new int[y1 - y0 + 1];
             for (int y = y0; y <= y1; ++y)
             {
                 double fy = Math.Abs ((y - dImageY) * Filter.invYWidth * 16);
                 ify[y - y0] = Math.Min (Util.Floor2Int (fy), 15);
             }
-
+            
             bool syncNeeded = (Filter.xWidth > 0.5 || Filter.yWidth > 0.5);
             for (int y = y0; y <= y0; ++y)
             {
@@ -98,7 +99,7 @@ namespace Hyperion.Films.Image
                 {
                     int offset = ify[y - y0] * 16 + ifx[x - x0];
                     double filterWeight = FilterTable[offset];
-
+                    
                     Pixel pixel = Pixels[(y - yPixelStart) * xPixelCount + (x - xPixelStart)];
                     if (!syncNeeded)
                     {
@@ -106,8 +107,7 @@ namespace Hyperion.Films.Image
                         pixel.Lxyz[1] += filterWeight * xyz[1];
                         pixel.Lxyz[2] += filterWeight * xyz[2];
                         pixel.WeightSum += filterWeight;
-                    }
-                    else
+                    } else
                     {
                         ParallelUtility.AtomicAdd (ref pixel.Lxyz[0], filterWeight * xyz[0]);
                         ParallelUtility.AtomicAdd (ref pixel.Lxyz[1], filterWeight * xyz[1]);
@@ -122,12 +122,11 @@ namespace Hyperion.Films.Image
         {
             if (L.HasNaNs)
                 return;
-
+            
             double[] xyz = new double[3];
             L.ToXyz (xyz);
             int x = Util.Floor2Int (sample.ImageX), y = Util.Floor2Int (sample.ImageY);
-            if (x < xPixelStart || x - xPixelStart >= xPixelCount ||
-                y < yPixelStart || y - yPixelStart >= yPixelCount)
+            if (x < xPixelStart || x - xPixelStart >= xPixelCount || y < yPixelStart || y - yPixelStart >= yPixelCount)
                 return;
             Pixel pixel = Pixels[(y - yPixelStart) * xPixelCount + (x - xPixelStart)];
             ParallelUtility.AtomicAdd (ref pixel.SplatXyz[0], xyz[0]);
@@ -153,7 +152,39 @@ namespace Hyperion.Films.Image
 
         public override void WriteImage (double splatScale)
         {
-            Console.WriteLine (" > Saving image to {0}", FileName);
+            int nPix = xPixelCount * yPixelCount;
+            double[] rgb = new double[3 * nPix];
+            int offset = 0;
+            for (int y = 0; y < yPixelCount; ++y)
+            {
+                for (int x = 0; x < xPixelCount; ++x)
+                {
+                    // Convert pixel XYZ color to RGB
+                    Spectrum.XyzToRgb (Pixels[y * xPixelCount + x].Lxyz, ref rgb[3 * offset], ref rgb[3 * offset + 1], ref rgb[3 * offset + 2]);
+                    
+                    
+                    // Normalize pixel with weight sum
+                    double weightSum = Pixels[y * xPixelCount + x].WeightSum;
+                    if (weightSum != 0.0)
+                    {
+                        double invWt = 1.0 / weightSum;
+                        rgb[3 * offset] = Math.Max (0.0, rgb[3 * offset] * invWt);
+                        rgb[3 * offset + 1] = Math.Max (0.0, rgb[3 * offset + 1] * invWt);
+                        rgb[3 * offset + 2] = Math.Max (0.0, rgb[3 * offset + 2] * invWt);
+                    }
+                    
+                    
+                    // Add splat value at pixel
+                    double[] splatRGB = new double[3];
+                    Spectrum.XyzToRgb (Pixels[y * xPixelCount + x].SplatXyz, ref splatRGB[0], ref splatRGB[1], ref splatRGB[2]);
+                    rgb[3 * offset] += splatScale * splatRGB[0];
+                    rgb[3 * offset + 1] += splatScale * splatRGB[1];
+                    rgb[3 * offset + 2] += splatScale * splatRGB[2];
+                    ++offset;
+                }
+            }
+
+            ImageIo.WriteImage (FileName, rgb, null, xPixelCount, yPixelCount, xResolution, yResolution, xPixelStart, yPixelStart);
         }
 
         public override void UpdateDisplay (int x0, int y0, int x1, int y1, double splatScale)
@@ -166,7 +197,7 @@ namespace Hyperion.Films.Image
             string filename = parameters.FindOneString ("filename", "");
             if (filename == "")
                 filename = "hyperion.tga";
-
+            
             int xres = parameters.FindOneInt ("xresolution", 640);
             int yres = parameters.FindOneInt ("yresolution", 480);
             //if (PbrtOptions.quickRender) xres = max(1, xres / 4);
@@ -182,7 +213,7 @@ namespace Hyperion.Films.Image
                 crop[2] = Util.Clamp (Math.Min (cr[2], cr[3]), 0.0, 1.0);
                 crop[3] = Util.Clamp (Math.Max (cr[2], cr[3]), 0.0, 1.0);
             }
-
+            
             return new Image (xres, yres, filter, crop, filename, openwin);
         }
     }

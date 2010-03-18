@@ -35,6 +35,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Tools\Irony.dll</HintPath>
     </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
@@ -152,6 +154,9 @@
     <Compile Include="Tools\TextureParameterSet.cs" />
     <Compile Include="PluginSystem\RendererPlugin.cs" />
     <Compile Include="Interfaces\IAggregate.cs" />
+    <Compile Include="Tools\ImageIo.cs" />
+    <Compile Include="Tools\ArrayPool.cs" />
+    <Compile Include="Tools\StaticPool.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />

@@ -22,7 +22,9 @@ namespace Hyperion.Accelerators.GridAccelerator
             if (refineImmediately)
             {
                 foreach (IPrimitive primitive in primitives)
+                {
                     primitive.FullyRefine (Primitives);
+                }
             }
             else
                 Primitives = primitives;
@@ -99,6 +101,7 @@ namespace Hyperion.Accelerators.GridAccelerator
                 rayT = ray.MinT;
             else if (!Bounds.IntersectP (ray, out rayT, out t))
                 return false;
+            Console.WriteLine ("Still here, haha");
             Point gridIntersect = ray.Apply (rayT);
 
             double[] nextCrossing = new double[3];

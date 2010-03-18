@@ -6,7 +6,7 @@ namespace Hyperion.Core.Interfaces
 {
     public class LightSample
     {
-        public double[] uPos;
+        public double[] uPos = new double[2];
         public double uComponent;
 
         public LightSample ()

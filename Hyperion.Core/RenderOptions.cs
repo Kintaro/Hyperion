@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using Hyperion.Core.Tools;
 using Hyperion.Core.Geometry;
@@ -9,6 +10,8 @@ namespace Hyperion.Core
 {
     public sealed class RenderOptions
     {
+        public double TransformStart;
+        public double TransformEnd;
         public string AcceleratorName;
         public ParameterSet AcceleratorParameters;
         public string CameraName;
@@ -23,7 +26,7 @@ namespace Hyperion.Core
         public ParameterSet SurfaceIntegratorParameters;
         public string VolumeIntegratorName;
         public ParameterSet VolumeIntegratorParameters;
-        public AnimatedTransform WorldToCamera = new AnimatedTransform (new Transform (), 0.0, new Transform (), 0.0);
+        public TransformSet CameraToWorld = null;
         public List<IPrimitive> Primitives = new List<IPrimitive> ();
         public List<IVolumeRegion> VolumeRegions = new List<IVolumeRegion> ();
         public List<ILight> Lights = new List<ILight> ();
@@ -55,13 +58,20 @@ namespace Hyperion.Core
 
         public IRenderer CreateRenderer ()
         {
+            Console.WriteLine ("  > Loading Filter Module");
             IFilter filter = PluginManager.CreateFilter (FilterName, FilterParameters);
+            Console.WriteLine ("  > Loading Film Module");
             IFilm film = PluginManager.CreateFilm (FilmName, FilmParameters, filter);
-            ICamera camera = PluginManager.CreateCamera (CameraName, CameraParameters, WorldToCamera, film);
+            Console.WriteLine ("  > Loading Camera Module");
+            ICamera camera = PluginManager.CreateCamera (CameraName, CameraParameters, CameraToWorld, TransformStart, TransformEnd, film);
+            Console.WriteLine ("  > Loading Surface Integrator Module");
             ISurfaceIntegrator surfaceIntegrator = PluginManager.CreateSurfaceIntegrator (SurfaceIntegratorName, SurfaceIntegratorParameters);
+            Console.WriteLine ("  > Loading Volume Integrator Module");
             IVolumeIntegrator volumeIntegrator = PluginManager.CreateVolumeIntegrator (VolumeIntegratorName, VolumeIntegratorParameters);
+            Console.WriteLine ("  > Loading Sampler Module");
             ISampler sampler = PluginManager.CreateSampler (SamplerName, SamplerParameters, film, camera);
 
+            Console.WriteLine ("  > Loading Renderer Module");
             return PluginManager.CreateRenderer ("Sampler", sampler, camera, surfaceIntegrator, volumeIntegrator);
         }
     }

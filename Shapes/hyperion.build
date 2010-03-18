@@ -4,9 +4,10 @@
 
 	<!-- Subsystems -->
 	<target name="triangle"><nant buildfile="Hyperion.Shapes.TriangleMesh/hyperion.build"/></target>
+	<target name="disk"><nant buildfile="Hyperion.Shapes.Disk/hyperion.build"/></target>
 	
 	<!-- meta target -->
-	<target name="all" depends="triangle"/>
+	<target name="all" depends="triangle,disk"/>
 
 		
 </project>

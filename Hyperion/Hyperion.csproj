@@ -39,6 +39,58 @@
       <Project>{0141AB4A-89D0-467D-BA34-3EEC1A3ECB50}</Project>
       <Name>Hyperion.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Accelerators\Hyperion.Accelerators.Grid\Hyperion.Accelerators.Grid.csproj">
+      <Project>{59AE04BC-63CF-4342-8CA5-EC4900D67B40}</Project>
+      <Name>Hyperion.Accelerators.Grid</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cameras\Hyperion.Cameras.Perspective\Hyperion.Cameras.Perspective.csproj">
+      <Project>{077F7067-8125-45DC-824F-47A415CE6585}</Project>
+      <Name>Hyperion.Cameras.Perspective</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Films\Hyperion.Films.Image\Hyperion.Films.Image.csproj">
+      <Project>{C41A551F-C0B9-4E96-9F81-573D37719C8D}</Project>
+      <Name>Hyperion.Films.Image</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Filters\Hyperion.Filters.Mitchell\Hyperion.Filters.Mitchell.csproj">
+      <Project>{E9E8CAB0-1350-4C77-928E-4148A7C9FB37}</Project>
+      <Name>Hyperion.Filters.Mitchell</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Integrators\Hyperion.Integrators.Emission\Hyperion.Integrators.Emission.csproj">
+      <Project>{29BAB224-0E17-4FE8-9A0F-A57F680E3C7C}</Project>
+      <Name>Hyperion.Integrators.Emission</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Integrators\Hyperion.Integrators.Whitted\Hyperion.Integrators.Whitted.csproj">
+      <Project>{30FD2FF4-D18E-4999-97EC-CE3EAEC2C715}</Project>
+      <Name>Hyperion.Integrators.Whitted</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lights\Hyperion.Lights.Point\Hyperion.Lights.Point.csproj">
+      <Project>{27268D7A-C91D-4FC6-83F8-0D2E365A2071}</Project>
+      <Name>Hyperion.Lights.Point</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Materials\Hyperion.Materials.Matte\Hyperion.Materials.Matte.csproj">
+      <Project>{2A55C28E-1D19-488D-9A4B-873577619B89}</Project>
+      <Name>Hyperion.Materials.Matte</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Renderers\Hyperion.Renderers.Sampler\Hyperion.Renderers.Sampler.csproj">
+      <Project>{D3DAF5D8-6936-41EE-87DD-24F8C956AE7A}</Project>
+      <Name>Hyperion.Renderers.Sampler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Samplers\Hyperion.Samplers.Random\Hyperion.Samplers.Random.csproj">
+      <Project>{8DE7B70C-9C93-4A21-9910-B9779275C642}</Project>
+      <Name>Hyperion.Samplers.Random</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shapes\Hyperion.Shapes.Disk\Hyperion.Shapes.Disk.csproj">
+      <Project>{2CE31817-9CBD-47F1-B0D0-B3B99B9E2D4A}</Project>
+      <Name>Hyperion.Shapes.Disk</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shapes\Hyperion.Shapes.TriangleMesh\Hyperion.Shapes.TriangleMesh.csproj">
+      <Project>{B067E940-84E0-4302-A25B-C7DE6ACD8BDE}</Project>
+      <Name>Hyperion.Shapes.TriangleMesh</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Accelerators\Hyperion.Accelerators.KdTree\Hyperion.Accelerators.KdTree.csproj">
+      <Project>{8D40F319-E507-4CF1-A61C-722F634745EB}</Project>
+      <Name>Hyperion.Accelerators.KdTree</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

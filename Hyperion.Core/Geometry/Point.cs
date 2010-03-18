@@ -100,6 +100,14 @@ namespace Hyperion.Core.Geometry
                     return z;
                 throw new IndexOutOfRangeException ();
             }
+            set {
+                if (index == 0)
+                    x = value; else if (index == 1)
+                    y = value; else if (index == 2)
+                    z = value;
+                else
+                    throw new IndexOutOfRangeException ();
+            }
         }
 
         public bool HasNaNs {

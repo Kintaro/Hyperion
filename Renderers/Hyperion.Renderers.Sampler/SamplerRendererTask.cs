@@ -4,6 +4,7 @@ using Hyperion.Core;
 using Hyperion.Core.Parallel;
 using Hyperion.Core.Interfaces;
 using Hyperion.Core.Geometry;
+using Hyperion.Core.Tools;
 
 namespace Hyperion.Renderers.Sampler
 {
@@ -16,8 +17,9 @@ namespace Hyperion.Renderers.Sampler
         private Sample OrigSample;
         private int TaskNumber;
         private int TaskCount;
+        private ProgressReporter Reporter;
 
-        public SamplerRendererTask (Scene scene, IRenderer renderer, ICamera camera, ISampler sampler, Sample sample, int tn, int tc)
+        public SamplerRendererTask (Scene scene, IRenderer renderer, ICamera camera, ProgressReporter reporter, ISampler sampler, Sample sample, int tn, int tc)
         {
             Scene = scene;
             Camera = camera;
@@ -26,6 +28,7 @@ namespace Hyperion.Renderers.Sampler
             OrigSample = sample;
             TaskNumber = tn;
             TaskCount = tc;
+            Reporter = reporter;
         }
 
         public void Run ()
@@ -80,6 +83,7 @@ namespace Hyperion.Renderers.Sampler
             }
 
             Camera.Film.UpdateDisplay (sampler.xPixelStart, sampler.yPixelStart, sampler.xPixelEnd + 1, sampler.yPixelEnd + 1);
+            Reporter.Update ();
         }
     }
 }

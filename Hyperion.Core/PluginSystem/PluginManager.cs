@@ -8,10 +8,15 @@ namespace Hyperion.Core.PluginSystem
 {
     public static class PluginManager
     {
-        public static ICamera CreateCamera (string name, ParameterSet paramSet, AnimatedTransform worldToCamera, IFilm film)
+        public static ICamera CreateCamera (string name, ParameterSet paramSet, TransformSet camToWorldSet, double transformStart, double transformEnd, IFilm film)
         {
+            Transform[] camToWorld = new Transform[2];
+            Transform temp;
+            Api.TransformCache.Lookup (camToWorldSet[0], out camToWorld[0], out temp);
+            Api.TransformCache.Lookup (camToWorldSet[1], out camToWorld[1], out temp);
+            AnimatedTransform animatedCamToWorld = new AnimatedTransform (camToWorld[0], transformStart, camToWorld[1], transformEnd);
             CameraPlugin plugin = new CameraPlugin (name);
-            return plugin.CreateCamera (paramSet, worldToCamera, film);
+            return plugin.CreateCamera (paramSet, animatedCamToWorld, film);
         }
 
         public static IFilm CreateFilm (string name, ParameterSet paramSet, IFilter filter)
@@ -56,10 +61,10 @@ namespace Hyperion.Core.PluginSystem
             return plugin.CreateRenderer (sampler, camera, surfaceIntegrator, volumeIntegrator);
         }
 
-        public static IShape CreateShape (string name, Transform objectToWorld, bool reverseOrientation, ParameterSet parameters)
+        public static IShape CreateShape (string name, Transform objectToWorld, Transform worldToObject, bool reverseOrientation, ParameterSet parameters, Dictionary<string, ITexture<double>> floatTextures)
         {
             ShapePlugin plugin = new ShapePlugin (name);
-            return plugin.CreateShape (objectToWorld, reverseOrientation, parameters);
+            return plugin.CreateShape (objectToWorld, worldToObject, reverseOrientation, parameters, floatTextures);
         }
 
         public static AreaLight CreateAreaLight (string name, Transform objectToWorld, ParameterSet parameters, IShape shape)

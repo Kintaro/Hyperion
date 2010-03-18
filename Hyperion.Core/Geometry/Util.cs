@@ -10,6 +10,7 @@ namespace Hyperion.Core.Geometry
         public const double InvTwoPi = 1.0 / (2.0 * Math.PI);
         public const double InvFourPi = 1.0 / (4.0 * Math.PI);
         public static readonly Random Random = new Random ();
+        public static readonly double InvLog2 = 1.0 / Math.Log (2.0);
 
         public static double Distance (Point p1, Point p2)
         {
@@ -67,6 +68,16 @@ namespace Hyperion.Core.Geometry
         public static int Ceil2Int (double val)
         {
             return (int)Math.Ceiling (val);
+        }
+
+        public static double Log2 (double x)
+        {
+            return Math.Log (x) * InvLog2;
+        }
+
+        public static int Log2Int (double v)
+        {
+            return Floor2Int (Log2 (v));
         }
 
         public static bool SameHemisphere (Vector w, Vector wp)

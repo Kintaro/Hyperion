@@ -74,17 +74,13 @@ namespace Hyperion.Core.Geometry
         public Vector Apply (Vector v)
         {
             double x = v.x, y = v.y, z = v.z;
-            return new Vector (m.m[0] * x + m.m[1] * y + m.m[2] * z,
-                m.m[4] * x + m.m[5] * y + m.m[6] * z,
-                m.m[8] * x + m.m[9] * y + m.m[10] * z);
+            return new Vector (m.m[0] * x + m.m[1] * y + m.m[2] * z, m.m[4] * x + m.m[5] * y + m.m[6] * z, m.m[8] * x + m.m[9] * y + m.m[10] * z);
         }
 
         public Normal Apply (Normal n)
         {
             double x = n.x, y = n.y, z = n.z;
-            return new Normal (mInv.m[0] * x + mInv.m[4] * y + mInv.m[8] * z,
-                mInv.m[1] * x + mInv.m[5] * y + mInv.m[9] * z,
-                mInv.m[2] * x + mInv.m[6] * y + mInv.m[10] * z);
+            return new Normal (mInv.m[0] * x + mInv.m[4] * y + mInv.m[8] * z, mInv.m[1] * x + mInv.m[5] * y + mInv.m[9] * z, mInv.m[2] * x + mInv.m[6] * y + mInv.m[10] * z);
         }
 
         public void Apply (Point pt, ref Point ptrans)
@@ -185,6 +181,66 @@ namespace Hyperion.Core.Geometry
             // Scale to canonical viewing volume
             double invTanAng = 1.0 / Math.Tan (Util.Radians (fov) / 2.0);
             return Scale (invTanAng, invTanAng, 1) * new Transform (persp);
+        }
+
+        public static Transform Rotate (double angle, Vector axis)
+        {
+            Vector a = axis.Normalized;
+            double s = Math.Sin (Util.Radians (angle));
+            double c = Math.Cos (Util.Radians (angle));
+            double[] m = new double[16];
+            
+            m[0] = a.x * a.x + (1.0 - a.x * a.x) * c;
+            m[1] = a.x * a.y * (1.0 - c) - a.z * s;
+            m[2] = a.x * a.z * (1.0 - c) + a.y * s;
+            m[3] = 0;
+
+            m[4] = a.x * a.y * (1.0 - c) + a.z * s;
+            m[5] = a.y * a.y + (1.0 - a.y * a.y) * c;
+            m[6] = a.y * a.z * (1.0 - c) - a.x * s;
+            m[7] = 0;
+
+            m[8] = a.x * a.z * (1.0 - c) - a.y * s;
+            m[9] = a.y * a.z * (1.0 - c) + a.x * s;
+            m[10] = a.z * a.z + (1.0 - a.z * a.z) * c;
+            m[11] = 0;
+            
+            m[12] = 0;
+            m[13] = 0;
+            m[14] = 0;
+            m[15] = 1;
+            
+            Matrix mat = new Matrix (m);
+            return new Transform (mat, mat.Transposed);
+        }
+
+        public static Transform LookAt (Point pos, Point look, Vector up)
+        {
+            double[] m = new double[16];
+            // Initialize fourth column of viewing matrix
+            m[3] = pos.x;
+            m[7] = pos.y;
+            m[11] = pos.z;
+            m[15] = 1;
+            
+            // Initialize first three columns of viewing matrix
+            Vector dir = (look - pos).Normalized;
+            Vector left = (up.Normalized % dir).Normalized;
+            Vector newUp = dir % left;
+            m[0] = left.x;
+            m[4] = left.y;
+            m[8] = left.z;
+            m[12] = 0.0;
+            m[1] = newUp.x;
+            m[5] = newUp.y;
+            m[9] = newUp.z;
+            m[13] = 0.0;
+            m[2] = dir.x;
+            m[6] = dir.y;
+            m[10] = dir.z;
+            m[14] = 0.0;
+            Matrix camToWorld = new Matrix (m);
+            return new Transform (camToWorld.Inverse, camToWorld);
         }
 
         public static bool operator == (Transform t1, Transform t2)

@@ -50,19 +50,18 @@ namespace Hyperion.Renderers.Sampler
             Sample sample = new Sample (MainSampler, SurfaceIntegrator, VolumeIntegrator, scene);
 
             int nPixels = Camera.Film.xResolution * Camera.Film.yResolution;
-            int nTasks = Math.Max (2 * ParallelUtility.NumberOfSystemCores, 1/*nPixels / (16 * 16)*/);
+            int nTasks = Math.Max (32 * ParallelUtility.NumberOfSystemCores, nPixels / (16 * 16));
             nTasks = Util.RoundUpPow2 (nTasks);
+
+                        ProgressReporter reporter = new ProgressReporter (nTasks, "Rendering");
             List<ITask> renderTasks = new List<ITask> ();
-
             for (int i = 0; i < nTasks; ++i)
-                renderTasks.Add (new SamplerRendererTask (scene, this, Camera, MainSampler, sample, nTasks - 1 - i, nTasks));
+                renderTasks.Add (new SamplerRendererTask (scene, this, Camera, reporter, MainSampler, sample, nTasks - 1 - i, nTasks));
 
-            Console.WriteLine (" > Enqueueing {0} Tasks...", renderTasks.Count);
             ParallelUtility.EnqueueTasks (renderTasks);
-            Console.WriteLine (" > Waiting for tasks to finish...");
             ParallelUtility.WaitForAllTasks ();
-            Console.WriteLine (" > All rendertasks finished...");
             renderTasks.Clear ();
+            reporter.Done ();
 
             Camera.Film.WriteImage ();
         }

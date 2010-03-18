@@ -61,7 +61,7 @@ namespace Hyperion.Core.PluginSystem
                     break;
                 }
             }
-            
+
             _assembly = Assembly.LoadFile (assemblyPath);
         }
 

@@ -69,7 +69,6 @@ namespace Hyperion.Core.Parallel
                     task = TaskQueue.Dequeue ();
                 }
 
-                Console.WriteLine ("{0} Tasks left...", TaskQueue.Count);
                 task.Run ();
                 TasksRunningCondition.Lock ();
                 int unfinished = --NumberOfUnfinishedTasks;

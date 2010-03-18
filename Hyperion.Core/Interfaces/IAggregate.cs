@@ -2,7 +2,7 @@
 using Hyperion.Core.Interfaces;
 using Hyperion.Core.Reflection;
 
-namespace Hyperion.Core
+namespace Hyperion.Core.Interfaces
 {
     public abstract class IAggregate : IPrimitive
     {

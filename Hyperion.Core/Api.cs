@@ -48,6 +48,10 @@ namespace Hyperion.Core
 
         public static void Camera (string name, ParameterSet parameterSet)
         {
+            Api.RenderOptions.CameraName = name;
+            Api.RenderOptions.CameraParameters = parameterSet;
+            Api.RenderOptions.CameraToWorld = CurrentTransform.Inverse;
+            NamedCoordinateSystems["camera"] = Api.RenderOptions.CameraToWorld;
         }
 
         public static void ConcatTransform (double[] tr)
@@ -68,14 +72,21 @@ namespace Hyperion.Core
 
         public static void Film (string name, ParameterSet parameterSet)
         {
+            Api.RenderOptions.FilmName = name;
+            Api.RenderOptions.FilmParameters = parameterSet;
         }
 
         public static void Light (string name, ParameterSet parameterSet)
         {
+            ILight light = PluginSystem.PluginManager.CreateLight (name, CurrentTransform[0], parameterSet);
+            Api.RenderOptions.Lights.Add (light);
         }
 
         public static void LookAt (double ex, double ey, double ez, double lx, double ly, double lz, double ux, double uy, double uz)
         {
+            for (int i = 0; i < 2; ++i)
+                if ((Api.ActiveTransformBits & (1 << i)) != 0)
+                    Api.CurrentTransform[i] = Api.CurrentTransform[i] * Transform.LookAt (new Point (ex, ey, ez), new Point (lx, ly, lz), new Vector (ux, uy, uz));
         }
 
         public static void Material (string name, ParameterSet parameterSet)
@@ -92,6 +103,9 @@ namespace Hyperion.Core
 
         public static void Rotate (double angle, double x, double y, double z)
         {
+            for (int i = 0; i < 2; ++i)
+                if ((Api.ActiveTransformBits & (1 << i)) != 0)
+                    Api.CurrentTransform[i] = Api.CurrentTransform[i] * Transform.Rotate (angle, new Vector (x, y, z));
         }
 
         public static void Sampler (string name, ParameterSet parameterSet)
@@ -107,6 +121,36 @@ namespace Hyperion.Core
 
         public static void Shape (string name, ParameterSet parameterSet)
         {
+            Console.WriteLine (" > Creating shape {0}", name);
+            IPrimitive prim = null;
+            AreaLight area = null;
+
+            if (!CurrentTransform.IsAnimated)
+            {
+                Transform objectToWorld, worldToObject;
+                TransformCache.Lookup (CurrentTransform[0], out objectToWorld, out worldToObject);
+                IShape shape = PluginSystem.PluginManager.CreateShape (name, objectToWorld, worldToObject, Api.GraphicsState.ReverseOrientation, parameterSet, Api.GraphicsState.FloatTextures);
+                if (shape == null)
+                    return;
+                IMaterial material = Api.GraphicsState.CreateMaterial (parameterSet);
+
+                if (Api.GraphicsState.AreaLight != "")
+                {
+                    area = PluginSystem.PluginManager.CreateAreaLight (Api.GraphicsState.AreaLight, CurrentTransform[0], Api.GraphicsState.AreaLightParameters, shape);
+                }
+                prim = new GeometricPrimitive (shape, material, area);
+            }
+
+            if (Api.RenderOptions.CurrentInstance != null && area != null)
+                Api.RenderOptions.CurrentInstance.Add (prim);
+            else
+            {
+                Api.RenderOptions.Primitives.Add (prim);
+                if (area != null)
+                    Api.RenderOptions.Lights.Add (area);
+            }
+
+
         }
 
         public static void SurfaceIntegrator (string name, ParameterSet parameterSet)
@@ -142,6 +186,10 @@ namespace Hyperion.Core
 
         public static void WorldBegin ()
         {
+            CurrentTransform[0] = new Transform ();
+            CurrentTransform[1] = new Transform ();
+            ActiveTransformBits = 3;
+            NamedCoordinateSystems["world"] = CurrentTransform;
         }
 
         public static void WorldEnd ()

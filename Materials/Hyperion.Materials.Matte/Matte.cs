@@ -4,6 +4,7 @@ using Hyperion.Core;
 using Hyperion.Core.Interfaces;
 using Hyperion.Core.Geometry;
 using Hyperion.Core.Reflection;
+using Hyperion.Core.Tools;
 
 namespace Hyperion.Materials.Matte
 {
@@ -39,5 +40,12 @@ namespace Hyperion.Materials.Matte
             return bsdf;
         }
 
+        public static IMaterial CreateMaterial (Transform xform, TextureParameterSet mp)
+        {
+            ITexture<Spectrum> Kd = mp.GetSpectrumTexture ("Kd", new Spectrum (0.5));
+            ITexture<double> sigma = mp.GetDoubleTexture ("sigma", 0.0);
+            ITexture<double> bumpMap = mp.GetDoubleTexture ("bumpmap", 0.0);
+            return new Matte (Kd, sigma, bumpMap);
+        }
     }
 }

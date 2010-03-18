@@ -1,5 +1,6 @@
 
 using System;
+using System.Threading;
 
 namespace Hyperion.Core
 {
@@ -15,6 +16,7 @@ namespace Hyperion.Core
         private int _left;
         private int _right;
         private Timer _timer;
+        private Mutex MutexLock = new Mutex ();
 
         /// <summary>
         ///
@@ -74,17 +76,20 @@ namespace Hyperion.Core
         /// </param>
         public void Update (int num)
         {
-            _count -= num;
-
-            Console.CursorLeft = _left;
-            while (_count <= 0)
+            lock (MutexLock)
             {
-                _count += _frequency;
-                if (_plussesPrinted++ < _totalPlusses - 1)
-                    Console.Write ("#");
-                else
-                    Console.Write (">");
-                ++_left;
+                _count -= num;
+
+                Console.CursorLeft = _left;
+                while (_count <= 0)
+                {
+                    _count += _frequency;
+                    if (_plussesPrinted++ < _totalPlusses - 1)
+                        Console.Write ("#");
+                    else
+                        Console.Write (">");
+                    ++_left;
+                }
             }
         }
 
@@ -93,7 +98,10 @@ namespace Hyperion.Core
         /// </summary>
         public void Done ()
         {
-            Console.WriteLine ();
+            lock (MutexLock)
+            {
+                Console.WriteLine ();
+            }
         }
 
     }

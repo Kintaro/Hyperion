@@ -1,6 +1,7 @@
 
 using System;
 using System.Reflection;
+using System.Collections.Generic;
 using Hyperion.Core.Interfaces;
 using Hyperion.Core.Tools;
 using Hyperion.Core.Geometry;
@@ -15,7 +16,7 @@ namespace Hyperion.Core.PluginSystem
         /// <summary>
         ///
         /// </summary>
-        public delegate IShape CreateShapeDelegate (Transform objectToWorld, bool reverse, ParameterSet paramSet);
+        public delegate IShape CreateShapeDelegate (Transform objectToWorld, Transform worldToObject, bool reverse, ParameterSet paramSet, Dictionary<string, ITexture<double>> floatTextures);
 
         /// <summary>
         ///

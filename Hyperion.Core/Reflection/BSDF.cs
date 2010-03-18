@@ -118,9 +118,9 @@ namespace Hyperion.Core.Reflection
         {
             int nSamples = sqrtSamples * sqrtSamples;
             double[] s1 = new double[2 * nSamples];
-            // StratifiedSample2D (s1, sqrtSamples, sqrtSamples);
+            //StratifiedSample2D (s1, sqrtSamples, sqrtSamples);
             double[] s2 = new double[2 * nSamples];
-            // StratifiedSample2D (s2, sqrtSamples, sqrtSamples);
+            //StratifiedSample2D (s2, sqrtSamples, sqrtSamples);
 
             Spectrum ret = new Spectrum ();
             for (int i = 0; i < nBxDFs; ++i)

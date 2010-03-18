@@ -5,16 +5,14 @@
 	
 	<!-- Main build target -->
 	<target name="build">
-	    <csc target="library" output="../Bin/Hyperion.Core.dll">
+	    <csc target="library" output="../../Bin/Hyperion.Shapes.Disk.dll">
 			<sources>
 				<include name="**/*.cs"/>
 			</sources>
 		
 			<references>
 				<include name="System.dll"/>
-				<include name="System.Core.dll"/>
-				<include name="System.Drawing.dll"/>
-				<include name="../Tools/Irony.dll"/>
+				<include name="../../Bin/Hyperion.Core.dll"/>
 			</references>		
 	    </csc>
 	</target>

@@ -83,6 +83,7 @@ namespace Hyperion.Shapes.TriangleMesh
             dg = new DifferentialGeometry (ray.Apply (t), dpdu, dpdv, new Normal (), new Normal (), tu, tv, this);
             tHit = t;
             rayEpsilon = 0.001 * tHit;
+            System.Console.WriteLine ("HIT!");
             return true;
         }
 
