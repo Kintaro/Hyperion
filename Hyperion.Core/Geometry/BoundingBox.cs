@@ -102,7 +102,9 @@ namespace Hyperion.Core.Geometry
 
         public Point Lerp (double tx, double ty, double tz)
         {
-            return new Point (Util.Lerp (tx, pMin.x, pMax.x), Util.Lerp (ty, pMin.y, pMax.y), Util.Lerp (tz, pMin.z, pMax.z));
+            return new Point (Util.Lerp (tx, pMin.x, pMax.x),
+                Util.Lerp (ty, pMin.y, pMax.y),
+                Util.Lerp (tz, pMin.z, pMax.z));
         }
 
         public double SurfaceArea
@@ -159,6 +161,11 @@ namespace Hyperion.Core.Geometry
             ret.pMax.y = Math.Max (b.pMax.y, b2.pMax.y);
             ret.pMax.z = Math.Max (b.pMax.z, b2.pMax.z);
             return ret;
+        }
+
+        public override string ToString ()
+        {
+            return string.Format ("[pMin: {0}, pMax: {1}]", pMin, pMax);
         }
     }
 }

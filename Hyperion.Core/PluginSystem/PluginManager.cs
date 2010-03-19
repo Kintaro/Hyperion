@@ -69,15 +69,8 @@ namespace Hyperion.Core.PluginSystem
 
         public static AreaLight CreateAreaLight (string name, Transform objectToWorld, ParameterSet parameters, IShape shape)
         {
-            if (name == "AreaLight")
-            {
-                Spectrum L = parameters.FindOneSpectrum ("L", new Spectrum (1.0));
-                int numberOfSamples = parameters.FindOneInt ("nsamples", 1);
-                //return new AreaLight (objectToWorld, L, numberOfSamples, shape);
-                return null;
-            }
             AreaLightPlugin plugin = new AreaLightPlugin (name);
-            return plugin.CreateAreaLight (objectToWorld, parameters, shape) as AreaLight;
+            return plugin.CreateAreaLight (objectToWorld, parameters, shape);
         }
 
         public static IMaterial CreateMaterial (string name, Transform objectToWorld, TextureParameterSet parameters)

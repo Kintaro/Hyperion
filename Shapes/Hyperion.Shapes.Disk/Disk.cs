@@ -116,7 +116,7 @@ namespace Hyperion.Shapes.Disk
         }
 
         public override BoundingBox ObjectBound {
-            get { return new BoundingBox (new Point (-Radius, -Radius, -Radius), new Point (Radius, Radius, Radius)); }
+            get { return new BoundingBox (new Point (-Radius, -Radius, Height), new Point (Radius, Radius, Height)); }
         }
 
         public static IShape CreateShape (Transform o2w, Transform w2o, bool reverseOrientation, ParameterSet parameters, Dictionary<string, ITexture<double>> floatTextures)

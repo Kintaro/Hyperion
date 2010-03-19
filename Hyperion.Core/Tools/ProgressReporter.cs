@@ -52,7 +52,7 @@ namespace Hyperion.Core
             _timer = new Timer ();
             _timer.Start ();
 
-            Console.Write (title + ": [");
+            Console.Write ("  > " + title + ": [");
             _left = Console.CursorLeft;
             _right = _left + _totalPlusses;
             Console.CursorLeft = _right;
@@ -85,7 +85,7 @@ namespace Hyperion.Core
                 {
                     _count += _frequency;
                     if (_plussesPrinted++ < _totalPlusses - 1)
-                        Console.Write ("#");
+                        Console.Write ("+");
                     else
                         Console.Write (">");
                     ++_left;

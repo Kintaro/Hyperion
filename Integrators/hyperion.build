@@ -7,7 +7,7 @@
 	<target name="emission"><nant buildfile="Hyperion.Integrators.Emission/hyperion.build"/></target>
 	
 	<!-- meta target -->
-	<target name="all" depends="emission"/>
+	<target name="all" depends="whitted,emission"/>
 
 		
 </project>

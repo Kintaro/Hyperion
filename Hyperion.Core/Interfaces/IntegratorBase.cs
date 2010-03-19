@@ -33,6 +33,7 @@ namespace Hyperion.Core.Interfaces
                     double dDNdx = (dwodx ^ n) + (wo ^ dndx);
                     double dDNdy = (dwody ^ n) + (wo ^ dndy);
                     rd.RxDirection = wi - dwodx + 2 * new Vector ((wo ^ n) * dndx + dDNdx * n);
+                    rd.RyDirection = wi - dwody + 2 * new Vector ((wo ^ n) * dndy + dDNdy * n);
                 }
 
                 Spectrum Li = renderer.Li (scene, rd, sample);

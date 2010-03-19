@@ -113,5 +113,11 @@ namespace Hyperion.Core.Geometry
         public bool HasNaNs {
             get { return double.IsNaN (x) || double.IsNaN (y) || double.IsNaN (z); }
         }
+
+        public override string ToString ()
+        {
+            return string.Format ("[Point: {0}, {1}, {2}]", x, y, z);
+        }
+
     }
 }

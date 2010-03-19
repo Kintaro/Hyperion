@@ -140,5 +140,11 @@ namespace Hyperion.Core
         {
             return s * (1.0 / f);
         }
+
+        public override string ToString ()
+        {
+            return string.Format("[Spectrum: {0}, {1}, {2}]", c[0], c[1], c[2]);
+        }
+
     }
 }

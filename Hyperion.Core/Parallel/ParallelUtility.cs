@@ -13,12 +13,13 @@ namespace Hyperion.Core.Parallel
         public static Mutex TaskQueueMutex = new Mutex ();
         public static ConditionVariable TasksRunningCondition = new ConditionVariable ();
         public static int NumberOfUnfinishedTasks;
+        public static Mutex AtomicMutex = new Mutex ();
 
         public static int NumberOfSystemCores
         {
             get
             {
-                return 1;
+                return Environment.ProcessorCount;
             }
         }
 
@@ -78,9 +79,12 @@ namespace Hyperion.Core.Parallel
             }
         }
 
-        public static void AtomicAdd<T> (ref T destination, T source)
+        public static void AtomicAdd (ref double destination, double source)
         {
-            destination = source;
+            lock (AtomicMutex)
+            {
+                destination += source;
+            }
         }
     }
 }

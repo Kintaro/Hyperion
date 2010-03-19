@@ -157,6 +157,8 @@
     <Compile Include="Tools\ImageIo.cs" />
     <Compile Include="Tools\ArrayPool.cs" />
     <Compile Include="Tools\StaticPool.cs" />
+    <Compile Include="Interfaces\ShapeSet.cs" />
+    <Compile Include="Geometry\Distribution1D.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />

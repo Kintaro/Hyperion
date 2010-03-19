@@ -159,5 +159,10 @@ namespace Hyperion.Core.Geometry
                 return double.IsNaN (x) || double.IsNaN (y) || double.IsNaN (z);
             }
         }
+
+        public override string ToString ()
+        {
+            return string.Format ("[Vector: {0}, {1}, {2}]", x, y, z);
+        }
     }
 }

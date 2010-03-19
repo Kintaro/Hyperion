@@ -26,11 +26,14 @@ namespace Hyperion.Core.Interfaces
             return new Spectrum ();
         }
 
+        public virtual void SHProject (Point p, double pEpsilon, int lmax, Scene scene, bool computeLightVisibility, double time, Spectrum[] coeffs)
+        {
+        }
+
         public abstract Spectrum SampleL (Point p, double pEpsilon, LightSample ls, double time, ref Vector wi, ref double pdf, ref VisibilityTester visibility);
         public abstract Spectrum Power (Scene scene);
         public abstract double Pdf (Point p, Vector wi);
         public abstract Spectrum SampleL (Scene scene, LightSample ls, double u1, double u2, double time, ref Ray ray, ref Normal Ns, ref double pdf);
-        public abstract void SHProject (Point p, double pEpsilon, int lmax, Scene scene, bool computeLightVisibility, double time, Spectrum[] coeffs);
         public abstract bool IsDeltaLight { get; }
     }
 }

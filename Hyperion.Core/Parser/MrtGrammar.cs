@@ -21,6 +21,7 @@ namespace Hyperion.Core.Parser
             NonGrammarTerminals.Add (NewLine);
             
             #region Numbers Strings Identifiers
+            var comment = new CommentTerminal ("comment", "#", "\n", "\r");
             var number = new NumberLiteral ("number", NumberOptions.AllowSign | NumberOptions.AllowStartEndDot);
             var str = new StringLiteral ("path", "\"");
             #endregion
@@ -70,6 +71,8 @@ namespace Hyperion.Core.Parser
             
             var statements = new NonTerminal ("statements", typeof(StatementListNode));
             var scene = new NonTerminal ("scene", typeof(StatementListNode));
+
+            NonGrammarTerminals.Add (comment);
             
             #region Rules
             lookAt.Rule = "LookAt" + number + number + number + number + number + number + number + number + number;
@@ -111,7 +114,7 @@ namespace Hyperion.Core.Parser
             areaLightSource.Rule = "AreaLightSource" + str + paramListContents;
             plugin.Rule = camera | film | sampler | surfaceIntegrator | volumeIntegrator | shape | pixelFilter | texture | material | lightSource | areaLightSource;
             
-            statements.Rule = transformations | include | attributeBegin | attributeEnd | paramListContents | plugin | statements | worldBegin | worldEnd;
+            statements.Rule = transformations | include | attributeBegin | attributeEnd | paramListContents | plugin | statements | worldBegin | worldEnd | comment;
             scene.Rule = MakePlusRule (scene, statements);
             #endregion
             

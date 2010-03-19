@@ -16,6 +16,13 @@ namespace Hyperion.Cameras.Perspective
         {
             dxCamera = RasterToCamera.Apply (new Point (1.0, 0.0, 0.0)) - RasterToCamera.Apply (new Point (0.0, 0.0, 0.0));
             dyCamera = RasterToCamera.Apply (new Point (0.0, 1.0, 0.0)) - RasterToCamera.Apply (new Point (0.0, 0.0, 0.0));
+
+            Console.WriteLine ("    - Creating Perspective Camera with settings:");
+            Console.WriteLine ("       > ScreenWindow: [{0}, {1}, {2}, {3}]", screenWindow[0], screenWindow[1], screenWindow[2], screenWindow[3]);
+            Console.WriteLine ("       > Shutter Open: {0}", sopen);
+            Console.WriteLine ("       > Shutter Close: {0}", sclose);
+            Console.WriteLine ("       > Lens Radius: {0}", lensr);
+            Console.WriteLine ("       > Focal Distance: {0}", focald);
         }
 
         public override double GenerateRay (CameraSample sample, ref Ray ray)

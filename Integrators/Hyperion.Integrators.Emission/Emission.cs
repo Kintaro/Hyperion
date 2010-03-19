@@ -20,6 +20,7 @@ namespace Hyperion.Integrators.Emission
 
         public override Spectrum Li (Scene scene, IRenderer renderer, RayDifferential ray, Sample sample, ref Spectrum transmittance)
         {
+            transmittance = new Spectrum (1.0);
             return new Spectrum ();
         }
 

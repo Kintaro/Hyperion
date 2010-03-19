@@ -53,7 +53,8 @@ namespace Hyperion.Renderers.Sampler
             int nTasks = Math.Max (32 * ParallelUtility.NumberOfSystemCores, nPixels / (16 * 16));
             nTasks = Util.RoundUpPow2 (nTasks);
 
-                        ProgressReporter reporter = new ProgressReporter (nTasks, "Rendering");
+            Console.WriteLine ("  > Pooling {0} threads...", nTasks);
+            ProgressReporter reporter = new ProgressReporter (nTasks, "Rendering");
             List<ITask> renderTasks = new List<ITask> ();
             for (int i = 0; i < nTasks; ++i)
                 renderTasks.Add (new SamplerRendererTask (scene, this, Camera, reporter, MainSampler, sample, nTasks - 1 - i, nTasks));

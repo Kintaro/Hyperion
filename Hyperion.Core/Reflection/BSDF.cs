@@ -4,8 +4,6 @@ using Hyperion.Core.Geometry;
 
 namespace Hyperion.Core.Reflection
 {
-
-
     public sealed class BSDF
     {
         private Normal nn;
@@ -118,9 +116,9 @@ namespace Hyperion.Core.Reflection
         {
             int nSamples = sqrtSamples * sqrtSamples;
             double[] s1 = new double[2 * nSamples];
-            //StratifiedSample2D (s1, sqrtSamples, sqrtSamples);
+            MonteCarlo.StratifiedSample2D (s1, sqrtSamples, sqrtSamples, true);
             double[] s2 = new double[2 * nSamples];
-            //StratifiedSample2D (s2, sqrtSamples, sqrtSamples);
+            MonteCarlo.StratifiedSample2D (s2, sqrtSamples, sqrtSamples, true);
 
             Spectrum ret = new Spectrum ();
             for (int i = 0; i < nBxDFs; ++i)
@@ -143,7 +141,7 @@ namespace Hyperion.Core.Reflection
         {
             int nSamples = sqrtSamples * sqrtSamples;
             double[] s1 = new double[2 * nSamples];
-            // StratifiedSample2D (sq, sqrtSamples, sqrtSamples);
+            MonteCarlo.StratifiedSample2D (s1, sqrtSamples, sqrtSamples, true);
             Spectrum ret = new Spectrum ();
             for (int i = 0; i < nBxDFs; ++i)
                 if (bxdfs[i].MatchesFlags (flags))
@@ -209,9 +207,9 @@ namespace Hyperion.Core.Reflection
             {
                 f = new Spectrum ();
                 if ((wiW ^ ng) * (woW ^ ng) > 0.0)
-                    flags &= BxDFType.BSDF_TRANSMISSION;
+                    flags &= ~BxDFType.BSDF_TRANSMISSION;
                 else
-                    flags &= BxDFType.BSDF_REFLECTION;
+                    flags &= ~BxDFType.BSDF_REFLECTION;
 
                 for (int i = 0; i < nBxDFs; ++i)
                     if (bxdfs[i].MatchesFlags (flags))

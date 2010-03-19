@@ -20,11 +20,11 @@ namespace Hyperion.Core.Interfaces
             get { return true; }
         }
 
-        public virtual void Refine (List<IPrimitive> refined)
+        public virtual void Refine (ref List<IPrimitive> refined)
         {
         }
 
-        public void FullyRefine (List<IPrimitive> refined)
+        public void FullyRefine (ref List<IPrimitive> refined)
         {
             List<IPrimitive> todo = new List<IPrimitive> ();
             todo.Add (this);
@@ -36,7 +36,7 @@ namespace Hyperion.Core.Interfaces
                 if (primitive.CanIntersect)
                     refined.Add (primitive);
                 else
-                    primitive.Refine (todo);
+                    primitive.Refine (ref todo);
             }
         }
 

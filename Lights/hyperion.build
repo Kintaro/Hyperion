@@ -4,9 +4,11 @@
 
 	<!-- Subsystems -->
 	<target name="point"><nant buildfile="Hyperion.Lights.Point/hyperion.build"/></target>
+	<target name="distant"><nant buildfile="Hyperion.Lights.Distant/hyperion.build"/></target>
+	<target name="diffuse"><nant buildfile="Hyperion.Lights.DiffuseAreaLight/hyperion.build"/></target>
 	
 	<!-- meta target -->
-	<target name="all" depends="point"/>
+	<target name="all" depends="point, distant,diffuse"/>
 
 		
 </project>

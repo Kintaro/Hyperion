@@ -7,7 +7,7 @@
 	<target name="kdtree"><nant buildfile="Hyperion.Accelerators.KdTree/hyperion.build"/></target>
 	
 	<!-- meta target -->
-	<target name="all" depends="kdtree"/>
+	<target name="all" depends="grid,kdtree"/>
 
 		
 </project>

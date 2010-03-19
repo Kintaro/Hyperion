@@ -29,13 +29,14 @@ namespace Hyperion.Core
 
         public static void AreaLightSource (string name, ParameterSet parameterSet)
         {
-            
+            Api.GraphicsState.AreaLight = name;
+            Api.GraphicsState.AreaLightParameters = parameterSet;
         }
 
         public static void AttributeBegin ()
         {
             Api.PushedGraphicsStates.Push (Api.GraphicsState);
-            Api.PushedTransforms.Push (Api.CurrentTransform);
+            Api.PushedTransforms.Push (new TransformSet(Api.CurrentTransform));
             Api.PushedActiveTransformBits.Push (Api.ActiveTransformBits);
         }
 
@@ -124,7 +125,6 @@ namespace Hyperion.Core
 
         public static void Shape (string name, ParameterSet parameterSet)
         {
-            Console.WriteLine (" > Creating shape {0}", name);
             IPrimitive prim = null;
             AreaLight area = null;
 
@@ -139,7 +139,7 @@ namespace Hyperion.Core
 
                 if (Api.GraphicsState.AreaLight != "")
                 {
-                    area = PluginSystem.PluginManager.CreateAreaLight (Api.GraphicsState.AreaLight, CurrentTransform[0], Api.GraphicsState.AreaLightParameters, shape);
+                    area = PluginSystem.PluginManager.CreateAreaLight ("DiffuseAreaLight", CurrentTransform[0], Api.GraphicsState.AreaLightParameters, shape);
                 }
                 prim = new GeometricPrimitive (shape, material, area);
             }
@@ -192,13 +192,13 @@ namespace Hyperion.Core
             CurrentTransform[0] = new Transform ();
             CurrentTransform[1] = new Transform ();
             ActiveTransformBits = 3;
-            NamedCoordinateSystems["world"] = CurrentTransform;
+            NamedCoordinateSystems["world"] = new TransformSet (CurrentTransform);
         }
 
         public static void WorldEnd ()
         {
-            IRenderer renderer = Api.RenderOptions.CreateRenderer ();
             Scene scene = Api.RenderOptions.CreateScene ();
+            IRenderer renderer = Api.RenderOptions.CreateRenderer ();
 
             if (scene != null && renderer != null)
                 renderer.Render (scene);

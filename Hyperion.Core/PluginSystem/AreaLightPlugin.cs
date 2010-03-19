@@ -16,7 +16,7 @@ namespace Hyperion.Core.PluginSystem
         /// <summary>
         ///
         /// </summary>
-        public delegate ILight CreateAreaLightDelegate (Transform objectToWorld, ParameterSet parameters, IShape shape);
+        public delegate AreaLight CreateAreaLightDelegate (Transform objectToWorld, ParameterSet parameters, IShape shape);
 
         /// <summary>
         ///

@@ -13,41 +13,36 @@ namespace Hyperion.Shapes.TriangleMesh
         public Triangle (Transform objectToWorld, Transform worldToObject, bool ro, TriangleMesh mesh, int n) : base(objectToWorld, worldToObject, ro)
         {
             Mesh = mesh;
-            Vertices[0] = Mesh.VertexIndices[3 * n];
-            Vertices[1] = Mesh.VertexIndices[3 * n + 1];
-            Vertices[2] = Mesh.VertexIndices[3 * n + 2];
+            Vertices[0] = mesh.VertexIndices[3 * n];
+            Vertices[1] = mesh.VertexIndices[3 * n + 1];
+            Vertices[2] = mesh.VertexIndices[3 * n + 2];
         }
 
         public override bool Intersect (Ray ray, ref double tHit, ref double rayEpsilon, ref DifferentialGeometry dg)
         {
-            System.Console.WriteLine (">>>");
             Point p1 = Mesh.Points[Vertices[0]];
             Point p2 = Mesh.Points[Vertices[1]];
             Point p3 = Mesh.Points[Vertices[2]];
-            
+
             Vector e1 = p2 - p1;
             Vector e2 = p3 - p1;
             Vector s1 = ray.Direction % e2;
 
-            System.Console.WriteLine ("  1");
             double divisor = s1 ^ e1;
             if (divisor == 0.0)
                 return false;
             double invDivisor = 1.0 / divisor;
 
-            System.Console.WriteLine ("  2");
             Vector d = ray.Origin - p1;
             double b1 = (d ^ s1) * invDivisor;
             if (b1 < 0.0 || b1 > 1.0)
                 return false;
 
-            System.Console.WriteLine ("  3");
             Vector s2 = d % e1;
             double b2 = (ray.Direction ^ s2) / invDivisor;
             if (b2 < 0.0 || b1 + b2 > 1.0)
                 return false;
 
-            System.Console.WriteLine ("  4");
             double t = (e2 ^ s2) * invDivisor;
             if (t < ray.MinT || t > ray.MaxT)
                 return false;
@@ -88,7 +83,6 @@ namespace Hyperion.Shapes.TriangleMesh
             dg = new DifferentialGeometry (ray.Apply (t), dpdu, dpdv, new Normal (), new Normal (), tu, tv, this);
             tHit = t;
             rayEpsilon = 0.001 * tHit;
-            System.Console.WriteLine ("<<<");
             return true;
         }
 
@@ -97,7 +91,7 @@ namespace Hyperion.Shapes.TriangleMesh
             Point p1 = Mesh.Points[Vertices[0]];
             Point p2 = Mesh.Points[Vertices[1]];
             Point p3 = Mesh.Points[Vertices[2]];
-            
+
             Vector e1 = p2 - p1;
             Vector e2 = p3 - p1;
             Vector s1 = ray.Direction % e2;
@@ -148,7 +142,7 @@ namespace Hyperion.Shapes.TriangleMesh
                 
                 
                 DifferentialGeometry dgLocal = new DifferentialGeometry (ray.Apply (t), dpdu, dpdv, new Normal (), new Normal (), tu, tv, this);
-                if (Mesh.AlphaTexture.Evaluate (dgLocal) == 0.0)
+                if (Mesh.AlphaTexture != null && Mesh.AlphaTexture.Evaluate (dgLocal) == 0.0)
                     return false;
             }
             
@@ -237,13 +231,12 @@ namespace Hyperion.Shapes.TriangleMesh
 
         public override Point Sample (double u1, double u2, ref Normal Ns)
         {
-            double b1, b2;
-            MonteCarlo.UniformSampleTriangle (u1, u2, out b1, out b2);
-            // Get triangle vertices in _p1_, _p2_, and _p3_
             Point p1 = Mesh.Points[Vertices[0]];
             Point p2 = Mesh.Points[Vertices[1]];
             Point p3 = Mesh.Points[Vertices[2]];
-            
+
+            double b1, b2;
+            MonteCarlo.UniformSampleTriangle (u1, u2, out b1, out b2);
             
             Point p = b1 * p1 + b2 * p2 + (1.0 - b1 - b2) * p3;
             Normal n = new Normal ((p2 - p1) % (p3 - p1));
@@ -258,7 +251,7 @@ namespace Hyperion.Shapes.TriangleMesh
                 Point p1 = Mesh.Points[Vertices[0]];
                 Point p2 = Mesh.Points[Vertices[1]];
                 Point p3 = Mesh.Points[Vertices[2]];
-                
+
                 return 0.5 * ((p2 - p1) % (p3 - p1)).Length;
             }
         }
@@ -268,7 +261,7 @@ namespace Hyperion.Shapes.TriangleMesh
                 Point p1 = Mesh.Points[Vertices[0]];
                 Point p2 = Mesh.Points[Vertices[1]];
                 Point p3 = Mesh.Points[Vertices[2]];
-                
+
                 return BoundingBox.Union (new BoundingBox (WorldToObject.Apply (p1), WorldToObject.Apply (p2)), WorldToObject.Apply (p3));
             }
         }
@@ -278,7 +271,7 @@ namespace Hyperion.Shapes.TriangleMesh
                 Point p1 = Mesh.Points[Vertices[0]];
                 Point p2 = Mesh.Points[Vertices[1]];
                 Point p3 = Mesh.Points[Vertices[2]];
-                
+
                 return BoundingBox.Union (new BoundingBox (p1, p2), p3);
             }
         }

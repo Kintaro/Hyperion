@@ -119,10 +119,10 @@ namespace Hyperion.Accelerators.KdTree
             _maxPrimitives = maxPrimitives;
             _maxDepth = maxDepth;
 
-            Console.WriteLine ("  + Refining {0} primitives...", p.Count);
+            Console.WriteLine ("    - Refining {0} primitives...", p.Count);
             foreach (IPrimitive primitive in p)
-                primitive.FullyRefine (_primitives);
-            Console.WriteLine ("  + Refined into {0} primitives", _primitives.Count);
+                primitive.FullyRefine (ref _primitives);
+            Console.WriteLine ("    - Refined into {0} primitives", _primitives.Count);
             
             // Build kd-Tree
             _nextFreeNode = _numberOfAllocatedNodes = 0;
@@ -139,8 +139,7 @@ namespace Hyperion.Accelerators.KdTree
                 _bounds = BoundingBox.Union (_bounds, b);
                 primitiveBounds.Add (b);
             }
-            Console.WriteLine ("  + KdTree Volume: {0}", _bounds.Volume);
-            Console.WriteLine ("  + Resulting Bound: pMin = {0}, pMax = {1}", _bounds.pMin, _bounds.pMax);
+            Console.WriteLine ("    - KdTree Volume: {0}", _bounds.Volume);
             
             // Allocate working memory for kd-Tree construction
             List<BoundEdge>[] edges = new List<BoundEdge>[3];
@@ -165,9 +164,9 @@ namespace Hyperion.Accelerators.KdTree
                 primNums[i] = i;
             
             // Start recursive construction of kd-Tree
-            Console.WriteLine ("    + Building KdTree for {0} primitives...", _primitives.Count);
+            Console.WriteLine ("    - Building KdTree for {0} primitives...", _primitives.Count);
             BuildTree (0, _bounds, primitiveBounds, primNums, _primitives.Count, _maxDepth, edges, prims0, prims1, 0, 0);
-            Console.WriteLine ("    + Created KdTree with {0} nodes and {1} leafs.", NumberOfTotalNodes, NumberOfTotalLeafs);
+            Console.WriteLine ("    - Created KdTree with {0} nodes and {1} leafs.", NumberOfTotalNodes, NumberOfTotalLeafs);
         }
 
         /// <summary>
@@ -368,7 +367,6 @@ namespace Hyperion.Accelerators.KdTree
             {
                 return false;
             }
-            Console.WriteLine ("Biatch!");
 
             Vector inverseDirection = new Vector (1.0 / ray.Direction.x, 1.0 / ray.Direction.y, 1.0 / ray.Direction.z);
 

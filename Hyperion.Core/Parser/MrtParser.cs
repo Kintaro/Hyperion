@@ -27,7 +27,8 @@ namespace Hyperion.Core.Parser
         /// </returns>
         public bool Parse (string sceneFile)
         {
-            Console.WriteLine ("Reading file {0}", sceneFile);
+            Console.WriteLine ("  > Invoking Parser:");
+            Console.WriteLine ("    - Reading file {0}", sceneFile);
             Irony.Parsing.LanguageData languageData = new Irony.Parsing.LanguageData (_grammar);
             Irony.Parsing.Parser parser = new Irony.Parsing.Parser (languageData);
             LanguageRuntime runtime = new LanguageRuntime (languageData);
@@ -36,9 +37,9 @@ namespace Hyperion.Core.Parser
             System.IO.StreamReader reader = System.IO.File.OpenText (sceneFile);
             builder.Append (reader.ReadToEnd ());
 
-            Console.WriteLine ("Parsing contents");
+            Console.WriteLine ("    - Parsing contents");
             ParseTree tree = parser.Parse (builder.ToString ());
-            Console.WriteLine ("Status: {0}", tree.Status);
+            Console.WriteLine ("    - Status: {0}", tree.Status);
             var node = tree.Root.AstNode as AstNode;
             node.Evaluate (new EvaluationContext (runtime), AstMode.Read);
             

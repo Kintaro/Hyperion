@@ -4,9 +4,10 @@
 
 	<!-- Subsystems -->
 	<target name="random"><nant buildfile="Hyperion.Samplers.Random/hyperion.build"/></target>
+	<target name="ld"><nant buildfile="Hyperion.Samplers.LowDiscrepancy/hyperion.build"/></target>
 	
 	<!-- meta target -->
-	<target name="all" depends="random"/>
+	<target name="all" depends="random,ld"/>
 
 		
 </project>

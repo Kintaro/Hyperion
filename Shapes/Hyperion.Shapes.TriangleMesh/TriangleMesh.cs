@@ -24,18 +24,46 @@ namespace Hyperion.Shapes.TriangleMesh
             NumberOfTriangles = ntris;
             NumberOfVertices = nverts;
             AlphaTexture = atex;
+
+            /*VertexIndices = new int[3 * NumberOfTriangles];
+            vptr.CopyTo (VertexIndices, 0);*/
             VertexIndices = vptr;
-            Points = p;
+
+            /*if (uv != null)
+            {
+                Uvs = new double[2 * NumberOfVertices];
+                uv.CopyTo (Uvs, 0);
+            }
+            else
+                Uvs = null;*/
+
+            Points = new Point[NumberOfVertices];
             Normals = n;
             Vectors = s;
             Uvs = uv;
+
+            /*if (n != null)
+            {
+                Normals = new Normal[NumberOfVertices];
+                n.CopyTo (Normals, 0);
+            }
+            else
+                Normals = null;
+
+            if (s != null)
+            {
+                Vectors = new Vector[NumberOfVertices];
+                s.CopyTo (Vectors, 0);
+            }
+            else
+                Vectors = null;*/
             
             for (int i = 0; i < NumberOfVertices; ++i)
-                Points[i] = ObjectToWorld.Apply (Points[i]);
+                Points[i] = objectToWorld.Apply (p[i]);
             
         }
 
-        public override void Refine (List<IShape> refined)
+        public override void Refine (ref List<IShape> refined)
         {
             for (int i = 0; i < NumberOfTriangles; ++i)
                 refined.Add (new Triangle (ObjectToWorld, WorldToObject, ReverseOrientation, this, i));

@@ -33,7 +33,7 @@ namespace Hyperion.Accelerators.GridAccelerator
                     if (!primitive.CanIntersect)
                     {
                         List<IPrimitive> p = new List<IPrimitive> ();
-                        primitive.FullyRefine (p);
+                        primitive.FullyRefine (ref p);
 
                         if (p.Count == 1)
                             primitives[i] = p[0];
@@ -64,7 +64,7 @@ namespace Hyperion.Accelerators.GridAccelerator
                     if (!primitive.CanIntersect)
                     {
                         List<IPrimitive> p = new List<IPrimitive> ();
-                        primitive.FullyRefine (p);
+                        primitive.FullyRefine (ref p);
                         
                         if (p.Count == 1)
                             primitives[i] = p[0];

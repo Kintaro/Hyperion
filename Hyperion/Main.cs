@@ -18,7 +18,10 @@ namespace Hyperion
             Console.WriteLine ("---------------------------------------------------------------------");
             Console.WriteLine ();
             Hyperion.Core.Parser.MrtParser parser = new Hyperion.Core.Parser.MrtParser ();
-            parser.Parse ("bunny.hsf");
+            if (args.Length > 0)
+                parser.Parse (args[0]);
+            else
+                parser.Parse ("bunny.hsf");
         }
     }
 }

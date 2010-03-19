@@ -23,9 +23,9 @@ namespace Hyperion.Core.Tools
             {
                 for (int x = 0; x < xRes; ++x)
                 {
-                    dest[0] = (byte)Util.Clamp (255.0 * Math.Pow (pixels[3 * (y * xRes + x) + 2], 1.0 / 2.3), 0.0, 255.0);
+                    dest[2] = (byte)Util.Clamp (255.0 * Math.Pow (pixels[3 * (y * xRes + x) + 2], 1.0 / 2.3), 0.0, 255.0);
                     dest[1] = (byte)Util.Clamp (255.0 * Math.Pow (pixels[3 * (y * xRes + x) + 1], 1.0 / 2.3), 0.0, 255.0);
-                    dest[2] = (byte)Util.Clamp (255.0 * Math.Pow (pixels[3 * (y * xRes + x) + 0], 1.0 / 2.3), 0.0, 255.0);
+                    dest[0] = (byte)Util.Clamp (255.0 * Math.Pow (pixels[3 * (y * xRes + x) + 0], 1.0 / 2.3), 0.0, 255.0);
 
                     bitmap.SetPixel (x, y, Color.FromArgb (dest[0], dest[1], dest[2]));
                 }

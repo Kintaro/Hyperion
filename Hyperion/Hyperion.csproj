@@ -91,6 +91,18 @@
       <Project>{8D40F319-E507-4CF1-A61C-722F634745EB}</Project>
       <Name>Hyperion.Accelerators.KdTree</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Lights\Hyperion.Lights.Distant\Hyperion.Lights.Distant.csproj">
+      <Project>{FB6058C6-5AA2-4573-B4CD-35C0B0468339}</Project>
+      <Name>Hyperion.Lights.Distant</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lights\Hyperion.Lights.DiffuseAreaLight\Hyperion.Lights.DiffuseAreaLight.csproj">
+      <Project>{DFF7C19B-DAC8-4809-AC3D-589751B8C868}</Project>
+      <Name>Hyperion.Lights.DiffuseAreaLight</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Samplers\Hyperion.Samplers.LowDiscrepancy\Hyperion.Samplers.LowDiscrepancy.csproj">
+      <Project>{DF2790AD-EF13-431A-8C0D-D0041B51A10A}</Project>
+      <Name>Hyperion.Samplers.LowDiscrepancy</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

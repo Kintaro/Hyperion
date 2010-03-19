@@ -75,10 +75,10 @@ namespace Hyperion.Core.Interfaces
             return Material.GetBssrdf (dg, dgs);
         }
 
-        public override void Refine (List<IPrimitive> refined)
+        public override void Refine (ref List<IPrimitive> refined)
         {
             List<IShape> r = new List<IShape> ();
-            Shape.Refine (r);
+            Shape.Refine (ref r);
             foreach (IShape shape in r)
                 refined.Add (new GeometricPrimitive (shape, Material, AreaLight));
         }

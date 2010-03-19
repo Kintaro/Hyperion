@@ -30,7 +30,7 @@ namespace Hyperion.Films.Image
 
         public Image (int xres, int yres, IFilter filter, double[] crop, string filename, bool openWindow) : base(xres, yres)
         {
-            Console.WriteLine ("    # Creating ImageFilm with {0}x{1}", xres, yres);
+            Console.WriteLine ("    - Creating ImageFilm with {0}x{1}", xres, yres);
             Filter = filter;
             CropWindow = crop;
             FileName = filename;
@@ -77,6 +77,11 @@ namespace Hyperion.Films.Image
             
             double[] xyz = new double[3];
             L.ToXyz (xyz);
+            if (!L.IsBlack && L.IsBlack)
+            {
+                Console.WriteLine ("Adding {0}", L);
+                Console.WriteLine ("xyz {0}, {1}, {2}", xyz[0], xyz[1], xyz[2]);
+            }
             
             int[] ifx = new int[x1 - x0 + 1];
             for (int x = x0; x <= x1; ++x)
@@ -111,7 +116,7 @@ namespace Hyperion.Films.Image
                     {
                         ParallelUtility.AtomicAdd (ref pixel.Lxyz[0], filterWeight * xyz[0]);
                         ParallelUtility.AtomicAdd (ref pixel.Lxyz[1], filterWeight * xyz[1]);
-                        ParallelUtility.AtomicAdd (ref pixel.Lxyz[1], filterWeight * xyz[2]);
+                        ParallelUtility.AtomicAdd (ref pixel.Lxyz[2], filterWeight * xyz[2]);
                         ParallelUtility.AtomicAdd (ref pixel.WeightSum, filterWeight);
                     }
                 }

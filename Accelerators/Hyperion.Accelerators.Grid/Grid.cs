@@ -23,7 +23,7 @@ namespace Hyperion.Accelerators.GridAccelerator
             {
                 foreach (IPrimitive primitive in primitives)
                 {
-                    primitive.FullyRefine (Primitives);
+                    primitive.FullyRefine (ref Primitives);
                 }
             }
             else

@@ -100,7 +100,7 @@ namespace Hyperion.Core.Interfaces
             dgShading = new DifferentialGeometry (dg);
         }
 
-        public virtual void Refine (List<IShape> refined)
+        public virtual void Refine (ref List<IShape> refined)
         {
         }
     }

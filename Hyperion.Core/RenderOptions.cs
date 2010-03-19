@@ -35,8 +35,8 @@ namespace Hyperion.Core
         public RenderOptions ()
         {
             FilmName = "Image";
-            SamplerName = "Random";
-            AcceleratorName = "KdTree";
+            SamplerName = "LowDiscrepancy";
+            AcceleratorName = "Grid";
             SurfaceIntegratorName = "Whitted";
             VolumeIntegratorName = "Emission";
             CameraName = "Perspective";
@@ -52,6 +52,7 @@ namespace Hyperion.Core
 
         public Scene CreateScene ()
         {
+            Console.WriteLine ("  > Loading Accelerator Module");
             IPrimitive accelerator = PluginManager.CreateAccelerator (AcceleratorName, Primitives, AcceleratorParameters);
             return new Scene (accelerator, Lights, null);
         }
