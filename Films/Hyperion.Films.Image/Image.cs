@@ -77,11 +77,6 @@ namespace Hyperion.Films.Image
             
             double[] xyz = new double[3];
             L.ToXyz (xyz);
-            if (!L.IsBlack && L.IsBlack)
-            {
-                Console.WriteLine ("Adding {0}", L);
-                Console.WriteLine ("xyz {0}, {1}, {2}", xyz[0], xyz[1], xyz[2]);
-            }
             
             int[] ifx = new int[x1 - x0 + 1];
             for (int x = x0; x <= x1; ++x)

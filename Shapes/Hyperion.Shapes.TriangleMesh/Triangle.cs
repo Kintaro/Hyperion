@@ -39,7 +39,7 @@ namespace Hyperion.Shapes.TriangleMesh
                 return false;
 
             Vector s2 = d % e1;
-            double b2 = (ray.Direction ^ s2) / invDivisor;
+            double b2 = (ray.Direction ^ s2) * invDivisor;
             if (b2 < 0.0 || b1 + b2 > 1.0)
                 return false;
 
@@ -107,7 +107,7 @@ namespace Hyperion.Shapes.TriangleMesh
                 return false;
             
             Vector s2 = d % e1;
-            double b2 = (ray.Direction ^ s2) / invDivisor;
+            double b2 = (ray.Direction ^ s2) * invDivisor;
             if (b2 < 0.0 || b1 + b2 > 1.0)
                 return false;
             
@@ -149,7 +149,7 @@ namespace Hyperion.Shapes.TriangleMesh
             return true;
         }
 
-        public override void GetShadingGeometry (Transform objectToWorld, DifferentialGeometry dg, out DifferentialGeometry dgShading)
+        public override void GetShadingGeometry (Transform objectToWorld, DifferentialGeometry dg, ref DifferentialGeometry dgShading)
         {
             if (Mesh.Normals == null && Mesh.Vectors == null)
             {
@@ -176,11 +176,15 @@ namespace Hyperion.Shapes.TriangleMesh
             Normal ns;
             Vector ss, ts;
             if (Mesh.Normals != null)
-                ns = objectToWorld.Apply (b[0] * Mesh.Normals[Vertices[0]] + b[1] * Mesh.Normals[Vertices[1]] + b[2] * Mesh.Normals[Vertices[2]]).Normalized;
+                ns = objectToWorld.Apply (b[0] * Mesh.Normals[Vertices[0]] +
+                    b[1] * Mesh.Normals[Vertices[1]] +
+                    b[2] * Mesh.Normals[Vertices[2]]).Normalized;
             else
                 ns = new Normal (dg.n);
             if (Mesh.Vectors != null)
-                ss = objectToWorld.Apply (b[0] * Mesh.Vectors[Vertices[0]] + b[1] * Mesh.Vectors[Vertices[1]] + b[2] * Mesh.Vectors[Vertices[2]]);
+                ss = objectToWorld.Apply (b[0] * Mesh.Vectors[Vertices[0]] +
+                    b[1] * Mesh.Vectors[Vertices[1]] +
+                    b[2] * Mesh.Vectors[Vertices[2]]).Normalized;
             else
                 ss = dg.dpdu.Normalized;
             ts = ss % ns;

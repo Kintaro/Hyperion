@@ -26,6 +26,19 @@ namespace Hyperion.Core
             ReverseOrientation = false;
         }
 
+        public GraphicsState (GraphicsState state)
+        {
+            MaterialParameters = state.MaterialParameters;
+            Material = state.Material;
+            AreaLight = state.AreaLight;
+            AreaLightParameters = state.AreaLightParameters;
+            ReverseOrientation = state.ReverseOrientation;
+            FloatTextures = state.FloatTextures;
+            SpectrumTextures = state.SpectrumTextures;
+            CurrentNamedMaterial = state.CurrentNamedMaterial;
+            NamedMaterials = state.NamedMaterials;
+        }
+
         public IMaterial CreateMaterial (ParameterSet parameters)
         {
             TextureParameterSet mp = new TextureParameterSet (parameters, MaterialParameters, FloatTextures, SpectrumTextures);

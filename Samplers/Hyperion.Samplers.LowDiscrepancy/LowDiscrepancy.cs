@@ -16,8 +16,12 @@ namespace Hyperion.Samplers.LowDiscrepancy
         {
             xPos = xPixelStart;
             yPos = yPixelStart;
-            
-            nPixelSamples = Util.RoundUpPow2 (ps);
+
+            if (!Util.IsPowerOf2 (ps))
+                nPixelSamples = Util.RoundUpPow2 (ps);
+            else
+                nPixelSamples = ps;
+            SampleBuffer = null;
         }
 
         public override ISampler GetSubSampler (int num, int count)

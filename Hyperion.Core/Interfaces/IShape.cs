@@ -95,7 +95,7 @@ namespace Hyperion.Core.Interfaces
             return false;
         }
 
-        public virtual void GetShadingGeometry (Transform objectToWorld, DifferentialGeometry dg, out DifferentialGeometry dgShading)
+        public virtual void GetShadingGeometry (Transform objectToWorld, DifferentialGeometry dg, ref DifferentialGeometry dgShading)
         {
             dgShading = new DifferentialGeometry (dg);
         }

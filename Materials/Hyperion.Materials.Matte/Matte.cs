@@ -23,9 +23,9 @@ namespace Hyperion.Materials.Matte
 
         public override BSDF GetBsdf (DifferentialGeometry dgGeom, DifferentialGeometry dgShading)
         {
-            DifferentialGeometry dgs;
+            DifferentialGeometry dgs = new DifferentialGeometry ();
             if (BumpMap != null)
-                Bump (BumpMap, dgGeom, dgShading, out dgs);
+                Bump (BumpMap, dgGeom, dgShading, ref dgs);
             else
                 dgs = new DifferentialGeometry (dgShading);
 

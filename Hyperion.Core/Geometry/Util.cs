@@ -137,6 +137,11 @@ namespace Hyperion.Core.Geometry
             return v + 1;
         }
 
+        public static bool IsPowerOf2 (int v)
+        {
+            return (v & (v - 1)) == 0;
+        }
+
         public static int RoundToInt (double val)
         {
             return Floor2Int (val + 0.5);

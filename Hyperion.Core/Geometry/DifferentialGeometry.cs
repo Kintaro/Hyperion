@@ -49,7 +49,7 @@ namespace Hyperion.Core.Geometry
             this.v = v;
             dudx = dvdx = dudy = dvdy = 0.0;
             this.Shape = shape;
-
+            
             if (shape != null && (shape.ReverseOrientation ^ shape.TransformSwapsHandedness))
                 n *= -1.0;
         }
@@ -71,9 +71,85 @@ namespace Hyperion.Core.Geometry
             this.Shape = dg.Shape;
         }
 
-        public void ComputeDifferentials (RayDifferential r)
+        public void ComputeDifferentials (RayDifferential ray)
         {
-
+            if (ray.HasDifferentials)
+            {
+                // Estimate screen space change in $\pt{}$ and $(u,v)$
+                
+                // Compute auxiliary intersection points with plane
+                double d = -(n ^ new Vector (p.x, p.y, p.z));
+                Vector rxv = new Vector (ray.RxOrigin.x, ray.RxOrigin.y, ray.RxOrigin.z);
+                double tx = -((n ^ rxv) + d) / (n ^ ray.RxDirection);
+                if (double.IsNaN (tx))
+                {
+                    dudx = dvdx = 0.0;
+                    dudy = dvdy = 0.0;
+                    dpdx = new Vector ();
+                    dpdy = new Vector ();
+                }
+                Point px = ray.RxOrigin + tx * ray.RxDirection;
+                Vector ryv = new Vector (ray.RyOrigin.x, ray.RyOrigin.y, ray.RyOrigin.z);
+                double ty = -((n ^ ryv) + d) / (n ^ ray.RyDirection);
+                if (double.IsNaN (ty))
+                {
+                    dudx = dvdx = 0.0;
+                    dudy = dvdy = 0.0;
+                    dpdx = new Vector ();
+                    dpdy = new Vector ();
+                }
+                Point py = ray.RyOrigin + ty * ray.RyDirection;
+                dpdx = px - p;
+                dpdy = py - p;
+                
+                // Compute $(u,v)$ offsets at auxiliary points
+                
+                // Initialize _A_, _Bx_, and _By_ matrices for offset computation
+                double[][] A = new double[2][];
+                A[0] = new double[2];
+                A[1] = new double[2];
+                double[] Bx = new double[2], By = new double[2];
+                int[] axes = new int[2];
+                if (Math.Abs (n.x) > Math.Abs (n.y) && Math.Abs (n.x) > Math.Abs (n.z))
+                {
+                    axes[0] = 1;
+                    axes[1] = 2;
+                } else if (Math.Abs (n.y) > Math.Abs (n.z))
+                {
+                    axes[0] = 0;
+                    axes[1] = 2;
+                } else
+                {
+                    axes[0] = 0;
+                    axes[1] = 1;
+                }
+                
+                // Initialize matrices for chosen projection plane
+                A[0][0] = dpdu[axes[0]];
+                A[0][1] = dpdv[axes[0]];
+                A[1][0] = dpdu[axes[1]];
+                A[1][1] = dpdv[axes[1]];
+                Bx[0] = px[axes[0]] - p[axes[0]];
+                Bx[1] = px[axes[1]] - p[axes[1]];
+                By[0] = py[axes[0]] - p[axes[0]];
+                By[1] = py[axes[1]] - p[axes[1]];
+                if (!Util.SolveLinearSystem2x2 (A, Bx[0], Bx[1], out dudx, out dvdx))
+                {
+                    dudx = 0.0;
+                    dvdx = 0.0;
+                }
+                if (!Util.SolveLinearSystem2x2 (A, By[0], By[1], out dudy, out dvdy))
+                {
+                    dudy = 0.0;
+                    dvdy = 0.0;
+                }
+            } else
+            {
+                dudx = dvdx = 0.0;
+                dudy = dvdy = 0.0;
+                dpdx = new Vector ();
+                dpdy = new Vector ();
+            }
         }
     }
 }

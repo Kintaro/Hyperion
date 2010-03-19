@@ -63,15 +63,15 @@ namespace Hyperion.Core.Interfaces
 
         public override BSDF GetBsdf (DifferentialGeometry dg, Transform objectoToWorld)
         {
-            DifferentialGeometry dgs;
-            Shape.GetShadingGeometry (objectoToWorld, dg, out dgs);
+            DifferentialGeometry dgs = new DifferentialGeometry ();
+            Shape.GetShadingGeometry (objectoToWorld, dg, ref dgs);
             return Material.GetBsdf (dg, dgs);
         }
 
         public override BSSRDF GetBssrdf (DifferentialGeometry dg, Transform objectToWorld)
         {
-            DifferentialGeometry dgs;
-            Shape.GetShadingGeometry (objectToWorld, dg, out dgs);
+            DifferentialGeometry dgs = new DifferentialGeometry ();
+            Shape.GetShadingGeometry (objectToWorld, dg, ref dgs);
             return Material.GetBssrdf (dg, dgs);
         }
 

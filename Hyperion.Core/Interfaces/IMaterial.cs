@@ -14,7 +14,7 @@ namespace Hyperion.Core.Interfaces
 
         public abstract BSDF GetBsdf (DifferentialGeometry dgGeom, DifferentialGeometry dgShading);
 
-        public static void Bump (ITexture<double> d, DifferentialGeometry dgGeom, DifferentialGeometry dgShading, out DifferentialGeometry dgBump)
+        public static void Bump (ITexture<double> d, DifferentialGeometry dgGeom, DifferentialGeometry dgShading, ref DifferentialGeometry dgBump)
         {
             DifferentialGeometry dgEval = new DifferentialGeometry (dgShading);
 

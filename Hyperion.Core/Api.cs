@@ -35,14 +35,14 @@ namespace Hyperion.Core
 
         public static void AttributeBegin ()
         {
-            Api.PushedGraphicsStates.Push (Api.GraphicsState);
+            Api.PushedGraphicsStates.Push (new GraphicsState (Api.GraphicsState));
             Api.PushedTransforms.Push (new TransformSet(Api.CurrentTransform));
             Api.PushedActiveTransformBits.Push (Api.ActiveTransformBits);
         }
 
         public static void AttributeEnd ()
         {
-            Api.GraphicsState = Api.PushedGraphicsStates.Pop ();
+            Api.GraphicsState = new GraphicsState (Api.PushedGraphicsStates.Pop ());
             Api.CurrentTransform = new TransformSet (Api.PushedTransforms.Pop ());
             Api.ActiveTransformBits = Api.PushedActiveTransformBits.Pop ();
         }
