@@ -140,11 +140,19 @@ namespace Hyperion.Core
         {
             return s * (1.0 / f);
         }
+        public static Spectrum FromRgb (double[] rgb)
+        {
+            Spectrum s = new Spectrum ();
+            s.c[0] = rgb[0];
+            s.c[1] = rgb[1];
+            s.c[2] = rgb[2];
+            return s;
+        }
 
         public override string ToString ()
         {
-            return string.Format("[Spectrum: {0}, {1}, {2}]", c[0], c[1], c[2]);
+            return string.Format ("[Spectrum: {0}, {1}, {2}]", c[0], c[1], c[2]);
         }
-
+        
     }
 }

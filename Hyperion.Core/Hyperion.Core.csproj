@@ -159,6 +159,10 @@
     <Compile Include="Tools\StaticPool.cs" />
     <Compile Include="Interfaces\ShapeSet.cs" />
     <Compile Include="Geometry\Distribution1D.cs" />
+    <Compile Include="Reflection\SpecularReflection.cs" />
+    <Compile Include="Reflection\SpecularTransmission.cs" />
+    <Compile Include="Reflection\FresnelDielectric.cs" />
+    <Compile Include="Reflection\FresnelNoOp.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />

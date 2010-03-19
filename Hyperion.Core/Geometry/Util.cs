@@ -110,6 +110,11 @@ namespace Hyperion.Core.Geometry
             return Math.Max (0.0, 1.0 - CosTheta (w) * CosTheta (w));
         }
 
+        public static double SinTheta2 (Vector w)
+        {
+            return Math.Max (0.0, 1.0 - CosTheta (w) * CosTheta (w));
+        }
+
         public static double SinPhi (Vector w)
         {
             double sinTheta = SinTheta (w);

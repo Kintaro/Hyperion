@@ -103,6 +103,14 @@
       <Project>{DF2790AD-EF13-431A-8C0D-D0041B51A10A}</Project>
       <Name>Hyperion.Samplers.LowDiscrepancy</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Materials\Hyperion.Materials.Glass\Hyperion.Materials.Glass.csproj">
+      <Project>{794F9F8E-245C-4651-9CAF-7F3F905C5351}</Project>
+      <Name>Hyperion.Materials.Glass</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Materials\Hyperion.Materials.Measured\Hyperion.Materials.Measured.csproj">
+      <Project>{C33AA987-B5C9-479F-B5F2-6C7F2A0263DF}</Project>
+      <Name>Hyperion.Materials.Measured</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
