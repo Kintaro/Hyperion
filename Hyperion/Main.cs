@@ -21,7 +21,7 @@ namespace Hyperion
             if (args.Length > 0)
                 parser.Parse (args[0]);
             else
-                parser.Parse ("bunny.hsf");
+                parser.Parse ("stanford.hsf");
         }
     }
 }
