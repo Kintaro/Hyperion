@@ -1,6 +1,7 @@
-Film "Image" "integer xresolution" [512] "integer yresolution" [512] 
+Film "Image" "integer xresolution" [60] "integer yresolution" [60] 
 LookAt 0 .2 .2    -.02 .1 0  0 1 0
 Camera "Perspective" "float fov" [60]
+#Accelerator "KdTree"
 
 WorldBegin
 
@@ -16,13 +17,33 @@ Rotate 90 1 0 0
 Shape "Disk" "float radius" [.25]
 AttributeEnd
 
-Material "Matte" "color Kd" [.4 .42 .4]
-Shape "TriangleMesh" "point P" [ -1 0 -1 1 0 -1 1 0 1 -1 0 1 ]
+Material "Mirror" 
+Shape "TriangleMesh" "point P" [ -1 0 -0.1 1 0 -0.1 1 1 -0.1 -1 1 -0.1 ]
+        "integer indices" [ 0 1 2 2 3 0]
+Material "Mirror"
+Shape "TriangleMesh" "point P" [ -1 0 0.25 1 0 0.25 1 1 0.5 -1 1 0.25 ]
+        "integer indices" [ 0 1 2 2 3 0]
+Material "Mirror"
+Shape "TriangleMesh" "point P" [ -0.15 0 0.25 -0.15 0 -0.25 -0.15 1 -0.25 -0.15 1 0.25 ]
+        "integer indices" [ 0 1 2 2 3 0]
+Material "Mirror"
+Shape "TriangleMesh" "point P" [ 0.15 0 0.25 0.15 0 -0.25 0.15 1 -0.25 0.15 1 0.25 ]
+        "integer indices" [ 0 1 2 2 3 0]
+
+
+
+Material "Matte" "color Kd" [.3 .4 .3]
+Shape "TriangleMesh" "point P" [ -1 0 -0.5 1 0 -0.5 1 0 0.5 -1 0 0.5 ]
 	"integer indices" [ 0 1 2 2 3 0]
+
+Material "Matte" "color Kd" [.4 .42 .4]
+Shape "TriangleMesh" "point P" [ -1 2 -0.5 1 2 -0.5 1 2 0.5 -1 2 0.5 ]
+        "integer indices" [ 0 1 2 2 3 0]
+
 
 AttributeBegin
 Translate 0 -.033 0
-Material "Matte" "color Kd" [.4 .4 .8]
+Material "Subsurface" "color Kr" [.5 .5 .8] "color sigma_a" [.3 .3 .8]
 Shape "TriangleMesh" 
   "point P" [
     -0.0378297 0.12794 0.00447467
