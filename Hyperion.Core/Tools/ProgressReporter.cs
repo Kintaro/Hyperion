@@ -27,7 +27,7 @@ namespace Hyperion.Core
         /// <param name="title">
         /// A <see cref="System.String"/>
         /// </param>
-        public ProgressReporter (int totalWork, string title) : this(totalWork, title, 100)
+        public ProgressReporter (int totalWork, string title) : this(totalWork, title, 50)
         {
         }
 

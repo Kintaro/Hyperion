@@ -112,7 +112,7 @@ namespace Hyperion.Core.Parser
             material.Rule = "Material" + str + paramListContents;
             lightSource.Rule = "LightSource" + str + paramListContents;
             areaLightSource.Rule = "AreaLightSource" + str + paramListContents;
-            plugin.Rule = camera | film | sampler | surfaceIntegrator | volumeIntegrator | shape | pixelFilter | texture | material | lightSource | areaLightSource;
+            plugin.Rule = camera | film | sampler | surfaceIntegrator | volumeIntegrator | shape | pixelFilter | texture | material | lightSource | areaLightSource;
             
             statements.Rule = transformations | include | attributeBegin | attributeEnd | paramListContents | plugin | statements | worldBegin | worldEnd | comment;
             scene.Rule = MakePlusRule (scene, statements);
