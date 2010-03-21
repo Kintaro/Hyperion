@@ -149,6 +149,15 @@ namespace Hyperion.Core
             return s;
         }
 
+        public static Spectrum Pow (Spectrum s, double e)
+        {
+            Spectrum result = new Spectrum ();
+            result.c[0] = Math.Pow (s.c[0], e);
+            result.c[1] = Math.Pow (s.c[1], e);
+            result.c[2] = Math.Pow (s.c[2], e);
+            return result;
+        }
+
         public override string ToString ()
         {
             return string.Format ("[Spectrum: {0}, {1}, {2}]", c[0], c[1], c[2]);

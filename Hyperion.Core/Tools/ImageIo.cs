@@ -32,5 +32,29 @@ namespace Hyperion.Core.Tools
             }
             bitmap.Save (name);
         }
+
+        public static Spectrum[] ReadImage (string name, out int xSize, out int ySize)
+        {
+            Bitmap bitmap = new Bitmap (name);
+            Spectrum[] pixels = new Spectrum[bitmap.Width * bitmap.Height];
+
+            for (int y = 0; y < bitmap.Height; ++y)
+            {
+                for (int x = 0; x < bitmap.Width; ++x)
+                {
+                    Color pixel = bitmap.GetPixel (x, y);
+                    double[] c = new double[3];
+                    c[0] = pixel.R / 255.0;
+                    c[1] = pixel.G / 255.0;
+                    c[2] = pixel.B / 255.0;
+                    pixels[y * bitmap.Width + x] = new Spectrum (c[0], c[1], c[2]);
+                }
+            }
+
+            xSize = bitmap.Width;
+            ySize = bitmap.Height;
+
+            return pixels;
+        }
     }
 }

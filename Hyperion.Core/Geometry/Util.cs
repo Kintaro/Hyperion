@@ -179,5 +179,30 @@ namespace Hyperion.Core.Geometry
                 return false;
             return true;
         }
+
+        public static bool Quadratic (double A, double B, double C, ref double t0, ref double t1)
+        {
+            // Find quadratic discriminant
+            double discrim = B * B - 4.0 * A * C;
+            if (discrim <= 0.0)
+                return false;
+            double rootDiscrim = Math.Sqrt (discrim);
+            
+            // Compute quadratic _t_ values
+            double q;
+            if (B < 0)
+                q = -0.5 * (B - rootDiscrim);
+            else
+                q = -0.5 * (B + rootDiscrim);
+            t0 = q / A;
+            t1 = C / q;
+            if (t0 > t1)
+            {
+                double t = t0;
+                t0 = t1;
+                t1 = t;
+            }
+            return true;
+        }
     }
 }

@@ -91,6 +91,27 @@ namespace Hyperion.Core.Geometry
             return 1.0 / (4.0 * Util.Pi);
         }
 
+        public static double UniformConePdf (double cosThetaMax)
+        {
+            return 1.0 / (2.0 * Util.Pi * (1.0 - cosThetaMax));
+        }
+
+        public static Vector UniformSampleCone (double u1, double u2, double costhetamax)
+        {
+            double costheta = (1.0 - u1) + u1 * costhetamax;
+            double sintheta = Math.Sqrt (1.0 - costheta * costheta);
+            double phi = u2 * 2.0 * Util.Pi;
+            return new Vector (Math.Cos (phi) * sintheta, Math.Sin (phi) * sintheta, costheta);
+        }
+
+        public static Vector UniformSampleCone (double u1, double u2, double costhetamax, Vector x, Vector y, Vector z)
+        {
+            double costheta = Util.Lerp (u1, costhetamax, 1.0);
+            double sintheta = Math.Sqrt (1.0 - costheta * costheta);
+            double phi = u2 * 2.0 * Util.Pi;
+            return Math.Cos (phi) * sintheta * x + Math.Sin (phi) * sintheta * y + costheta * z;
+        }
+
         public static void UniformSampleTriangle (double u1, double u2, out double u, out double v)
         {
             double su1 = Math.Sqrt (u1);

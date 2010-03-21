@@ -27,6 +27,7 @@ namespace Hyperion.Cameras.Perspective
 
         public override double GenerateRay (CameraSample sample, ref Ray ray)
         {
+            ++NumberOfRays;
             // Generate raster and camera samples
             Point pRas = new Point (sample.ImageX, sample.ImageY, 0);
             Point pCam = new Point ();
@@ -55,6 +56,7 @@ namespace Hyperion.Cameras.Perspective
 
         public override double GenerateRayDifferential (CameraSample sample, ref RayDifferential rd)
         {
+            ++NumberOfRays;
             Point pRas = new Point (sample.ImageX, sample.ImageY, 0.0);
             Point pCam = new Point ();
             RasterToCamera.Apply (pRas, ref pCam);

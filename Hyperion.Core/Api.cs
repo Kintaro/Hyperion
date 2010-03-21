@@ -9,8 +9,8 @@ namespace Hyperion.Core
 {
     public static class Api
     {
-        public const string Version = "0.0.1";
-        public static readonly DateTime VersionDate = new DateTime (2010, 3, 17, 20, 23, 50);
+        public const string Version = "0.1.7";
+        public static readonly DateTime VersionDate = new DateTime (2010, 3, 21, 21, 27, 53);
         public static TransformSet CurrentTransform = new TransformSet ();
         public static Dictionary<string, TransformSet> NamedCoordinateSystems = new Dictionary<string, TransformSet> ();
         public static RenderOptions RenderOptions = new RenderOptions ();
@@ -200,8 +200,15 @@ namespace Hyperion.Core
             Scene scene = Api.RenderOptions.CreateScene ();
             IRenderer renderer = Api.RenderOptions.CreateRenderer ();
 
+            DateTime start = DateTime.Now;
             if (scene != null && renderer != null)
                 renderer.Render (scene);
+            DateTime end = DateTime.Now;
+            Console.WriteLine ();
+            Console.WriteLine ("---------------------------------------------------------------------");
+            Console.WriteLine ("Number of generated rays: {0}", renderer.Camera.NumberOfRays);
+            Console.WriteLine ("Time used to render image: {0}", start - end);
+            Console.WriteLine ("---------------------------------------------------------------------");
         }
     }
 }

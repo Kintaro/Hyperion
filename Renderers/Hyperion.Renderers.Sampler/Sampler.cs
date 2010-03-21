@@ -11,7 +11,6 @@ namespace Hyperion.Renderers.Sampler
     public class Sampler : IRenderer
     {
         private ISampler MainSampler;
-        private ICamera Camera;
         private ISurfaceIntegrator SurfaceIntegrator;
         private IVolumeIntegrator VolumeIntegrator;
 

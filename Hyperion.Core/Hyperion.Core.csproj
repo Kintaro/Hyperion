@@ -163,6 +163,9 @@
     <Compile Include="Reflection\SpecularTransmission.cs" />
     <Compile Include="Reflection\FresnelDielectric.cs" />
     <Compile Include="Reflection\FresnelNoOp.cs" />
+    <Compile Include="Interfaces\MipMap.cs" />
+    <Compile Include="Tools\BlockedArray.cs" />
+    <Compile Include="Interfaces\TexelConstraint.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
