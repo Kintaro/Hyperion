@@ -7,6 +7,7 @@ namespace Hyperion.Core.Interfaces
     {
         T Add (T v);
         T Mul (double f);
+        T Div (double f);
         void Set (double val);
     }
 }

@@ -70,6 +70,11 @@ namespace Hyperion.Core.Geometry
             return (int)Math.Ceiling (val);
         }
 
+        public static int Double2Int (double val)
+        {
+            return (int)val;
+        }
+
         public static double Log2 (double x)
         {
             return Math.Log (x) * InvLog2;
