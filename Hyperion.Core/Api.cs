@@ -233,7 +233,7 @@ namespace Hyperion.Core
             DateTime end = DateTime.Now;
             Console.WriteLine ();
             Console.WriteLine ("---------------------------------------------------------------------");
-            Console.WriteLine ("Category                         |");
+            Console.WriteLine ("Category                        |");
             Console.WriteLine ("---------------------------------------------------------------------");
             Console.WriteLine ("Number of generated camera rays | {0}", renderer.Camera.NumberOfRays);
             Console.WriteLine ("Number of computed rays         | {0}", Ray.NumberOfRays);
