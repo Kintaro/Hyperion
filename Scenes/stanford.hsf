@@ -17,17 +17,21 @@ Rotate 90 1 0 0
 Shape "Disk" "float radius" [.25]
 AttributeEnd
 
-Texture "tmap" "color" "imagemap" "string filename" ["Textures/lines.png"]
+Texture "tmap" "color" "imagemap" "string filename" ["Textures/wall.png"]
 Material "Matte" "texture Kd" ["tmap"]
-Shape "TriangleMesh" "point P" [ -1 0 -0.1 1 0 -0.1 1 1 -0.1 -1 1 -0.1 ]
+#Back
+Shape "TriangleMesh" "point P" [ -0.5 0 -0.1 0.5 0 -0.1 0.5 1 -0.1 -0.5 1 -0.1 ]
         "integer indices" [ 0 1 2 2 3 0]
 Material "Matte" "texture Kd" ["tmap"]
+#Front
 Shape "TriangleMesh" "point P" [ -1 0 0.25 1 0 0.25 1 1 0.5 -1 1 0.25 ]
         "integer indices" [ 0 1 2 2 3 0]
 Material "Matte" "texture Kd" ["tmap"]
+#Left
 Shape "TriangleMesh" "point P" [ -0.15 0 0.25 -0.15 0 -0.25 -0.15 1 -0.25 -0.15 1 0.25 ]
         "integer indices" [ 0 1 2 2 3 0]
 Material "Matte" "texture Kd" ["tmap"]
+#Right
 Shape "TriangleMesh" "point P" [ 0.15 0 0.25 0.15 0 -0.25 0.15 1 -0.25 0.15 1 0.25 ]
         "integer indices" [ 0 1 2 2 3 0]
 
@@ -36,7 +40,7 @@ Shape "TriangleMesh" "point P" [ 0.15 0 0.25 0.15 0 -0.25 0.15 1 -0.25 0.15 1 0.
 Texture "wood" "color" "imagemap" "string filename" ["Textures/wood.png"]
 NamedMaterial "floor_wood" "Matte" "texture Kd" ["wood"]
 NamedMaterial "floor_mirror" "Mirror"
-Material "MixedMaterial" "string namedmaterial1" ["floor_wood"] "string namedmaterial2" ["floor_mirror"]
+Material "MixedMaterial" "string first" ["floor_wood"] "string second" ["floor_mirror"] "color amount" [0.8 0.8 0.8]
 #Material "Matte" "color Kd" ["wood"]
 Shape "TriangleMesh" "point P" [ -1 0 -0.5 1 0 -0.5 1 0 0.5 -1 0 0.5 ]
 	"integer indices" [ 0 1 2 2 3 0]
@@ -48,9 +52,10 @@ Shape "TriangleMesh" "point P" [ -1 0 -0.5 1 0 -0.5 1 0 0.5 -1 0 0.5 ]
 
 AttributeBegin
 Translate 0 -.033 0
-#Material "Glass"
-#Texture "fur" "color" "imagemap" "string filename" ["Textures/fur.png"]
-Material "Subsurface" "color Kr" [.5 .5 .8] "color sigma_a" [.3 .3 .8]
+NamedMaterial "stanford_body" "Subsurface" "color Kr" [.5 .5 .8] "color sigma_a" [.3 .3 .8]
+NamedMaterial "stanford_mirror" "Mirror"
+Material "MixedMaterial" "string first" ["stanford_body"] "string second" ["stanford_mirror"] "color amount" [0.9 0.9 0.9]
+
 Shape "TriangleMesh" 
   "point P" [
     -0.0378297 0.12794 0.00447467
