@@ -149,7 +149,6 @@
     <Compile Include="PluginSystem\SamplerPlugin.cs" />
     <Compile Include="PluginSystem\ShapePlugin.cs" />
     <Compile Include="PluginSystem\SurfaceIntegratorPlugin.cs" />
-    <Compile Include="PluginSystem\TexturePlugin.cs" />
     <Compile Include="PluginSystem\VolumeIntegratorPlugin.cs" />
     <Compile Include="Tools\TextureParameterSet.cs" />
     <Compile Include="PluginSystem\RendererPlugin.cs" />
@@ -166,8 +165,11 @@
     <Compile Include="Interfaces\MipMap.cs" />
     <Compile Include="Tools\BlockedArray.cs" />
     <Compile Include="Interfaces\TexelConstraint.cs" />
+    <Compile Include="PluginSystem\SpectrumTexturePlugin.cs" />
     <Compile Include="Mappings\ITextureMapping2D.cs" />
     <Compile Include="Mappings\UVMapping2D.cs" />
+    <Compile Include="Textures\Imagemap.cs" />
+    <Compile Include="Textures\TexInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
@@ -179,6 +181,7 @@
     <Folder Include="Parallel\" />
     <Folder Include="PluginSystem\" />
     <Folder Include="Mappings\" />
+    <Folder Include="Textures\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

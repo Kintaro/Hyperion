@@ -72,7 +72,7 @@ namespace Hyperion.Core.Interfaces
                         {
                             int origS = sWeights[s].FirstTexel + j;
                             if (WrapMode == ImageWrap.Repeat)
-                                origS = (origS % sres); else if (WrapMode == ImageWrap.Clamp)
+                                origS = Util.Mod(origS, sres); else if (WrapMode == ImageWrap.Clamp)
                                 origS = Util.Clamp (origS, 0, sres - 1);
                             if (origS >= 0 && origS < (int)sres)
                                 resampledImage[t * sPow2 + s].Add (img[t * sres + origS].Mul (sWeights[s].Weight[j]));
@@ -87,7 +87,7 @@ namespace Hyperion.Core.Interfaces
                 {
                     for (int t = 0; t < tPow2; ++t)
                     {
-                        workData[t] = default(T);
+                        workData[t] = new T();
                         for (int j = 0; j < 4; ++j)
                         {
                             int offset = tWeights[t].FirstTexel + j;
@@ -95,7 +95,7 @@ namespace Hyperion.Core.Interfaces
                                 offset = (offset % tres); else if (WrapMode == ImageWrap.Clamp)
                                 offset = Util.Clamp (offset, 0, tres - 1);
                             if (offset >= 0 && offset < (int)tres)
-                                workData[t].Add (resampledImage[offset * sPow2 + s].Mul (tWeights[t].Weight[j]));
+                                workData[t] = workData[t].Add (resampledImage[offset * sPow2 + s].Mul (tWeights[t].Weight[j]));
                         }
                     }
                     for (int t = 0; t < tPow2; ++t)
@@ -208,19 +208,27 @@ namespace Hyperion.Core.Interfaces
             {
             case ImageWrap.Black:
                 if (s < 0 || s >= l.uSize || t < 0 || t >= l.vSize)
-                    return default(T);
+                    return new T ();
                 break;
             case ImageWrap.Clamp:
                 s = Util.Clamp (s, 0, l.uSize - 1);
                 t = Util.Clamp (t, 0, l.vSize - 1);
                 break;
             case ImageWrap.Repeat:
-                s = s % l.uSize;
-                t = t % l.vSize;
+                s = Util.Mod (s, l.uSize);
+                t = Util.Mod (t, l.vSize);
                 break;
             }
-            
-            return l.Get (s, t);
+
+            try
+            {
+                return l.Get (s, t);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine ();
+            }
+            return new T();
         }
 
         private T Triangle (int level, double s, double t)
@@ -265,7 +273,7 @@ namespace Hyperion.Core.Interfaces
             int t0 = Util.Ceil2Int (t - 2.0 * invDet * vSqrt);
             int t1 = Util.Floor2Int (t + 2.0 * invDet * vSqrt);
             
-            T sum = default(T);
+            T sum = new T();
             double sumWts = 0.0;
             for (int it = t0; it <= t1; ++it)
             {
@@ -277,7 +285,7 @@ namespace Hyperion.Core.Interfaces
                     if (r2 < 1.0)
                     {
                         double weight = WeightLut[Math.Min (Util.Double2Int (r2 * WeightLutSize), WeightLutSize - 1)];
-                        sum.Add (Texel (level, si, it).Mul (weight));
+                        sum = sum.Add (Texel (level, si, it).Mul (weight));
                         sumWts += weight;
                     }
                 }

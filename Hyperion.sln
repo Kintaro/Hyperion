@@ -199,6 +199,6 @@ Global
 		{17382C4E-B933-43FE-9A3C-3BD529543586} = {3D226E06-7DE0-405E-A6AF-DD406F490458}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Hyperion.Core\Hyperion.Core.csproj
+		StartupItem = Hyperion\Hyperion.csproj
 	EndGlobalSection
 EndGlobal

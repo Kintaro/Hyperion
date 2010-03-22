@@ -45,6 +45,15 @@ namespace Hyperion.Core.Geometry
             return (a - b).SquaredLength;
         }
 
+        public static int Mod (int a, int b)
+        {
+            int n = (int)(a / b);
+            a -= n * b;
+            if (a < 0)
+                a += b;
+            return a;
+        }
+
         public static double AbsDot (Vector a, Vector b)
         {
             return Math.Abs (a ^ b);

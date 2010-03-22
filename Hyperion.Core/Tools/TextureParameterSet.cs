@@ -57,10 +57,12 @@ namespace Hyperion.Core.Tools
             string n = GeometryParameters.FindTexture (name);
             if (n == "" || n == string.Empty || n == null)
                 n = MaterialParameters.FindTexture (name);
-            if (n == "" && n != string.Empty && n != null)
+            if (n != "" && n != string.Empty && n != null)
             {
                 if (SpectrumTextures.ContainsKey (n))
                     return SpectrumTextures[n];
+                else
+                    Console.WriteLine ("Couldn't find spectrum texture named {0} for parameter {1}", n, name);
             }
 
             Spectrum val = GeometryParameters.FindOneSpectrum (name, MaterialParameters.FindOneSpectrum (name, def));

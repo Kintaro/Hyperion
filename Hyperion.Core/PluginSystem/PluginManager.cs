@@ -39,16 +39,16 @@ namespace Hyperion.Core.PluginSystem
 
         public static ITexture<double> CreateDoubleTexture (string name, Transform textureToWorld, TextureParameterSet parameters)
         {
-            TexturePlugin plugin = new TexturePlugin (name);
-            return plugin.CreateDoubleTexture (textureToWorld, parameters);
+            /*TexturePlugin plugin = new TexturePlugin (name);
+            return plugin.CreateDoubleTexture (textureToWorld, parameters);*/
+            return null;
         }
 
         public static ITexture<Spectrum> CreateSpectrumTexture (string name, Transform textureToWorld, TextureParameterSet parameters)
         {
-            System.Console.WriteLine ("Textureplugin: " + name);
-            TexturePlugin plugin = new TexturePlugin (name);
-            return null;
-            //return plugin.CreateSpectrumTexture (textureToWorld, parameters);
+            /*SpectrumTexturePlugin plugin = new SpectrumTexturePlugin (name);
+            return plugin.CreateSpectrumTexture (textureToWorld, parameters);*/
+            return Hyperion.Core.Textures.Imagemap<Spectrum, Spectrum>.CreateSpectrumTexture (textureToWorld, parameters);
         }
 
         public static IPrimitive CreateAccelerator (string name, List<IPrimitive> primitives, ParameterSet parameters)
@@ -63,10 +63,10 @@ namespace Hyperion.Core.PluginSystem
             return plugin.CreateRenderer (sampler, camera, surfaceIntegrator, volumeIntegrator);
         }
 
-        public static IShape CreateShape (string name, Transform objectToWorld, Transform worldToObject, bool reverseOrientation, ParameterSet parameters, Dictionary<string, ITexture<double>> floatTextures)
+        public static IShape CreateShape (string name, Transform objectToWorld, Transform worldToObject, bool reverseOrientation, ParameterSet parameters, Dictionary<string, ITexture<double>> floatTextures, Dictionary<string, ITexture<Spectrum>> spectrumTextures)
         {
             ShapePlugin plugin = new ShapePlugin (name);
-            return plugin.CreateShape (objectToWorld, worldToObject, reverseOrientation, parameters, floatTextures);
+            return plugin.CreateShape (objectToWorld, worldToObject, reverseOrientation, parameters, floatTextures, spectrumTextures);
         }
 
         public static AreaLight CreateAreaLight (string name, Transform objectToWorld, ParameterSet parameters, IShape shape)

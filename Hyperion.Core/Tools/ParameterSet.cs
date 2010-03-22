@@ -133,7 +133,15 @@ namespace Hyperion.Core.Tools
             string type = name.Split (' ')[0];
             string parameterName = name.Split (' ')[1].Trim ();
 
-            AddString (parameterName, node._strings);
+            switch (type)
+            {
+            case "string":
+                AddString (parameterName, node._strings);
+                break;
+            case "texture":
+                AddTexture (parameterName, node._strings);
+                break;
+            }
         }
 
         /// <summary>
@@ -196,6 +204,20 @@ namespace Hyperion.Core.Tools
         {
             EraseString (name);
             AddParamType<string> (name, strings, data);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="name">
+        /// A <see cref="System.String"/>
+        /// </param>
+        /// <param name="data">
+        /// A <see cref="System.String[]"/>
+        /// </param>
+        public void AddTexture (string name, string[] data)
+        {
+            AddParamType<string> (name, textures, data);
         }
 
         /// <summary>

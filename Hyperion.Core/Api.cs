@@ -132,7 +132,7 @@ namespace Hyperion.Core
             {
                 Transform objectToWorld, worldToObject;
                 TransformCache.Lookup (CurrentTransform[0], out objectToWorld, out worldToObject);
-                IShape shape = PluginSystem.PluginManager.CreateShape (name, objectToWorld, worldToObject, Api.GraphicsState.ReverseOrientation, parameterSet, Api.GraphicsState.FloatTextures);
+                IShape shape = PluginSystem.PluginManager.CreateShape (name, objectToWorld, worldToObject, Api.GraphicsState.ReverseOrientation, parameterSet, Api.GraphicsState.FloatTextures, Api.GraphicsState.SpectrumTextures);
                 if (shape == null)
                     return;
                 IMaterial material = Api.GraphicsState.CreateMaterial (parameterSet);
@@ -174,6 +174,7 @@ namespace Hyperion.Core
                 if (Api.GraphicsState.SpectrumTextures.ContainsKey (name))
                     ;
                 ITexture<Spectrum> st = PluginSystem.PluginManager.CreateSpectrumTexture (texname, CurrentTransform[0], tp);
+                Api.GraphicsState.SpectrumTextures[name] = st;
             }
         }
 
@@ -226,9 +227,9 @@ namespace Hyperion.Core
             Console.WriteLine ("---------------------------------------------------------------------");
             Console.WriteLine ("Number of generated rays: {0}", renderer.Camera.NumberOfRays);
             Console.WriteLine ("Time used to render image:");
-            Console.WriteLine ("  > Creation of scene: {0}", sceneEnd - sceneStart);
+            Console.WriteLine ("  > Creation of scene:    {0}", sceneEnd - sceneStart);
             Console.WriteLine ("  > Creation of renderer: {0}", rendererEnd - rendererStart);
-            Console.WriteLine ("  > Final rendering: {0}", end - start);
+            Console.WriteLine ("  > Final rendering:      {0}", end - start);
             Console.WriteLine ("---------------------------------------------------------------------");
         }
     }

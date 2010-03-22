@@ -7,7 +7,7 @@ using Hyperion.Core.Mappings;
 using Hyperion.Core.Geometry;
 using Hyperion.Core.Tools;
 
-namespace Hyperion.Textures.Imagemap
+namespace Hyperion.Core.Textures
 {
     public class Imagemap<TMem, TReturn> : ITexture<TReturn> where TMem : TexelConstraint<TMem>, new()
         where TReturn : TexelConstraint<TReturn>, new()
@@ -18,9 +18,8 @@ namespace Hyperion.Textures.Imagemap
 
         public Imagemap (ITextureMapping2D m, string filename, bool doTrilinear, double maxAniso, ImageWrap wrapMode, double scale, double gamma)
         {
-            Console.WriteLine ("Oh why oh why?");
             Mapping = m;
-            //Mipmap = GetTexture (filename, doTrilinear, maxAniso, wrapMode, scale, gamma);
+            Mipmap = GetTexture (filename, doTrilinear, maxAniso, wrapMode, scale, gamma);
         }
 
         public TReturn Evaluate (Hyperion.Core.Geometry.DifferentialGeometry dg)
@@ -55,13 +54,13 @@ namespace Hyperion.Textures.Imagemap
             double[] rgb = new double[3];
             @from.ToRgb (rgb);
             Spectrum temp = Spectrum.FromRgb (rgb);
-            to = new TReturn();
+            to = new TReturn ();
             to.SetSpectrum (temp);
         }
 
         private static void ConvertOutDouble (double @from, out TReturn to)
         {
-            to = new TReturn();
+            to = new TReturn ();
             to.SetSpectrum (new Spectrum (from));
         }
 
@@ -82,8 +81,8 @@ namespace Hyperion.Textures.Imagemap
                 TMem[] convertedTexels = new TMem[width * height];
                 for (int i = 0; i < width * height; ++i)
                 {
-                    convertedTexels[i] = new TMem();
-                    if (convertedTexels[i] as Spectrum != null)
+                    convertedTexels[i] = new TMem ();
+                    if (texels[i] as Spectrum != null)
                         convertedTexels[i].SetSpectrum(ConvertInSpectrum (texels[i], scale, gamma));
                     /*if (convertedTexels[i] as TexelDouble != null)
                         convertedTexels[i] = ConvertIn (texels[i], scale, gamma, convertedTexels[i] as Spectrum);*/
@@ -102,10 +101,9 @@ namespace Hyperion.Textures.Imagemap
 
         public static ITexture<Spectrum> CreateSpectrumTexture (Transform texToWorld, TextureParameterSet textureParameters)
         {
-            Console.WriteLine ("Fuck off!");
-            /*ITextureMapping2D map = null;*/
-            /*string type = textureParameters.FindString ("mapping", "uv");
-            if (type == "uv")
+            ITextureMapping2D map = null;
+            string type = textureParameters.FindString ("mapping", "uv");
+            /*if (type == "uv")
             {
                 double su = textureParameters.FindDouble ("uscale", 1.0);
                 double sv = textureParameters.FindDouble ("vscale", 1.0);
@@ -116,18 +114,16 @@ namespace Hyperion.Textures.Imagemap
             else if (type == "spherical")
                 map = new SphericalMapping (texToWorld);
             else*/
-                //map = new UVMapping2D ();
+                map = new UVMapping2D ();
 
             /*double maxAniso = textureParameters.FindDouble ("maxanisotropy", 8.0);
             bool trilerp = textureParameters.FindBool ("trilinear", false);*/
-            /*double maxAniso = 8.0;
+            double maxAniso = 8.0;
             bool trilerp = false;
             ImageWrap wrapMode = ImageWrap.Repeat;
             double scale = 1.0;
             double gamma = 1.0;
-            Console.WriteLine ("Creating texture imagemap!");
-            return new Imagemap<Spectrum, Spectrum> (map, textureParameters.FindString ("filename"), trilerp, maxAniso, wrapMode, scale, gamma);*/
-            return null;
+            return new Imagemap<Spectrum, Spectrum> (map, textureParameters.FindString ("filename"), trilerp, maxAniso, wrapMode, scale, gamma);
         }
     }
 }

@@ -10,21 +10,12 @@ namespace Hyperion.Core.PluginSystem
     /// <summary>
     ///     Plugin for all kinds of textures.
     /// </summary>
-    public class TexturePlugin : Plugin
+    public class SpectrumTexturePlugin : Plugin
     {
         /// <summary>
         ///
         /// </summary>
-        public delegate ITexture<double> CreateDoubleTextureDelegate (Transform worldToTexture, TextureParameterSet paramSet);
-        /// <summary>
-        ///
-        /// </summary>
         public delegate ITexture<Spectrum> CreateSpectrumTextureDelegate (Transform worldToTexture, TextureParameterSet paramSet);
-
-        /// <summary>
-        ///
-        /// </summary>
-        public CreateDoubleTextureDelegate CreateDoubleTexture;
 
         /// <summary>
         ///
@@ -37,12 +28,10 @@ namespace Hyperion.Core.PluginSystem
         /// <param name="name">
         ///     The plugin's name
         /// </param>
-        public TexturePlugin (string name) : base("Textures", name)
+        public SpectrumTexturePlugin (string name) : base("Textures", name)
         {
             Console.WriteLine ("Trying to load " + name);
             MethodInfo methodInfo = GetMethod ("CreateSpectrumTexture");
-
-            //CreateDoubleTexture = Delegate.CreateDelegate (typeof(CreateDoubleTextureDelegate), methodInfo) as CreateDoubleTextureDelegate;
             CreateSpectrumTexture = Delegate.CreateDelegate (typeof(CreateSpectrumTextureDelegate), methodInfo) as CreateSpectrumTextureDelegate;
         }
     }

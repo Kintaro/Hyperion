@@ -92,7 +92,7 @@ namespace Hyperion.Shapes.TriangleMesh
             get { return false; }
         }
 
-        public static IShape CreateShape (Transform o2w, Transform w2o, bool reverseOrientation, ParameterSet parameters, Dictionary<string, ITexture<double>> floatTextures)
+        public static IShape CreateShape (Transform o2w, Transform w2o, bool reverseOrientation, ParameterSet parameters, Dictionary<string, ITexture<double>> floatTextures, Dictionary<string, ITexture<Spectrum>> spectrumTextures)
         {
             int nvi = 0, npi = 0, nuvi = 0, nsi = 0, nni = 0;
             int[] vi = parameters.FindInt ("indices", ref nvi);

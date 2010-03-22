@@ -119,7 +119,7 @@ namespace Hyperion.Shapes.Disk
             get { return new BoundingBox (new Point (-Radius, -Radius, Height), new Point (Radius, Radius, Height)); }
         }
 
-        public static IShape CreateShape (Transform o2w, Transform w2o, bool reverseOrientation, ParameterSet parameters, Dictionary<string, ITexture<double>> floatTextures)
+        public static IShape CreateShape (Transform o2w, Transform w2o, bool reverseOrientation, ParameterSet parameters, Dictionary<string, ITexture<double>> floatTextures, Dictionary<string, ITexture<Spectrum>> spectrumTextures)
         {
             double height = parameters.FindOneDouble ("height", 0.0);
             double radius = parameters.FindOneDouble ("radius", 1);

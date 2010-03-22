@@ -16,7 +16,7 @@ namespace Hyperion.Core.PluginSystem
         /// <summary>
         ///
         /// </summary>
-        public delegate IShape CreateShapeDelegate (Transform objectToWorld, Transform worldToObject, bool reverse, ParameterSet paramSet, Dictionary<string, ITexture<double>> floatTextures);
+        public delegate IShape CreateShapeDelegate (Transform objectToWorld, Transform worldToObject, bool reverse, ParameterSet paramSet, Dictionary<string, ITexture<double>> floatTextures, Dictionary<string, ITexture<Spectrum>> spectrumTextures);
 
         /// <summary>
         ///
