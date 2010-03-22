@@ -42,6 +42,7 @@ NamedMaterial "floor_wood" "Matte" "texture Kd" ["wood"]
 NamedMaterial "floor_mirror" "Mirror"
 Material "MixedMaterial" "string first" ["floor_wood"] "string second" ["floor_mirror"] "color amount" [0.8 0.8 0.8]
 #Material "Matte" "color Kd" ["wood"]
+#Material "Metal"
 Shape "TriangleMesh" "point P" [ -1 0 -0.5 1 0 -0.5 1 0 0.5 -1 0 0.5 ]
 	"integer indices" [ 0 1 2 2 3 0]
 
@@ -52,10 +53,10 @@ Shape "TriangleMesh" "point P" [ -1 0 -0.5 1 0 -0.5 1 0 0.5 -1 0 0.5 ]
 
 AttributeBegin
 Translate 0 -.033 0
-NamedMaterial "stanford_body" "Subsurface" "color Kr" [.5 .5 .8] "color sigma_a" [.3 .3 .8]
-NamedMaterial "stanford_mirror" "Mirror"
-Material "MixedMaterial" "string first" ["stanford_body"] "string second" ["stanford_mirror"] "color amount" [0.9 0.9 0.9]
-
+#NamedMaterial "stanford_body" "Subsurface" "color Kr" [.5 .5 .8] "color sigma_a" [.3 .3 .8]
+#NamedMaterial "stanford_mirror" "Mirror"
+#Material "MixedMaterial" "string first" ["stanford_body"] "string second" ["stanford_mirror"] "color amount" [0.9 0.9 0.9]
+Material "Metal"
 Shape "TriangleMesh" 
   "point P" [
     -0.0378297 0.12794 0.00447467

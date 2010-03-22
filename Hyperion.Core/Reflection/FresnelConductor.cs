@@ -10,6 +10,8 @@ namespace Hyperion.Core.Reflection
 
         public FresnelConductor (Spectrum e, Spectrum k)
         {
+            Eta = e;
+            K = k;
         }
 
         public Spectrum Evaluate (double cosi)

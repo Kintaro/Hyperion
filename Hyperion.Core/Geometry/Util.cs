@@ -236,5 +236,15 @@ namespace Hyperion.Core.Geometry
             double lanczos = Math.Sin (x) / x;
             return s * lanczos;
         }
+
+        public static Vector SphericalDirection (double sintheta, double costheta, double phi)
+        {
+            return new Vector (sintheta * Math.Cos (phi), sintheta * Math.Sin (phi), costheta);
+        }
+
+        public static Vector SphericalDirection (double sintheta, double costheta, double phi, Vector x, Vector y, Vector z)
+        {
+            return sintheta * Math.Cos (phi) * x + sintheta * Math.Sin (phi) * y + costheta * z;
+        }
     }
 }

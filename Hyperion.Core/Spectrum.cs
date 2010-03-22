@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using Hyperion.Core.Geometry;
 
 namespace Hyperion.Core
@@ -140,6 +141,7 @@ namespace Hyperion.Core
         {
             return s * (1.0 / f);
         }
+
         public static Spectrum FromRgb (double[] rgb)
         {
             Spectrum s = new Spectrum ();
@@ -148,6 +150,14 @@ namespace Hyperion.Core
             s.c[2] = rgb[2];
             return s;
         }
+
+        public static Spectrum FromXyz (double[] xyz)
+        {
+            Spectrum r = new Spectrum ();
+            XyzToRgb (xyz, ref r.c[0], ref r.c[1], ref r.c[2]);
+            return r;
+        }
+
 
         public static Spectrum Pow (Spectrum s, double e)
         {
@@ -200,5 +210,68 @@ namespace Hyperion.Core
             c[2] = s.c[2];
         }
 
+        public static Spectrum FromSampled (double[] lambda, double[] v, int n)
+        {
+            // Sort samples if unordered, use sorted for returned spectrum
+            if (!SpectrumSamplesSorted (lambda, v, n))
+            {
+                List<double> slambda = new List<double> (lambda);
+                List<double> sv = new List<double> (v);
+                SortSpectrumSamples (ref slambda, ref sv, n);
+                return FromSampled (slambda.ToArray (), sv.ToArray (), n);
+            }
+            double[] xyz = new double[] { 0, 0, 0 };
+            double yint = 0.0;
+            for (int i = 0; i < 471; ++i)
+            {
+                yint += SpectrumCIE.CIE_Y[i];
+                double val = InterpolateSpectrumSamples (lambda, v, n, SpectrumCIE.CIE_Lambda[i]);
+                xyz[0] += val * SpectrumCIE.CIE_X[i];
+                xyz[1] += val * SpectrumCIE.CIE_Y[i];
+                xyz[2] += val * SpectrumCIE.CIE_Z[i];
+            }
+            xyz[0] /= yint;
+            xyz[1] /= yint;
+            xyz[2] /= yint;
+            return FromXyz (xyz);
+        }
+
+        public static bool SpectrumSamplesSorted (double[] lambda, double[] vals, int n)
+        {
+            for (int i = 0; i < n - 1; ++i)
+                if (lambda[i] >= lambda[i + 1])
+                    return false;
+            return true;
+        }
+
+        public static void SortSpectrumSamples (ref List<double> lambda, ref List<double> vals, int n)
+        {
+            List<KeyValuePair<double, double>> sortVec = new List<KeyValuePair<double, double>> (n);
+            for (int i = 0; i < n; ++i)
+                sortVec.Add (new KeyValuePair<double, double> (lambda[i], vals[i]));
+            sortVec.Sort ();
+            for (int i = 0; i < n; ++i)
+            {
+                lambda[i] = sortVec[i].Key;
+                vals[i] = sortVec[i].Value;
+            }
+        }
+
+        public static double InterpolateSpectrumSamples (double[] lambda, double[] vals, int n, double l)
+        {
+            if (l <= lambda[0])
+                return vals[0];
+            if (l >= lambda[n - 1])
+                return vals[n - 1];
+            for (int i = 0; i < n - 1; ++i)
+            {
+                if (l >= lambda[i] && l <= lambda[i + 1])
+                {
+                    double t = (l - lambda[i]) / (lambda[i + 1] - lambda[i]);
+                    return Util.Lerp (t, vals[i], vals[i + 1]);
+                }
+            }
+            return 0.0;
+        }
     }
 }

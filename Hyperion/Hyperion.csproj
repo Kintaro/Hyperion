@@ -127,6 +127,14 @@
       <Project>{17382C4E-B933-43FE-9A3C-3BD529543586}</Project>
       <Name>Hyperion.Textures.Imagemap</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Materials\Hyperion.Materials.Metal\Hyperion.Materials.Metal.csproj">
+      <Project>{F3D2B5C5-B8CC-487D-8A38-19D5239EA8A5}</Project>
+      <Name>Hyperion.Materials.Metal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Materials\Hyperion.Materials.MixedMaterial\Hyperion.Materials.MixedMaterial.csproj">
+      <Project>{8D6FC83B-C9A6-4DC8-B6C1-CC510622B053}</Project>
+      <Name>Hyperion.Materials.MixedMaterial</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

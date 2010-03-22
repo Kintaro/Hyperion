@@ -8,9 +8,10 @@
 	<target name="mirror"><nant buildfile="Hyperion.Materials.Mirror/hyperion.build"/></target>
 	<target name="sub"><nant buildfile="Hyperion.Materials.Subsurface/hyperion.build"/></target>
 	<target name="mixed"><nant buildfile="Hyperion.Materials.MixedMaterial/hyperion.build"/></target>
+	<target name="metal"><nant buildfile="Hyperion.Materials.Metal/hyperion.build"/></target>
 	
 	<!-- meta target -->
-	<target name="all" depends="matte,glass,mirror,sub,mixed"/>
+	<target name="all" depends="matte,glass,mirror,sub,mixed,metal"/>
 
 		
 </project>

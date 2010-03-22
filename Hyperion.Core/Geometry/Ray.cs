@@ -5,6 +5,7 @@ namespace Hyperion.Core.Geometry
 {
     public class Ray
     {
+        public static int NumberOfRays;
         public Point Origin;
         public Vector Direction;
         public double MinT;
@@ -14,6 +15,7 @@ namespace Hyperion.Core.Geometry
 
         public Ray ()
         {
+            ++NumberOfRays;
             MinT = 0.0;
             MaxT = double.PositiveInfinity;
             Time = 0.0;
@@ -36,6 +38,7 @@ namespace Hyperion.Core.Geometry
 
         public Ray (Point origin, Vector direction, double start, double end, double time, int depth)
         {
+            ++NumberOfRays;
             Origin = origin;
             Direction = direction;
             MinT = start;

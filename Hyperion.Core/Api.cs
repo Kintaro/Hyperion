@@ -9,8 +9,8 @@ namespace Hyperion.Core
 {
     public static class Api
     {
-        public const string Version = "0.1.7";
-        public static readonly DateTime VersionDate = new DateTime (2010, 3, 21, 21, 27, 53);
+        public const string Version = "0.2.9";
+        public static readonly DateTime VersionDate = new DateTime (2010, 3, 22, 13, 40, 23);
         public static TransformSet CurrentTransform = new TransformSet ();
         public static Dictionary<string, TransformSet> NamedCoordinateSystems = new Dictionary<string, TransformSet> ();
         public static RenderOptions RenderOptions = new RenderOptions ();
@@ -233,11 +233,14 @@ namespace Hyperion.Core
             DateTime end = DateTime.Now;
             Console.WriteLine ();
             Console.WriteLine ("---------------------------------------------------------------------");
-            Console.WriteLine ("Number of generated rays: {0}", renderer.Camera.NumberOfRays);
-            Console.WriteLine ("Time used to render image:");
-            Console.WriteLine ("  > Creation of scene:    {0}", sceneEnd - sceneStart);
-            Console.WriteLine ("  > Creation of renderer: {0}", rendererEnd - rendererStart);
-            Console.WriteLine ("  > Final rendering:      {0}", end - start);
+            Console.WriteLine ("Category                         |");
+            Console.WriteLine ("---------------------------------------------------------------------");
+            Console.WriteLine ("Number of generated camera rays | {0}", renderer.Camera.NumberOfRays);
+            Console.WriteLine ("Number of computed rays         | {0}", Ray.NumberOfRays);
+            Console.WriteLine ("Time used to render image       |");
+            Console.WriteLine ("  > Creation of scene           | {0}", sceneEnd - sceneStart);
+            Console.WriteLine ("  > Creation of renderer        | {0}", rendererEnd - rendererStart);
+            Console.WriteLine ("  > Final rendering             | {0}", end - start);
             Console.WriteLine ("---------------------------------------------------------------------");
         }
     }

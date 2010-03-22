@@ -172,6 +172,10 @@
     <Compile Include="Textures\TexInfo.cs" />
     <Compile Include="Reflection\ScaledBxDF.cs" />
     <Compile Include="Parser\Nodes\NamedMaterialNode.cs" />
+    <Compile Include="Reflection\IMicrofacetDistribution.cs" />
+    <Compile Include="Reflection\Blinn.cs" />
+    <Compile Include="Reflection\Microfacet.cs" />
+    <Compile Include="Spectrum_CIE.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
