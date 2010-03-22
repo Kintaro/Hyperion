@@ -20,12 +20,13 @@
 	<target name="accelerators"><nant buildfile="Accelerators/hyperion.build"/></target>
 	<target name="materials"><nant buildfile="Materials/hyperion.build"/></target>
 	<target name="shapes"><nant buildfile="Shapes/hyperion.build"/></target>
+	<target name="textures"><nant buildfile="Textures/hyperion.build"/></target>
 	<target name="integrators"><nant buildfile="Integrators/hyperion.build"/></target>
 	<target name="renderers"><nant buildfile="Renderers/hyperion.build"/></target>
 	<target name="hyperion" depends="core"><nant buildfile="Hyperion/hyperion.build"/></target>
 	
 	<!-- meta target -->
-	<target name="all" depends="init,core,cameras,lights,filters,films,samplers,accelerators,materials,shapes,integrators,renderers,hyperion"/>
+	<target name="all" depends="init,core,cameras,lights,filters,films,samplers,accelerators,materials,shapes,textures,integrators,renderers,hyperion"/>
 
 		
 </project>

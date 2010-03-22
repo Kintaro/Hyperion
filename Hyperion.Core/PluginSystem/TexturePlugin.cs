@@ -39,8 +39,10 @@ namespace Hyperion.Core.PluginSystem
         /// </param>
         public TexturePlugin (string name) : base("Textures", name)
         {
-            MethodInfo methodInfo = GetMethod ("CreateTexture");
-            CreateDoubleTexture = Delegate.CreateDelegate (typeof(CreateDoubleTextureDelegate), methodInfo) as CreateDoubleTextureDelegate;
+            Console.WriteLine ("Trying to load " + name);
+            MethodInfo methodInfo = GetMethod ("CreateSpectrumTexture");
+
+            //CreateDoubleTexture = Delegate.CreateDelegate (typeof(CreateDoubleTextureDelegate), methodInfo) as CreateDoubleTextureDelegate;
             CreateSpectrumTexture = Delegate.CreateDelegate (typeof(CreateSpectrumTextureDelegate), methodInfo) as CreateSpectrumTextureDelegate;
         }
     }

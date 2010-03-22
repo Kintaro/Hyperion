@@ -88,8 +88,13 @@ namespace Hyperion.Core.PluginSystem
 
             foreach (Type type in types)
             {
-                if (type.Name == _name)
+                string typename = type.Name;
+                if (typename.Contains ("`"))
+                    typename = type.Name.Substring (0, type.Name.IndexOf ("`"));
+                if (typename == _name)
+                {
                     return type.GetMethod (methodName);
+                }
             }
 
             return null;

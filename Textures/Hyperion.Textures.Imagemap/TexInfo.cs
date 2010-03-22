@@ -12,9 +12,16 @@ namespace Hyperion.Textures.Imagemap
         public double MaxAniso;
         public double Scale;
         public double Gamma;
+        public ImageWrap WrapMode;
 
-        public TexInfo ()
+        public TexInfo (string f, bool dt, double ma, ImageWrap wm, double sc, double ga)
         {
+            Filename = f;
+            DoTrilinear = dt;
+            MaxAniso = ma;
+            WrapMode = WrapMode;
+            Scale = sc;
+            Gamma = ga;
         }
 
         public static bool operator < (TexInfo a, TexInfo b)
@@ -29,6 +36,8 @@ namespace Hyperion.Textures.Imagemap
                 return a.Scale < b.Scale;
             if (a.Gamma != b.Gamma)
                 return a.Gamma < b.Gamma;
+            if (a.WrapMode != b.WrapMode)
+                return a.WrapMode < b.WrapMode;
             return false;
         }
 
@@ -44,6 +53,8 @@ namespace Hyperion.Textures.Imagemap
                 return a.Scale > b.Scale;
             if (a.Gamma != b.Gamma)
                 return a.Gamma > b.Gamma;
+            if (a.WrapMode != b.WrapMode)
+                return a.WrapMode > b.WrapMode;
             return false;
         }
     }

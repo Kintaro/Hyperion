@@ -162,6 +162,19 @@ namespace Hyperion.Core
 
         public static void Texture (string name, string type, string texname, ParameterSet parameterSet)
         {
+            TextureParameterSet tp = new TextureParameterSet (parameterSet, parameterSet, Api.GraphicsState.FloatTextures, Api.GraphicsState.SpectrumTextures);
+
+            Console.WriteLine ("Type: {0}, Name: {1}, Texname: {2}", type, name, texname);
+            if (type == "float" || type == "double")
+            {
+
+            }
+            else if (type == "color")
+            {
+                if (Api.GraphicsState.SpectrumTextures.ContainsKey (name))
+                    ;
+                ITexture<Spectrum> st = PluginSystem.PluginManager.CreateSpectrumTexture (texname, CurrentTransform[0], tp);
+            }
         }
 
         public static void TransformBegin ()
@@ -197,8 +210,13 @@ namespace Hyperion.Core
 
         public static void WorldEnd ()
         {
+            DateTime sceneStart = DateTime.Now;
             Scene scene = Api.RenderOptions.CreateScene ();
+            DateTime sceneEnd = DateTime.Now;
+
+            DateTime rendererStart = DateTime.Now;
             IRenderer renderer = Api.RenderOptions.CreateRenderer ();
+            DateTime rendererEnd = DateTime.Now;
 
             DateTime start = DateTime.Now;
             if (scene != null && renderer != null)
@@ -207,7 +225,10 @@ namespace Hyperion.Core
             Console.WriteLine ();
             Console.WriteLine ("---------------------------------------------------------------------");
             Console.WriteLine ("Number of generated rays: {0}", renderer.Camera.NumberOfRays);
-            Console.WriteLine ("Time used to render image: {0}", start - end);
+            Console.WriteLine ("Time used to render image:");
+            Console.WriteLine ("  > Creation of scene: {0}", sceneEnd - sceneStart);
+            Console.WriteLine ("  > Creation of renderer: {0}", rendererEnd - rendererStart);
+            Console.WriteLine ("  > Final rendering: {0}", end - start);
             Console.WriteLine ("---------------------------------------------------------------------");
         }
     }

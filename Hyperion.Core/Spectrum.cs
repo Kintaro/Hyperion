@@ -4,7 +4,7 @@ using Hyperion.Core.Geometry;
 
 namespace Hyperion.Core
 {
-    public sealed class Spectrum
+    public class Spectrum : Interfaces.TexelConstraint<Spectrum>
     {
         public double[] c = new double[3];
 
@@ -162,6 +162,43 @@ namespace Hyperion.Core
         {
             return string.Format ("[Spectrum: {0}, {1}, {2}]", c[0], c[1], c[2]);
         }
-        
+
+        public Spectrum Add (Spectrum v)
+        {
+            return this + v;
+        }
+
+        public Spectrum Div (double f)
+        {
+            return this / f;
+        }
+
+        public Spectrum Mul (double f)
+        {
+            return this * f;
+        }
+
+        public Spectrum Mul (Spectrum x, double f)
+        {
+            return x * f;
+        }
+
+        public Spectrum Pow (Spectrum x, double a, double e)
+        {
+            return Spectrum.Pow (x * a, e);
+        }
+
+        public void Set (double val)
+        {
+            c[0] = c[1] = c[2] = val;
+        }
+
+        public void SetSpectrum (Spectrum s)
+        {
+            c[0] = s.c[0];
+            c[1] = s.c[1];
+            c[2] = s.c[2];
+        }
+
     }
 }

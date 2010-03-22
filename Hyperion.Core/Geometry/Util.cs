@@ -209,5 +209,23 @@ namespace Hyperion.Core.Geometry
             }
             return true;
         }
+
+        public static double Lanczos (double x)
+        {
+            return Lanczos (x, 2);
+        }
+
+        public static double Lanczos (double x, double tau)
+        {
+            x = Math.Abs (x);
+            if (x < 1E-05)
+                return 1;
+            if (x > 1.0)
+                return 0;
+            x *= Pi;
+            double s = Math.Sin (x * tau) / (x * tau);
+            double lanczos = Math.Sin (x) / x;
+            return s * lanczos;
+        }
     }
 }

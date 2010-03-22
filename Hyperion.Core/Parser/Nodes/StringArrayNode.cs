@@ -24,12 +24,11 @@ namespace Hyperion.Core.Parser.Nodes
         public override void Evaluate (Irony.Interpreter.EvaluationContext context, AstMode mode)
         {
             _strings = new string[_parameters.Length];
-            int i = _parameters.Length - 1;
 
             foreach (AstNode node in _parameters)
                 node.Evaluate (context, AstMode.Read);
 
-            while (context.Data.Count > 1)
+            for (int i = _parameters.Length - 1; i >= 0; --i)
                 _strings[i] = Convert.ToString (context.Data.Pop ());
         }
     }

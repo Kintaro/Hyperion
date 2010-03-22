@@ -58,10 +58,13 @@ namespace Hyperion.Core.Tools
             Parser.Nodes.ParamListEntryNode paramNode = node as Parser.Nodes.ParamListEntryNode;
             Parser.Nodes.ArrayNode arrayNode = paramNode._array as Parser.Nodes.ArrayNode;
             Parser.Nodes.NumberArrayNode numberNode = arrayNode._parameters as Parser.Nodes.NumberArrayNode;
+            Parser.Nodes.StringArrayNode stringNode = arrayNode._parameters as Parser.Nodes.StringArrayNode;
             
             string name = paramNode._name;
             if (numberNode != null)
                 AddNumberNode (name, numberNode);
+            if (stringNode != null)
+                AddStringNode (name, stringNode);
         }
 
         /// <summary>
@@ -127,7 +130,10 @@ namespace Hyperion.Core.Tools
         /// </param>
         private void AddStringNode (string name, Parser.Nodes.StringArrayNode node)
         {
-            AddString (name, node._strings);
+            string type = name.Split (' ')[0];
+            string parameterName = name.Split (' ')[1].Trim ();
+
+            AddString (parameterName, node._strings);
         }
 
         /// <summary>

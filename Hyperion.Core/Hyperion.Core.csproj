@@ -166,6 +166,8 @@
     <Compile Include="Interfaces\MipMap.cs" />
     <Compile Include="Tools\BlockedArray.cs" />
     <Compile Include="Interfaces\TexelConstraint.cs" />
+    <Compile Include="Mappings\ITextureMapping2D.cs" />
+    <Compile Include="Mappings\UVMapping2D.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />
@@ -176,6 +178,7 @@
     <Folder Include="Parser\Nodes\" />
     <Folder Include="Parallel\" />
     <Folder Include="PluginSystem\" />
+    <Folder Include="Mappings\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

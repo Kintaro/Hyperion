@@ -111,6 +111,22 @@
       <Project>{C33AA987-B5C9-479F-B5F2-6C7F2A0263DF}</Project>
       <Name>Hyperion.Materials.Measured</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Materials\Hyperion.Materials.Mirror\Hyperion.Materials.Mirror.csproj">
+      <Project>{3E56303E-8D97-47B9-9C71-A6159162AC90}</Project>
+      <Name>Hyperion.Materials.Mirror</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Materials\Hyperion.Materials.Subsurface\Hyperion.Materials.Subsurface.csproj">
+      <Project>{0DE45533-A01E-497A-8E28-A171B6D34345}</Project>
+      <Name>Hyperion.Materials.Subsurface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shapes\Hyperion.Shapes.Sphere\Hyperion.Shapes.Sphere.csproj">
+      <Project>{DCBA314A-13BC-4F0E-A4CB-39D8CC53A2B2}</Project>
+      <Name>Hyperion.Shapes.Sphere</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Textures\Hyperion.Textures.Imagemap\Hyperion.Textures.Imagemap.csproj">
+      <Project>{17382C4E-B933-43FE-9A3C-3BD529543586}</Project>
+      <Name>Hyperion.Textures.Imagemap</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

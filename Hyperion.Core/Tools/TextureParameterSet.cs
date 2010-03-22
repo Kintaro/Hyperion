@@ -81,5 +81,15 @@ namespace Hyperion.Core.Tools
             double val = GeometryParameters.FindOneDouble (name, MaterialParameters.FindOneDouble (name, def));
             return new ConstantTexture<double> (val);
         }
+
+        public string FindString (string n)
+        {
+            return FindString (n, "");
+        }
+
+        public string FindString (string n, string def)
+        {
+            return GeometryParameters.FindOneString (n, def);
+        }
     }
 }

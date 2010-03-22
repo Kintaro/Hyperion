@@ -45,8 +45,10 @@ namespace Hyperion.Core.PluginSystem
 
         public static ITexture<Spectrum> CreateSpectrumTexture (string name, Transform textureToWorld, TextureParameterSet parameters)
         {
+            System.Console.WriteLine ("Textureplugin: " + name);
             TexturePlugin plugin = new TexturePlugin (name);
-            return plugin.CreateSpectrumTexture (textureToWorld, parameters);
+            return null;
+            //return plugin.CreateSpectrumTexture (textureToWorld, parameters);
         }
 
         public static IPrimitive CreateAccelerator (string name, List<IPrimitive> primitives, ParameterSet parameters)
