@@ -97,6 +97,14 @@ namespace Hyperion.Core
             Api.GraphicsState.CurrentNamedMaterial = "";
         }
 
+        public static void NamedMaterial (string name, string type, ParameterSet parameterSet)
+        {
+            Api.GraphicsState.Material = type;
+            Api.GraphicsState.MaterialParameters = parameterSet;
+            Api.GraphicsState.CurrentNamedMaterial = "";
+            Api.GraphicsState.NamedMaterials[name] = Api.GraphicsState.CreateMaterial (parameterSet);
+        }
+
         public static void PixelFilter (string name, ParameterSet parameterSet)
         {
         }

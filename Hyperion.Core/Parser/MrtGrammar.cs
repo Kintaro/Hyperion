@@ -65,6 +65,7 @@ namespace Hyperion.Core.Parser
             var shape = new NonTerminal ("shape", typeof(Nodes.ShapeNode));
             var pixelFilter = new NonTerminal ("pixel-filter", typeof(Nodes.PixelFilterNode));
             var material = new NonTerminal ("material", typeof(Nodes.MaterialNode));
+            var namedMaterial = new NonTerminal ("named-material", typeof(Nodes.NamedMaterialNode));
             var lightSource = new NonTerminal ("light", typeof(Nodes.LightNode));
             var areaLightSource = new NonTerminal ("area-light", typeof(Nodes.AreaLightSourceNode));
             var plugin = new NonTerminal ("plugin", typeof(StatementListNode));
@@ -110,9 +111,10 @@ namespace Hyperion.Core.Parser
             pixelFilter.Rule = "PixelFilter" + str + paramListContents;
             texture.Rule = "Texture" + str + str + str + paramListContents;
             material.Rule = "Material" + str + paramListContents;
+            namedMaterial.Rule = "NamedMaterial" + str + str + paramListContents;
             lightSource.Rule = "LightSource" + str + paramListContents;
             areaLightSource.Rule = "AreaLightSource" + str + paramListContents;
-            plugin.Rule = camera | film | sampler | surfaceIntegrator | volumeIntegrator | shape | pixelFilter | texture | material | lightSource | areaLightSource;
+            plugin.Rule = camera | film | sampler | surfaceIntegrator | volumeIntegrator | shape | pixelFilter | texture | material | namedMaterial | lightSource | areaLightSource;
             
             statements.Rule = transformations | include | attributeBegin | attributeEnd | paramListContents | plugin | statements | worldBegin | worldEnd | comment;
             scene.Rule = MakePlusRule (scene, statements);

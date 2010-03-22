@@ -170,6 +170,8 @@
     <Compile Include="Mappings\UVMapping2D.cs" />
     <Compile Include="Textures\Imagemap.cs" />
     <Compile Include="Textures\TexInfo.cs" />
+    <Compile Include="Reflection\ScaledBxDF.cs" />
+    <Compile Include="Parser\Nodes\NamedMaterialNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometry\" />

@@ -66,14 +66,15 @@ namespace Hyperion.Core.Textures
 
         private static MipMap<TMem> GetTexture (string filename, bool doTrilinear, double maxAniso, ImageWrap wrap, double scale, double gamma)
         {
-            Console.WriteLine ("Getting texture information");
+            Console.WriteLine ("  > Loading Texture [{0}]", filename);
             TexInfo texInfo = new TexInfo (filename, doTrilinear, maxAniso, wrap, scale, gamma);
             if (Textures.ContainsKey (texInfo))
                 return Textures[texInfo];
             int width, height;
-            Console.WriteLine ("Reading image");
+
             Spectrum[] texels = ImageIo.ReadImage (filename, out width, out height);
-            Console.WriteLine ("Converting image");
+            Console.WriteLine ("    - Width:  {0}", width);
+            Console.WriteLine ("    - Height: {0}", height);
             MipMap<TMem> ret = null;
             if (texels != null)
             {
