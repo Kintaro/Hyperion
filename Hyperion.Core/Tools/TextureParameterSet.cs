@@ -93,5 +93,10 @@ namespace Hyperion.Core.Tools
         {
             return GeometryParameters.FindOneString (n, def);
         }
+
+        public string FindMaterialString (string n, string def)
+        {
+            return MaterialParameters.FindOneString (n, def);
+        }
     }
 }

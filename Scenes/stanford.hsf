@@ -7,7 +7,7 @@ WorldBegin
 
 AttributeBegin
 CoordSysTransform "camera"
-LightSource "Point" "color I" [ .7 .7 .7 ]
+LightSource "Point" "color I" [ .3 .3 .3 ]
 AttributeEnd
 
 AttributeBegin
@@ -17,33 +17,39 @@ Rotate 90 1 0 0
 Shape "Disk" "float radius" [.25]
 AttributeEnd
 
-Material "Mirror" 
+Texture "tmap" "color" "imagemap" "string filename" ["Textures/lines.png"]
+Material "Matte" "texture Kd" ["tmap"]
 Shape "TriangleMesh" "point P" [ -1 0 -0.1 1 0 -0.1 1 1 -0.1 -1 1 -0.1 ]
         "integer indices" [ 0 1 2 2 3 0]
-Material "Matte" "color Kd" [.4 .4 .3]
+Material "Matte" "texture Kd" ["tmap"]
 Shape "TriangleMesh" "point P" [ -1 0 0.25 1 0 0.25 1 1 0.5 -1 1 0.25 ]
         "integer indices" [ 0 1 2 2 3 0]
-Material "Matte" "color Kd" [.4 .3 .3]
+Material "Matte" "texture Kd" ["tmap"]
 Shape "TriangleMesh" "point P" [ -0.15 0 0.25 -0.15 0 -0.25 -0.15 1 -0.25 -0.15 1 0.25 ]
         "integer indices" [ 0 1 2 2 3 0]
-Material "Matte" "color Kd" [.3 .4 .5]
+Material "Matte" "texture Kd" ["tmap"]
 Shape "TriangleMesh" "point P" [ 0.15 0 0.25 0.15 0 -0.25 0.15 1 -0.25 0.15 1 0.25 ]
         "integer indices" [ 0 1 2 2 3 0]
 
 
 
-Material "Matte" "color Kd" [.3 .4 .3]
+Texture "wood" "color" "imagemap" "string filename" ["Textures/wood.png"]
+NamedMaterial "floor_wood" "Matte" "texture Kd" ["wood"]
+NamedMaterial "floor_mirror" "Mirror"
+Material "MixedMaterial" "string namedmaterial1" ["floor_wood"] "string namedmaterial2" ["floor_mirror"]
+#Material "Matte" "color Kd" ["wood"]
 Shape "TriangleMesh" "point P" [ -1 0 -0.5 1 0 -0.5 1 0 0.5 -1 0 0.5 ]
 	"integer indices" [ 0 1 2 2 3 0]
 
-Material "Matte" "color Kd" [.4 .42 .4]
-Shape "TriangleMesh" "point P" [ -1 2 -0.5 1 2 -0.5 1 2 0.5 -1 2 0.5 ]
-        "integer indices" [ 0 1 2 2 3 0]
+#Material "Matte" "texture Kd" ["tmap"]
+#Shape "TriangleMesh" "point P" [ -1 2 -0.5 1 2 -0.5 1 2 0.5 -1 2 0.5 ]
+#        "integer indices" [ 0 1 2 2 3 0]
 
 
 AttributeBegin
 Translate 0 -.033 0
 #Material "Glass"
+#Texture "fur" "color" "imagemap" "string filename" ["Textures/fur.png"]
 Material "Subsurface" "color Kr" [.5 .5 .8] "color sigma_a" [.3 .3 .8]
 Shape "TriangleMesh" 
   "point P" [

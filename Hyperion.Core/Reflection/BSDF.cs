@@ -11,7 +11,7 @@ namespace Hyperion.Core.Reflection
         private Vector sn;
         private Vector tn;
         private int nBxDFs;
-        private BxDF[] bxdfs = new BxDF[8];
+        public BxDF[] bxdfs = new BxDF[8];
 
         public readonly DifferentialGeometry dgShading;
         public readonly double Eta;
