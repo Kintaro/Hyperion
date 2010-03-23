@@ -385,7 +385,7 @@ namespace Hyperion.Accelerators.KdTree
                     int axis = _nodes[index].SplitAxis;
                     double tPlane = (_nodes[index].Split - ray.Origin[axis]) * inverseDirection[axis];
                     int firstIndex, secondIndex;
-                    bool belowFirst = (ray.Origin[axis] < _nodes[index].Split) || (ray.Origin[axis] == _nodes[index].Split && ray.Direction[axis] < 0);
+                    bool belowFirst = (ray.Origin[axis] < _nodes[index].Split) || (ray.Origin[axis] == _nodes[index].Split && ray.Direction[axis] >= 0);
                     
                     if (belowFirst)
                     {
@@ -528,7 +528,7 @@ namespace Hyperion.Accelerators.KdTree
                     double tPlane = (_nodes[index].Split - ray.Origin[axis]) * inverseDirection[axis];
                     
                     // Get node children for ray
-                    bool belowFirst = (ray.Origin[axis] < _nodes[index].Split) || (ray.Origin[axis] == _nodes[index].Split && ray.Direction[axis] < 0);
+                    bool belowFirst = (ray.Origin[axis] < _nodes[index].Split) || (ray.Origin[axis] == _nodes[index].Split && ray.Direction[axis] >= 0);
                     
                     int firstIndex, secondIndex;
                     if (belowFirst)
