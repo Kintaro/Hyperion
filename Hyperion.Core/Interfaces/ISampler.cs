@@ -43,7 +43,7 @@ namespace Hyperion.Core.Interfaces
         {
             int dx = xPixelEnd - xPixelStart, dy = yPixelEnd - yPixelStart;
             int nx = count, ny = 1;
-            while ((nx & 0x1) == 0 && dx * nx > dy * ny)
+            while ((nx & 0x1) == 0 && 2 * dx * ny < dy * nx)
             {
                 nx >>= 1;
                 ny <<= 1;
